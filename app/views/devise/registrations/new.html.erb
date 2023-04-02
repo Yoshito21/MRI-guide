@@ -13,7 +13,7 @@
       <label class="form-text">名前</label>
       <span class="indispensable">必須</span>
     </div>
-    <%= f.text_area :name, class:"input-default", id:"nickname", placeholder:"例) 日本 太郎", maxlength:"40" %>
+    <%= f.text_area :nickname, class:"input-default", id:"name", placeholder:"例) 日本 太郎", maxlength:"40" %>
   </div>
   <div class="form-group">
     <div class='form-text-wrap'>
@@ -41,36 +41,21 @@
     <div class='form-text-wrap'>
       <label class="form-text">都道府県</label>
     </div>
-    <%= f.text_area :predecture_id, class:"input-default", id:"prefecture" %>
-    <%#= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"prefecture"}) %>
+    <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"prefecture"}) %>
   </div>
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">所属施設</label>
       <span class="indispensable"></span>
     </div>
-    <%= f.text_area :occupation, class:"input-default", id:"nickname", placeholder:"例) 日本病院", maxlength:"40" %>
-  </div>
-  <div class="form-group">
-    <div class='form-text-wrap'>
-      <label class="form-text">装置のメーカー</label>
-      <span class="indispensable"></span>
-    </div>
-    <%= f.text_area :manufacturer_id, class:"input-default", id:"nickname" %>
+    <%= f.text_area :occupation, class:"input-default", id:"occupation", placeholder:"例) 日本病院", maxlength:"40" %>
   </div>
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">使用装置</label>
       <span class="indispensable"></span>
     </div>
-    <%= f.text_area :machine_id, class:"input-default", id:"nickname" %>
-  </div>
-  <div class="form-group">
-    <div class='form-text-wrap'>
-      <label class="form-text">使用装置</label>
-      <span class="indispensable"></span>
-    </div>
-    <%= f.text_area :manufacturer_id, class:"input-default", id:"nickname" %>
+    <%= f.text_area :manufacturer, class:"input-default", id:"manufacturer" %>
   </div>
   <div class="form-group">
     <h2 class='form-bottom-text'>
