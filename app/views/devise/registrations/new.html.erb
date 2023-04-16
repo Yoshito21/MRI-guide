@@ -48,14 +48,28 @@
       <label class="form-text">所属施設</label>
       <span class="indispensable"></span>
     </div>
-    <%= f.text_area :occupation, class:"input-default", id:"occupation", placeholder:"例) 日本病院", maxlength:"40" %>
+    <%= f.text_area :occupation, class:"input-default", id:"occupation", maxlength:"40" %>
   </div>
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">使用装置</label>
       <span class="indispensable"></span>
     </div>
-    <%= f.text_area :manufacturer, class:"input-default", id:"manufacturer" %>
+    <div class='form-text-wrap'>
+      <label class="form-text">メーカー</label>
+      <span class="indispensable"></span>
+    </div>
+    <%= f.collection_select(:manufacturer_id, Manufacturer.all, :id, :name, {}, {class:"select-box", id:"manufacturer"}) %>
+    <div class='form-text-wrap'>
+      <label class="form-text">磁場強度</label>
+      <span class="indispensable"></span>
+    </div>
+    <%= f.collection_select(:strength_id, Strength.all, :id, :name, {}, {class:"select-box", id:"strength"}) %>
+    <div class='form-text-wrap'>
+      <label class="form-text">装置名</label>
+      <span class="indispensable"></span>
+    </div>
+    <%= f.text_area :machine, class:"input-default", id:"machine", maxlength:"40" %>
   </div>
   <div class="form-group">
     <h2 class='form-bottom-text'>
@@ -67,6 +81,5 @@
   <div class='register-btn'>
     <%= f.submit "会員登録" ,class:"register-red-btn" %>
   </div>
-  <p class='register-info'>本人情報の登録について</p>
 </div>
 <% end %>

@@ -1,0 +1,17 @@
+<%= render "shared/header" %>
+<div class = main-page>
+<h1>MRI-guide</h1>
+
+
+  <%= form_with model: @categories do |f|%>
+    <div class="category-top">
+      カテゴリーの選択
+      <div class="category-select" id="select-wrap">
+        <%= f.collection_select :ancestry, @maincategories, :id, :name, {include_blank: "---"}, {id: "parent-category"}%>
+      </div>
+    </div>
+    <div class="category-btn">
+      <%= f.submit "GO!", class:"go-btn" %>
+    </div>
+  <% end %>
+<div>

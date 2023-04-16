@@ -66,8 +66,15 @@ window.addEventListener('load', function () {
 
     // コントローラーからJSON形式でレスポンスの受信が成功した時に、onloadが発火する
     XHR.onload = () => {
-      const GrandChildItems = XHR.response.item;
-      appendGrandChildSelect(GrandChildItems)
+      const grandchildItems = XHR.response.item;
+      appendGrandchildSelect(grandchildItems)
+      const grandchildCategory = document.getElementById('grandchild-select')
+      
+      // 孫カテゴリーのプルダウンの値が変化することによってひ孫カテゴリーのイベント発火する
+      //grandchildCategory.addEventListener('change', () => {
+        //selectChildElement('great-grandchild-select-wrap')
+        //getGreatGrandchildCategoryData(grandchildCategory)
+      //})
     }
   }
 
@@ -92,6 +99,40 @@ window.addEventListener('load', function () {
     grandchildWrap.appendChild(grandchildSelect)
     childWrap.appendChild(grandchildWrap)
   }
+
+  // ひ孫カテゴリーの値を全て取得する関数 
+  //const getGreatGrandchildCategoryData = (greatGrandchildCategory) => {
+    //const greatGrandchildValue = greatGrandchildCategory.value
+    //categoryXHR(greatGrandchildValue)
+
+    // コントローラーからJSON形式でレスポンスの受信が成功した時に、onloadが発火する
+    //XHR.onload = () => {
+      //const greatGrandchildItems = XHR.response.item;
+      //appendGreatGrandchildSelect(greatGrandchildItems)
+    //}
+  //}
+
+  // ひ孫カテゴリーのプルダウンを表示させる関数
+  //const appendGreatGrandchildSelect = (items) => {
+
+    //const grandchildWrap = document.getElementById('grandchild-select-wrap')
+    //const greatGrandchildWrap = document.createElement('div')
+    //const greatGrandchildSelect = document.createElement('select')
+
+    //greatGrandchildWrap.setAttribute('id', 'great-grandchild-select-wrap')
+    //greatGrandchildSelect.setAttribute('id', 'great-grandchild-select')
+
+    // forEach文でitem（ひ孫カテゴリーの値）を繰り返す
+    //items.forEach(item => {
+      //const greatGrandchildOption = document.createElement('option')
+      //greatGrandchildOption.innerHTML = item.name
+      //greatGrandchildOption.setAttribute('value', item.id)
+      //greatGrandchildSelect.appendChild(greatGrandchildOption)
+    //});
+
+    //greatGrandchildWrap.appendChild(greatGrandchildSelect)
+    //grandchildWrap.appendChild(greatGrandchildWrap)
+  //}
 
   // 親カテゴリーを選択した後の発火するイベント
   parentCategory.addEventListener('change', function () {

@@ -1,0 +1,9 @@
+<h3>トップページ</h3>
+<h3><%= link_to '検索', search_cases_path%></h3>
+<% @cases.each do |case| %>
+  <div class="posted-content">
+    <%= image_tag case.image %><br>
+    <%= case.name%><br>
+    <%= link_to '詳細', case_path(case.id)%>
+  </div>
+<% end %>
