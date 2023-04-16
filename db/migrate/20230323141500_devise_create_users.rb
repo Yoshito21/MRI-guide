@@ -9,8 +9,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string  :encrypted_password, null: false, default: ""
       t.integer :prefecture_id,      null: false
       t.string  :occupation
-      t.string  :manufacturer
-      t.string  :strength
+      t.string  :manufacturer_id
+      t.string  :strength_id
       t.string  :machine
 
 

@@ -20,15 +20,4 @@
     </div>
     <%= f.submit '検索' %>
   <% end %>
-  <ul class='item-lists' id="detailed-search-result">
-    <% @cases.each do |case| %>
-      <li class='list'>
-        <div class="posted-content">
-          <%= image_tag item.image %><br>
-          <%= case.purpose %><br>
-          <%= link_to '詳細', item_path(item.id)%>
-        </div>
-      </li>
-    <% end %>
-  </ul>
 </div>

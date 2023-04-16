@@ -11,8 +11,7 @@ class User < ApplicationRecord
   
   with_options presence: true do
     validates :nickname
-    validates :occupation
-    validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+    validates :prefecture_id
   end
 
 end
