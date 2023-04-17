@@ -1,0 +1,30 @@
+<%= form_with model: @case, local: true do |f|%>
+  <div class="field">
+    <%= f.label :site_id, '部位' %><br>
+    <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :purpose, "検査目的" %><br />
+    <%= f.text_field :purpose, id:"case_purpose" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :catch_copy, "キャッチコピー" %><br />
+    <%= f.text_area :catch_copy, class: :form__text, id:"prototype_catch_copy" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :concept, "コンセプト" %><br />
+    <%= f.text_area :concept, class: :form__text, id:"prototype_concept" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image, "プロトタイプの画像" %><br />
+    <%= f.file_field :image, id:"prototype_image" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "保存する", class: :form__btn  %>
+  </div>
+<% end %>
