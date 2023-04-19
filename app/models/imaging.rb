@@ -1,7 +1,7 @@
-class Case < ApplicationRecord
+class Imaging < ApplicationRecord
   belongs_to :user
-  has_many :case_conditions, dependent: :destroy
-  has_many :conditions, through: :case_conditions
+  has_many :imaging_conditions, dependent: :destroy
+  has_many :conditions, through: :imaging_conditions
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :site
   

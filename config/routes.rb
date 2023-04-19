@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'cases#index'
-  resources :cases do
+  root to: 'imagings#index'
+  resources :imagings do
     collection do
       get 'search'
     end

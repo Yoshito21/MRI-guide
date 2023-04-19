@@ -1,4 +1,5 @@
-<%= form_with model: @case, local: true do |f|%>
+
+<%= form_with model: @imaging, local: true do |f|%>
   <div class="field">
     <%= f.label :site_id, '部位' %><br>
     <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}) %>
@@ -6,7 +7,7 @@
     
   <div class="field">
     <%= f.label :purpose, "検査目的" %><br />
-    <%= f.text_field :purpose, id:"case_purpose" %>
+    <%= f.text_field :purpose, id:"imaging_purpose" %>
   </div>
 
   <div class="field">

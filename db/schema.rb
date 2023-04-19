@@ -10,28 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_17_080218) do
-
-  create_table "case_conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "case_id", null: false
-    t.bigint "condition_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["case_id"], name: "index_case_conditions_on_case_id"
-    t.index ["condition_id"], name: "index_case_conditions_on_condition_id"
-  end
-
-  create_table "cases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "site_id", null: false
-    t.string "purpose", null: false
-    t.text "indentification"
-    t.text "symptoms"
-    t.text "treatment"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_cases_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 2023_04_19_014738) do
 
   create_table "conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "location_id", null: false
@@ -41,6 +20,27 @@ ActiveRecord::Schema.define(version: 2023_04_17_080218) do
     t.text "remarks"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "imaging_conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "imaging_id", null: false
+    t.bigint "condition_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["condition_id"], name: "index_imaging_conditions_on_condition_id"
+    t.index ["imaging_id"], name: "index_imaging_conditions_on_imaging_id"
+  end
+
+  create_table "imagings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "site_id", null: false
+    t.string "purpose", null: false
+    t.text "indentification"
+    t.text "symptoms"
+    t.text "treatment"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_imagings_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2023_04_17_080218) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "case_conditions", "cases"
-  add_foreign_key "case_conditions", "conditions"
-  add_foreign_key "cases", "users"
+  add_foreign_key "imaging_conditions", "conditions"
+  add_foreign_key "imaging_conditions", "imagings"
+  add_foreign_key "imagings", "users"
 end
