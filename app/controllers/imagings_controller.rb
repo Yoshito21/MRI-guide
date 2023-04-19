@@ -7,7 +7,11 @@ class ImagingsController < ApplicationController
     end
       
     def new
-      @imaging = Imaging.new
+        if current_user.occupation != ''
+            @imaging = Imaging.new
+        else
+            redirect_to edit_user_registration_path
+        end
     end
   
     def create
@@ -39,6 +43,10 @@ class ImagingsController < ApplicationController
     end
   
     def destroy
+        if @imaging.user.occupation == current_user.occupation
+            @imaging.destroy 
+            redirect_to root_path
+        end
     end
   
     def search

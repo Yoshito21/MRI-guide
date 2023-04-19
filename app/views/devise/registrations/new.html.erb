@@ -2,7 +2,7 @@
 <div class='form-wrap'>
   <div class='form-header'>
     <h1 class='form-header-text'>
-      会員情報入力
+      新規登録
     </h1>
   </div>
 
@@ -40,13 +40,14 @@
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">都道府県</label>
+      <span class="indispensable">必須</span>
     </div>
     <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"prefecture"}) %>
   </div>
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">所属施設</label>
-      <span class="indispensable"></span>
+      <span>検査情報を登録する場合は必須</span>
     </div>
     <%= f.text_area :occupation, class:"input-default", id:"occupation", placeholder:"例) 日本病院", maxlength:"40" %>
   </div>
