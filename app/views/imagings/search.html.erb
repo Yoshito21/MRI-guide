@@ -2,7 +2,7 @@
 <h3>検索ページ</h3>
 <h3><%= link_to 'トップページへ戻る', root_path%></h3>
 <div class='item-contents' id="detailed-search-result-wrapper">
-  <%= search_form_for @q, url: search_cases_path, html: {id: "detailed-search-form"} do |f| %>
+  <%= search_form_for @q, url: search_imagings_path, html: {id: "detailed-search-form"} do |f| %>
     <div class="search-field">
       <%= f.label :site_id_eq, '部位' %>
       <br>
@@ -20,4 +20,15 @@
     </div>
     <%= f.submit '検索' %>
   <% end %>
+  <ul class='item-lists' id="detailed-search-result">
+    <% @imagings.each do |imaging| %>
+      <li class='list'>
+        <div class="posted-content">
+          <%= imaging.site.name%><br>
+          <%= imaging.purpose%><br>
+          <%= link_to '詳細', imaging_path(imaging.id)%>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 </div>

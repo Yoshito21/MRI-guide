@@ -1,0 +1,24 @@
+
+<h3><%= link_to 'トップページへ戻る', root_path%></h3>
+
+<div class="item-show">
+  <div class="item-box">
+    <h2 class="name">
+      <%= @imaging.site.name %>
+    </h2>
+      <div class="item-price-box">
+        <span class="item-price">
+         <%= @imaging.purpose %>
+        </span>
+        <span class="item-postage">
+          <%= @imaging.indentification %>
+        </span>
+        <span class="item-postage">
+          <%= @imaging.symptoms %>
+        </span>
+        <span class="item-postage">
+          <%= @imaging.treatment %>
+        </span>
+      </div>
+    </div>
+</div>

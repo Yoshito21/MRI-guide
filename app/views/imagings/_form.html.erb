@@ -1,0 +1,31 @@
+
+<%= form_with model: @imaging, local: true do |f|%>
+  <div class="field">
+    <%= f.label :site_id, '部位' %><br>
+    <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :purpose, "検査目的" %><br />
+    <%= f.text_field :purpose, id:"imaging_purpose" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :indentification, "鑑別のポイント" %><br />
+    <%= f.text_area :indentification, class: :form__text, id:"indentification" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :symptoms, "症状" %><br />
+    <%= f.text_area :symptoms, class: :form__text, id:"symptoms" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :treatment, "治療法" %><br />
+    <%= f.text_area :treatment, class: :form__text, id:"treatment" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "保存する", class: :form__btn  %>
+  </div>
+<% end %>

@@ -10,5 +10,5 @@ class Purpose < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :cases
+  has_many :imagings
 end
