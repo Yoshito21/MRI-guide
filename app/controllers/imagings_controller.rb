@@ -23,11 +23,16 @@ class ImagingsController < ApplicationController
     end
   
     def edit
+        if @imaging.user.occupation == current_user.occupation
+          render :edit
+        else
+          redirect_to root_path
+        end
     end
   
     def update
       if @imaging.update(imaging_params)
-        redirect_to root_path
+        redirect_to imaging_path(@imaging.id)
       else
         render :edit
       end
