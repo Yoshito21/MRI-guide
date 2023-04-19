@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 2023_04_17_080218) do
     t.text "indentification"
     t.text "symptoms"
     t.text "treatment"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_cases_on_user_id"
   end
 
   create_table "conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -61,4 +63,5 @@ ActiveRecord::Schema.define(version: 2023_04_17_080218) do
 
   add_foreign_key "case_conditions", "cases"
   add_foreign_key "case_conditions", "conditions"
+  add_foreign_key "cases", "users"
 end

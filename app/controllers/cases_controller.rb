@@ -1,5 +1,6 @@
 class CasesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_case, only: [:show, :edit, :update, :destroy]
   
   def index
     @cases = Case.all
@@ -12,7 +13,7 @@ class CasesController < ApplicationController
   def create
     @case = Case.new(case_params)
     if @case.save
-      redirect_to root_path
+      redirect_to case_path(@case.id)
     else
       render :new
     end
@@ -50,7 +51,7 @@ class CasesController < ApplicationController
 
   private
   def case_params
-    params.require(:case).permit(:name, :image, :category_id, :price).merge(user_id: current_user.id)
+    params.require(:case).permit(:site_id, :purpose, :indentification, :symptoms, :treatment).merge(user_id: current_user.id)
   end
 
   def set_case
