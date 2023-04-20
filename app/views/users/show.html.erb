@@ -1,0 +1,56 @@
+<div class="main">
+  <div class="inner">
+    <div class="user__wrapper">
+      <h2 class="page-heading">
+        <%= "#{@user.nickname}さんの情報"%>
+      </h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th class="table__col1">名前</th>
+            <td class="table__col2"><%= @user.nickname %></td>
+          </tr>
+          <tr>
+            <th class="table__col1">都道府県</th>
+            <td class="table__col2"><%= @user.prefecture.name %></td>
+          </tr>
+          <tr>
+            <th class="table__col1">所属施設</th>
+            <td class="table__col2"><%= @user.occupation %></td>
+          </tr>
+          <% if @user.manufacturer_id.present? %>
+          <tr>
+            <th class="table__col1">使用機器のメーカー</th>
+            <td class="table__col2"><%= Manufacturer.find(@user.manufacturer_id).name %></td>
+          </tr>
+          <% end %>
+          <% if @user.strength_id.present? %>
+          <tr>
+            <th class="table__col1">静磁場強度</th>
+            <td class="table__col2"><%= Strength.find(@user.strength_id).name %></td>
+          </tr>
+          <% end %>
+          <% if @user.machine.present? %>
+          <tr>
+            <th class="table__col1">装置名</th>
+            <td class="table__col2"><%= @user.machine %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <h2 class="page-heading">
+        <%= "一覧"%>
+      </h2>
+      <div class="user__card">
+        <%# 部分テンプレートでそのユーザーが投稿したプロトタイプ投稿一覧を表示する %>
+      <%#= render partial: 'imagings/imageing', collection: @user.imagings %>
+      </div>
+    </div>
+  </div>
+  <div class='nav'>
+    <ul class='lists-right'>
+      <li><%= link_to '編集', edit_user_registration_path(id: current_user.id), class: "user-edit" %></li>
+      <li><%= link_to 'ユーザー削除', user_registration_path, method: :delete, class: "user-delete" %></li>
+    </ul>
+  </div>
+</div>

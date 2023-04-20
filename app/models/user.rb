@@ -11,6 +11,7 @@ class User < ApplicationRecord
   
   with_options presence: true do
     validates :nickname
+    validates :password, on: :create
     validates :prefecture_id
   end
 

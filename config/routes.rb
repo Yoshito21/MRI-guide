@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'search'
     end
   end
+  resources :users, only: :show
   #resources :categories, only: [:index, :new, :create]
   #get '/category/:id', to: 'categories#search'
 end
