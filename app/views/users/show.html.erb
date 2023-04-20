@@ -43,7 +43,7 @@
       </h2>
       <div class="user__card">
         <%# 部分テンプレートでそのユーザーが投稿したプロトタイプ投稿一覧を表示する %>
-      <%#= render partial: 'imagings/imageing', collection: @user.imagings %>
+      <%= render partial: 'imagings/imaging', collection: @user.imagings %>
       </div>
     </div>
   </div>
@@ -53,4 +53,5 @@
       <li><%= link_to 'ユーザー削除', user_registration_path, method: :delete, class: "user-delete" %></li>
     </ul>
   </div>
+  <%= link_to 'TOPページ', root_path %>
 </div>
