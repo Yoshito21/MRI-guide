@@ -1,0 +1,7 @@
+<div class="card">
+  <div class="card__body">
+    <%= link_to imaging.site.name, imaging_path(imaging.id), class: :card__title %>
+    <%= link_to imaging.purpose, imaging_path(imaging.id), class: :card__title %>
+    <%= link_to "by #{imaging.user.nickname}", "/users/#{imaging.user.id}", class: :card__user %>
+  </div>
+</div>

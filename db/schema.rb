@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_014738) do
     t.string "encrypted_password", default: "", null: false
     t.integer "prefecture_id", null: false
     t.string "occupation"
-    t.string "manufacturer_id"
-    t.string "strength_id"
+    t.integer "manufacturer_id"
+    t.integer "strength_id"
     t.string "machine"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
