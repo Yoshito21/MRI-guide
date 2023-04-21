@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
 
-  has_many :imagings
+  has_many :user_imagings
+  has_many :imagings, through: :user_imagings
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture

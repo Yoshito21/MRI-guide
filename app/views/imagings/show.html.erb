@@ -8,7 +8,7 @@
     </h2>
       <div class="item-price-box">
         <span class="item-price">
-         <%= @imaging.purpose %>
+          <%= @imaging.purpose %>
         </span>
         <span class="item-postage">
           <%= @imaging.indentification %>
@@ -23,9 +23,49 @@
     </div>
 </div>
 
-<% if @imaging.user.occupation == current_user.occupation %>
-    <%= link_to '編集', edit_imaging_path%>
-    <%= link_to '削除', imaging_path, method: :delete%>
+    <%= link_to '編集', edit_imaging_path %>
+<% if current_user.id == 1 %>
+    <%= link_to '削除', imaging_path, method: :delete %>
 <% end %>
+
+
+<%= form_with model: [@imaging, @condition], local: true do |f| %>
+  <div class="field">
+    <%= f.label :location_id, '撮影方向' %><br>
+    <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :contrast_id, '撮影法' %><br>
+    <%= f.collection_select(:contrast_id, Contrast.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :suppression_id, '抑制' %><br>
+    <%= f.collection_select(:suppression_id, Suppression.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :enhance_id, '単純or造影' %><br>
+    <%= f.collection_select(:enhance_id, Enhance.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :remarks, "備考" %><br />
+    <%= f.text_area :remarks, class: :form__text, id:"remarks" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "登録", class: :form__btn %>
+  </div>
+<% end %>
+
+
+
+<% if current_user.occupation.present? %>
+    <%#= link_to '撮影条件の登録', new_imaging_condition_path(id: current_user.id) %>
+<% end %>
+
+
 
 <%= link_to '戻る', search_imagings_path%>

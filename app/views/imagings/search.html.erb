@@ -16,7 +16,7 @@
     <div class="search-field">
       <%= f.label :user_manufacturer_id_eq, '装置メーカー' %>
       <br>
-      <%= f.collection_select(:user_manufacturer_id_eq, Manufacturer.all, :id, :name, {include_blank: "---"}) %>
+      <%#= f.collection_select(:user_manufacturer_id_eq, Manufacturer.all, :id, :name, {include_blank: "---"}) %>
     </div>
     <%= f.submit '検索' %>
   <% end %>

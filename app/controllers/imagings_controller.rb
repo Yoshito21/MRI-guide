@@ -7,11 +7,7 @@ class ImagingsController < ApplicationController
     end
       
     def new
-        if current_user.occupation != ''
-            @imaging = Imaging.new
-        else
-            redirect_to edit_user_registration_path
-        end
+      @imaging = Imaging.new
     end
   
     def create
@@ -24,14 +20,11 @@ class ImagingsController < ApplicationController
     end
   
     def show
+      @condition = Condition.new
+      @conditions = @imaging.conditions.includes(:user)
     end
   
     def edit
-        if @imaging.user.occupation == current_user.occupation
-          render :edit
-        else
-          redirect_to root_path
-        end
     end
   
     def update
@@ -64,7 +57,7 @@ class ImagingsController < ApplicationController
   
     private
     def imaging_params
-      params.require(:imaging).permit(:site_id, :purpose, :indentification, :symptoms, :treatment).merge(user_id: current_user.id)
+      params.require(:imaging).permit(:site_id, :purpose, :indentification, :symptoms, :treatment)
     end
   
     def set_imaging

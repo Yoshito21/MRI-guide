@@ -1,9 +1,10 @@
 class Suppression < ActiveHash::Base
     self.data = [
-      { id: 1, name: 'Fat suppression' },
-      { id: 2, name: 'SPAIR' },
-      { id: 3, name: 'Fluid suppression' },
-      { id: 4, name: 'FLASH' }
+      { id: 1, name: 'none' },
+      { id: 2, name: 'Fat suppression' },
+      { id: 3, name: 'SPAIR' },
+      { id: 4, name: 'Fluid suppression' },
+      { id: 5, name: 'FLASH' }
     ]
   
     include ActiveHash::Associations
