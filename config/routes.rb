@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations',
                                     sessions: 'users/sessions' }
-  root to: 'imagings#index'
+  root to: 'imagings#search'
   resources :imagings do
     collection do
       get 'search'

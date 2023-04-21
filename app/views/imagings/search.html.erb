@@ -1,6 +1,5 @@
 <%= render "shared/header" %>
 <h3>検索ページ</h3>
-<h3><%= link_to 'トップページへ戻る', root_path%></h3>
 <div class='item-contents' id="detailed-search-result-wrapper">
   <%= search_form_for @q, url: search_imagings_path, html: {id: "detailed-search-form"} do |f| %>
     <div class="search-field">
@@ -12,11 +11,6 @@
       <%= f.label :purpose, '検査目的' %>
       <br>
       <%= f.text_field :purpose, placeholder: '検査目的', value: params[:q]&.dig(:purpose) %>
-    </div>
-    <div class="search-field">
-      <%= f.label :user_manufacturer_id_eq, '装置メーカー' %>
-      <br>
-      <%#= f.collection_select(:user_manufacturer_id_eq, Manufacturer.all, :id, :name, {include_blank: "---"}) %>
     </div>
     <%= f.submit '検索' %>
   <% end %>
@@ -31,4 +25,7 @@
       </li>
     <% end %>
   </ul>
+  <% if @imagings.size == 0 %>
+    <h3><%= link_to '登録', new_imaging_path %></h3>
+  <% end %>
 </div>

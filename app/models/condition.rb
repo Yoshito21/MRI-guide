@@ -1,6 +1,7 @@
 class Condition < ApplicationRecord
     has_many :imaging_conditions
     has_many :imagings, through: :imaging_conditions
+    belongs_to :user
 
     with_options presence: true do
         validates :location_id

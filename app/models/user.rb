@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :user_imagings
   has_many :imagings, through: :user_imagings
+  has_many :conditions
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
