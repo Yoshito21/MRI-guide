@@ -1,5 +1,5 @@
 
-<%= form_with model: @condition, local: true do |f|%>
+<%= form_with model: [@imaging, @condition], local: true do |f| %>
   <div class="field">
     <%= f.label :location_id, '撮影方向' %><br>
     <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>
@@ -26,6 +26,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "保存する", class: :form__btn  %>
+    <%= f.submit "登録", class: :form__btn %>
   </div>
 <% end %>

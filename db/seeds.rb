@@ -1,6 +1,6 @@
 admin_user_1 = User.create(nickname: "和井 英知", email: "y@h", password: "yh4410" , prefecture_id: 40, occupation: "yh_hospital")
-test_user_1 = User.create(nickname: "a", email: "a@a", password: "aa1111" , prefecture_id: 1)
-test_user_2 = User.create(nickname: "b", email: "b@b", password: "bb1111" , prefecture_id: 1)
+test_user_1 = User.create(nickname: "a", email: "a@a", password: "aa1111" , prefecture_id: 1, occupation: "a_hospital")
+test_user_2 = User.create(nickname: "b", email: "b@b", password: "bb1111" , prefecture_id: 1, occupation: "b_hospital")
 
 imaging_1 = Imaging.new(
 site_id: 1,

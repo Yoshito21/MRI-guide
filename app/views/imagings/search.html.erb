@@ -8,9 +8,9 @@
       <%= f.collection_select(:site_id_eq, Site.all, :id, :name, {include_blank: "---"}) %>
     </div>
     <div class="search-field">
-      <%= f.label :purpose, '検査目的' %>
+      <%= f.label :purpose_cont, '検査目的' %>
       <br>
-      <%= f.text_field :purpose, placeholder: '検査目的', value: params[:q]&.dig(:purpose) %>
+      <%= f.text_field :purpose_cont, placeholder: '検査目的', value: params[:q]&.dig(:purpose) %>
     </div>
     <%= f.submit '検索' %>
   <% end %>

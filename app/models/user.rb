@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
+  belongs_to :manufacturer
+  belongs_to :strength
   
   with_options presence: true do
     validates :nickname

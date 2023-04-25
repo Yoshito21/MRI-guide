@@ -27,45 +27,51 @@
 <% if current_user.id == 1 %>
     <%= link_to '削除', imaging_path, method: :delete %>
 <% end %>
+<br>
+  <%= link_to '自施設の撮影法', imaging_condition_path(@imaging[:id]) %>
 
-
-<%= form_with model: [@imaging, @condition], local: true do |f| %>
-  <div class="field">
-    <%= f.label :location_id, '撮影方向' %><br>
-    <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>
-    </div>
-    
-  <div class="field">
-    <%= f.label :contrast_id, '撮影法' %><br>
-    <%= f.collection_select(:contrast_id, Contrast.all, :id, :name, {include_blank: "---"}) %>
-    </div>
-    
-  <div class="field">
-    <%= f.label :suppression_id, '抑制' %><br>
-    <%= f.collection_select(:suppression_id, Suppression.all, :id, :name, {include_blank: "---"}) %>
-    </div>
-    
-  <div class="field">
-    <%= f.label :enhance_id, '単純or造影' %><br>
-    <%= f.collection_select(:enhance_id, Enhance.all, :id, :name, {include_blank: "---"}) %>
-    </div>
-    
-  <div class="field">
-    <%= f.label :remarks, "備考" %><br />
-    <%= f.text_area :remarks, class: :form__text, id:"remarks" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "登録", class: :form__btn %>
-  </div>
-<% end %>
-
-
-
+  
 <% if current_user.occupation.present? %>
-    <%#= link_to '撮影条件の登録', new_imaging_condition_path(id: current_user.id) %>
+  <%= link_to '撮影法の登録', new_imaging_condition_path(@imaging[:id]) %>
+
 <% end %>
 
+<% if @conditions.present? %>
+
+<ul class='condition-lists' id="detailed-search-result">
+  <li class='list'>
+    <div class="posted-content">
+      <% if @condition.user.occupation == current_user.occupation %>
+        <% Enhance.ids.each do |a| %>
+          <% Location.ids.each do |b| %>
+          <% if Condition.where(enhance_id: a).exists? && Condition.where(location_id: b).exists? %><br>
+          <%= Enhance.find(a).name %>
+            <%= Location.find(b).name %> 
+            <% @conditions.each do |condition| %>
+              <% if condition.enhance.id == a && condition.location.id == b %><br>
+                <%= condition.contrast.name%><br>
+              <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </li>
+</ul>
+
+<% end %>
+
+  <%= '他施設' %>
+<ul class='condition-lists' id="detailed-search-result">
+  <li class='list'>
+    <div class="posted-content">
+      <% @conditions.each do |condition| %>
+        <%= link_to "#{User.find(condition.user.id).occupation}", user_path(id: condition.user.id) %> 
+      <% end %>
+    </div>
+  </li>
+</ul>
 
 
 <%= link_to '戻る', search_imagings_path%>

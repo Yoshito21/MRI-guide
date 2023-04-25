@@ -1,0 +1,19 @@
+
+<ul class='condition-lists' id="detailed-search-result">
+  <li class='list'>
+    <div class="posted-content">
+      <% if current_user.occupation == @condition.user.occupation %>
+      <% array = [1, 2, 3] %>
+        <% Location.ids.each do |a| %>
+        <h4>単純</h4>
+        <h4>tra</h4>
+        <% @conditions.each do |condition| %>
+          <% if condition.location.id == a && condition.enhance.id == 1 %><br>
+            <%= condition.contrast.name%><br>
+          <% end %>
+        <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </li>
+</ul>
