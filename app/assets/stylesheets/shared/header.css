@@ -2,11 +2,23 @@
   box-sizing: border-box;
 }
 
+body{
+  background-color: #63676b;
+  color: #d2d5ec;
+}
+
 .top-page-header {
   width: 100vw;
   padding: 2vh 15vw;
   display: flex;
   flex-direction: column;
+  background-color: #4b7a7c;
+  color: #d2d5ec;
+}
+
+a{  
+  text-decoration: none;
+  text-decoration-color: none;
 }
 
 .search-bar-contents {

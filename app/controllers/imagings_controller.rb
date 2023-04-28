@@ -20,11 +20,9 @@ class ImagingsController < ApplicationController
   end
 
   def show
-    Condition.new
+    @user = User.find(params[:id])
+    @condition = Condition.new
     @conditions = @imaging.conditions.includes(:user)
-    if @conditions.present?
-      @condition = Condition.find(params[:id])
-    end
   end
 
   def edit

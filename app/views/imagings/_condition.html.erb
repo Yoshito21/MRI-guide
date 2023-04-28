@@ -1,19 +1,31 @@
 
-<ul class='condition-lists' id="detailed-search-result">
-  <li class='list'>
-    <div class="posted-content">
-      <% if current_user.occupation == @condition.user.occupation %>
-      <% array = [1, 2, 3] %>
-        <% Location.ids.each do |a| %>
-        <h4>単純</h4>
-        <h4>tra</h4>
-        <% @conditions.each do |condition| %>
-          <% if condition.location.id == a && condition.enhance.id == 1 %><br>
-            <%= condition.contrast.name%><br>
-          <% end %>
-        <% end %>
-        <% end %>
-      <% end %>
+<%= form_with model: [@imaging, @condition], method: :post, local: true do |f| %>
+  <div class="field">
+    <%= f.label :location_id, '撮影方向' %><br>
+    <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>
     </div>
-  </li>
-</ul>
+    
+  <div class="field">
+    <%= f.label :contrast_id, '撮影法' %><br>
+    <%= f.collection_select(:contrast_id, Contrast.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :suppression_id, '抑制' %><br>
+    <%= f.collection_select(:suppression_id, Suppression.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :enhance_id, '単純or造影' %><br>
+    <%= f.collection_select(:enhance_id, Enhance.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :remarks, "備考" %><br />
+    <%= f.text_area :remarks, class: :form__text, id:"remarks" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "登録", class: :form__btn %>
+  </div>
+<% end %>

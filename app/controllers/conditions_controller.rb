@@ -5,9 +5,9 @@ class ConditionsController < ApplicationController
   end
   
   def create
-    @condition = current_user.conditions.new(condition_params)
+    @condition = Condition.new(condition_params)
     if @condition.save
-      redirect_to imaging_path(@condition.imaging)
+      redirect_to imaging_path(params[:imaging_id])
     else
       @imaging = @condition.imagings
       @conditions = @imaging.conditions.includes(:user)

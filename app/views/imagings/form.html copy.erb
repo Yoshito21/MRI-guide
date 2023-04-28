@@ -1,0 +1,42 @@
+
+<% if @conditions.present? %>
+
+<ul class='condition-lists' id="detailed-search-result">
+  <li class='list'>
+    <div class="posted-content">
+      <% if @condition.user.occupation == current_user.occupation %>
+        <% Enhance.ids.each do |a| %>
+          <% Location.ids.each do |b| %>
+          <% if Condition.where(enhance_id: a).exists? && Condition.where(location_id: b).exists? %><br>
+          <%= Enhance.find(a).name %>
+            <%= Location.find(b).name %> 
+            <% @conditions.each do |condition| %>
+              <% if condition.enhance.id == a && condition.location.id == b %><br>
+                <%= condition.contrast.name%><br>
+              <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </li>
+</ul>
+
+<% end %>
+
+
+
+
+  <%= '他施設' %>
+<ul class='condition-lists' id="detailed-search-result">
+  <li class='list'>
+    <div class="posted-content">
+      <% User.ids.each do |i| %>
+          <% if @condition.user.id.present? &&  %>
+        <%= link_to "#{User.find(i).occupation}", user_path(id: @condition.user.id) %> 
+      <% end %>
+      <% end %>
+    </div>
+  </li>
+</ul>

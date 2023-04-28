@@ -1,77 +1,47 @@
-
+<%= render "shared/header" %>
 <h3><%= link_to 'トップページへ戻る', root_path%></h3>
 
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
-      <%= @imaging.site.name %>
+    <%= @imaging.site.name %>
     </h2>
-      <div class="item-price-box">
-        <span class="item-price">
-          <%= @imaging.purpose %>
-        </span>
-        <span class="item-postage">
-          <%= @imaging.indentification %>
-        </span>
-        <span class="item-postage">
-          <%= @imaging.symptoms %>
-        </span>
-        <span class="item-postage">
-          <%= @imaging.treatment %>
-        </span>
-      </div>
+    <div class="item-price-box">
+      <span class="item-price">
+        <%= @imaging.purpose %>
+      </span>
+      <span class="item-postage">
+        <%= @imaging.indentification %>
+      </span>
+      <span class="item-postage">
+        <%= @imaging.symptoms %>
+      </span>
+      <span class="item-postage">
+        <%= @imaging.treatment %>
+      </span>
     </div>
+  </div>
 </div>
 
-    <%= link_to '編集', edit_imaging_path %>
+<%= link_to '編集', edit_imaging_path %>
 <% if current_user.id == 1 %>
-    <%= link_to '削除', imaging_path, method: :delete %>
+  <%= link_to '削除', imaging_path, method: :delete %>
 <% end %>
 <br>
-  <%= link_to '自施設の撮影法', imaging_condition_path(@imaging[:id]) %>
 
-  
+<%= render "imaging" %>
+
 <% if current_user.occupation.present? %>
-  <%= link_to '撮影法の登録', new_imaging_condition_path(@imaging[:id]) %>
+  <%= link_to '撮影法の詳細', new_imaging_condition_path(@imaging[:id]) %>
+
+  <div class="main">
+    <div class="inner">
+      <div class="form__wrapper">
+        <%= render 'condition' %>
+      </div>
+    </div>
+  </div>
 
 <% end %>
-
-<% if @conditions.present? %>
-
-<ul class='condition-lists' id="detailed-search-result">
-  <li class='list'>
-    <div class="posted-content">
-      <% if @condition.user.occupation == current_user.occupation %>
-        <% Enhance.ids.each do |a| %>
-          <% Location.ids.each do |b| %>
-          <% if Condition.where(enhance_id: a).exists? && Condition.where(location_id: b).exists? %><br>
-          <%= Enhance.find(a).name %>
-            <%= Location.find(b).name %> 
-            <% @conditions.each do |condition| %>
-              <% if condition.enhance.id == a && condition.location.id == b %><br>
-                <%= condition.contrast.name%><br>
-              <% end %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
-  </li>
-</ul>
-
-<% end %>
-
-  <%= '他施設' %>
-<ul class='condition-lists' id="detailed-search-result">
-  <li class='list'>
-    <div class="posted-content">
-      <% @conditions.each do |condition| %>
-        <%= link_to "#{User.find(condition.user.id).occupation}", user_path(id: condition.user.id) %> 
-      <% end %>
-    </div>
-  </li>
-</ul>
-
 
 <%= link_to '戻る', search_imagings_path%>
