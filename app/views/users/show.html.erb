@@ -42,8 +42,8 @@
         <%= "一覧"%>
       </h2>
       <div class="user__card">
-        <%# 部分テンプレートでそのユーザーが投稿したプロトタイプ投稿一覧を表示する %>
-      <%= render partial: 'imagings/imaging', collection: @user.imagings %>
+
+      <%= render partial: 'imagings/shot', collection: @user.imagings %>
       </div>
     </div>
   </div>

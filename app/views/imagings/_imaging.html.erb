@@ -2,7 +2,7 @@
 
 <div id="condition">
   <h4><%= "＜#{current_user.occupation}の撮影法＞"%></h4>
-  <table border = "1" bordercolor = "#d2d5ec" width= "1000" height= "70">
+  <table border = "1" bordercolor = "#32495f" width= "1000" height= "70">
     <thead>
       <tr>
         <th>CE</th>
@@ -18,9 +18,9 @@
     <% @imaging.conditions.each do |condition| %>
       <% if condition.user.occupation == current_user.occupation && condition.enhance.id == 1%>
         <% if condition.location.id == 1 && condition.suppression.id == 1%>
-          <td><%= condition.contrast.name%></td>
+          <td class="contrast", id="contrast"><%= condition.contrast.name%></td>
         <% elsif condition.location.id == 1 && condition.suppression.id != 1%>
-        <td><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
+        <td class="contrast", id="contrast"><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
         <% end %>
       <% end %>
     <% end %>
@@ -31,9 +31,9 @@
     <% @imaging.conditions.each do |condition| %>
       <% if condition.user.occupation == current_user.occupation && condition.enhance.id == 1%>
         <% if condition.location.id == 2 && condition.suppression.id == 1%>
-          <td><%= condition.contrast.name%></td>
+          <td class="contrast", id="contrast"><%= condition.contrast.name%></td>
         <% elsif condition.location.id == 2 && condition.suppression.id != 1%>
-        <td><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
+        <td class="contrast", id="contrast"><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
         <% end %>
       <% end %>
     <% end %>
@@ -44,9 +44,9 @@
     <% @imaging.conditions.each do |condition| %>
       <% if condition.user.occupation == current_user.occupation && condition.enhance.id == 1%>
         <% if condition.location.id == 3 && condition.suppression.id == 1%>
-          <td><%= condition.contrast.name%></td>
+          <td class="contrast", id="contrast"><%= condition.contrast.name%></td>
         <% elsif condition.location.id == 3 && condition.suppression.id != 1%>
-        <td><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
+        <td class="contrast", id="contrast"><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
         <% end %>
       <% end %>
     <% end %>

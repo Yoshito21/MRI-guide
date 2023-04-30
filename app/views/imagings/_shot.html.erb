@@ -1,0 +1,6 @@
+<div class="card__body">
+<%= link_to "#{@imaging.site.name} #{@imaging.purpose}", imaging_path(@imaging.id), class: :card__title %>
+<p class="card__summary">
+      <%= @imaging.purpose %>
+</p>
+</div>

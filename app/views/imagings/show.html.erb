@@ -4,20 +4,17 @@
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
-    <%= @imaging.site.name %>
+    <%= "#{@imaging.site.name} #{@imaging.purpose}" %>
     </h2>
     <div class="item-price-box">
-      <span class="item-price">
-        <%= @imaging.purpose %>
+      <span class="item-postage">
+        <%= "　　　主な症状：#{@imaging.symptoms}" %><br>
       </span>
       <span class="item-postage">
-        <%= @imaging.indentification %>
+        <%= "　　主な治療法：#{@imaging.treatment}" %><br>
       </span>
       <span class="item-postage">
-        <%= @imaging.symptoms %>
-      </span>
-      <span class="item-postage">
-        <%= @imaging.treatment %>
+        <%= "撮像のポイント：#{@imaging.indentification}" %><br>
       </span>
     </div>
   </div>
@@ -32,7 +29,7 @@
 <%= render "imaging" %>
 
 <% if current_user.occupation.present? %>
-  <%= link_to '撮影法の詳細', new_imaging_condition_path(@imaging[:id]) %>
+  <%= link_to '撮影法の詳細', imaging_condition_path(@imaging[:id]) %>
 
   <div class="main">
     <div class="inner">

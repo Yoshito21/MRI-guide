@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     collection do
       get 'search'
     end
-    resources :conditions, only: [:new, :create, :show]
+    resources :conditions, only: [:new, :create, :show, :edit, :update, :destroy]
   end
   resources :users, only: :show
   #resources :categories, only: [:index, :new, :create]
