@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserImagingTest < ActiveSupport::TestCase
+class OccupationsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
