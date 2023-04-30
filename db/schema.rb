@@ -18,12 +18,12 @@ ActiveRecord::Schema.define(version: 2023_04_19_013300) do
     t.integer "suppression_id", null: false
     t.integer "enhance_id", null: false
     t.text "remarks"
-    t.bigint "user_id", null: false
+    t.bigint "occupation_id", null: false
     t.bigint "imaging_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["imaging_id"], name: "index_conditions_on_imaging_id"
-    t.index ["user_id"], name: "index_conditions_on_user_id"
+    t.index ["occupation_id"], name: "index_conditions_on_occupation_id"
   end
 
   create_table "imagings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -32,19 +32,39 @@ ActiveRecord::Schema.define(version: 2023_04_19_013300) do
     t.text "indentification"
     t.text "symptoms"
     t.text "treatment"
-    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_imagings_on_user_id"
   end
 
-  create_table "user_imagings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "imaging_id", null: false
+  create_table "machines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "manufacturer_id", null: false
+    t.integer "strength_id", null: false
+    t.string "name"
+    t.bigint "occupation_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["imaging_id"], name: "index_user_imagings_on_imaging_id"
-    t.index ["user_id"], name: "index_user_imagings_on_user_id"
+    t.index ["occupation_id"], name: "index_machines_on_occupation_id"
+  end
+
+  create_table "occupation_machines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "occupation_id", null: false
+    t.bigint "machine_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["machine_id"], name: "index_occupation_machines_on_machine_id"
+    t.index ["occupation_id"], name: "index_occupation_machines_on_occupation_id"
+  end
+
+  create_table "occupations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "post_code", null: false
+    t.integer "prefecture_id", null: false
+    t.string "municipality"
+    t.string "address"
+    t.string "building_name"
+    t.string "phone_number", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -52,22 +72,21 @@ ActiveRecord::Schema.define(version: 2023_04_19_013300) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.integer "prefecture_id", null: false
-    t.string "occupation"
-    t.integer "manufacturer_id"
-    t.integer "strength_id"
-    t.string "machine"
+    t.bigint "occupation_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["occupation_id"], name: "index_users_on_occupation_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "conditions", "imagings"
-  add_foreign_key "conditions", "users"
-  add_foreign_key "imagings", "users"
-  add_foreign_key "user_imagings", "imagings"
-  add_foreign_key "user_imagings", "users"
+  add_foreign_key "conditions", "occupations"
+  add_foreign_key "machines", "occupations"
+  add_foreign_key "occupation_machines", "machines"
+  add_foreign_key "occupation_machines", "occupations"
+  add_foreign_key "users", "occupations"
 end

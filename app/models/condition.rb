@@ -1,6 +1,6 @@
 class Condition < ApplicationRecord
+    belongs_to :occupation
     belongs_to :imaging
-    belongs_to :user
 
     extend ActiveHash::Associations::ActiveRecordExtensions
     belongs_to :location
