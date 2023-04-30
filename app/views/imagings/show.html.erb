@@ -1,31 +1,44 @@
-
+<%= render "shared/header" %>
 <h3><%= link_to 'トップページへ戻る', root_path%></h3>
 
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
-      <%= @imaging.site.name %>
+    <%= "#{@imaging.site.name} #{@imaging.purpose}" %>
     </h2>
-      <div class="item-price-box">
-        <span class="item-price">
-         <%= @imaging.purpose %>
-        </span>
-        <span class="item-postage">
-          <%= @imaging.indentification %>
-        </span>
-        <span class="item-postage">
-          <%= @imaging.symptoms %>
-        </span>
-        <span class="item-postage">
-          <%= @imaging.treatment %>
-        </span>
-      </div>
+    <div class="item-price-box">
+      <span class="item-postage">
+        <%= "　　　主な症状：#{@imaging.symptoms}" %><br>
+      </span>
+      <span class="item-postage">
+        <%= "　　主な治療法：#{@imaging.treatment}" %><br>
+      </span>
+      <span class="item-postage">
+        <%= "撮像のポイント：#{@imaging.indentification}" %><br>
+      </span>
     </div>
+  </div>
 </div>
 
-<% if @imaging.user.occupation == current_user.occupation %>
-    <%= link_to '編集', edit_imaging_path%>
-    <%= link_to '削除', imaging_path, method: :delete%>
+<%= link_to '編集', edit_imaging_path %>
+<% if current_user.id == 1 %>
+  <%= link_to '削除', imaging_path, method: :delete %>
+<% end %>
+<br>
+
+<%= render "imaging" %>
+
+<% if current_user.occupation.present? %>
+  <%= link_to '撮影法の詳細', imaging_condition_path(@imaging[:id]) %>
+
+  <div class="main">
+    <div class="inner">
+      <div class="form__wrapper">
+        <%= render 'condition' %>
+      </div>
+    </div>
+  </div>
+
 <% end %>
 
 <%= link_to '戻る', search_imagings_path%>

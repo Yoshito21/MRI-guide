@@ -6,7 +6,7 @@ class CreateImagings < ActiveRecord::Migration[6.0]
       t.text       :indentification
       t.text       :symptoms
       t.text       :treatment
-      t.references :user,            null: false, foreign_key: true
+      t.references :user,            foreign_key: true
       t.timestamps
     end
   end

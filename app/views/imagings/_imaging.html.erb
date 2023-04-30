@@ -1,7 +1,59 @@
-<div class="card">
-  <div class="card__body">
-    <%= link_to imaging.site.name, imaging_path(imaging.id), class: :card__title %>
-    <%= link_to imaging.purpose, imaging_path(imaging.id), class: :card__title %>
-    <%= link_to "by #{imaging.user.nickname}", "/users/#{imaging.user.id}", class: :card__user %>
-  </div>
+<% if current_user.occupation.present? %>
+
+<div id="condition">
+  <h4><%= "＜#{current_user.occupation}の撮影法＞"%></h4>
+  <table border = "1" bordercolor = "#32495f" width= "1000" height= "70">
+    <thead>
+      <tr>
+        <th>CE</th>
+        <th>方向</th>
+        <th colspan = "<%= current_user.conditions.length %>">撮影法</th>
+      </tr>
+    </thead>
+    
+    <tr align="center">
+      <td rowspan = "6">単純</td>
+      
+      <td>tra</td>
+    <% @imaging.conditions.each do |condition| %>
+      <% if condition.user.occupation == current_user.occupation && condition.enhance.id == 1%>
+        <% if condition.location.id == 1 && condition.suppression.id == 1%>
+          <td class="contrast", id="contrast"><%= condition.contrast.name%></td>
+        <% elsif condition.location.id == 1 && condition.suppression.id != 1%>
+        <td class="contrast", id="contrast"><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tr>
+
+    <tr align="center">
+      <td>cor</td>
+    <% @imaging.conditions.each do |condition| %>
+      <% if condition.user.occupation == current_user.occupation && condition.enhance.id == 1%>
+        <% if condition.location.id == 2 && condition.suppression.id == 1%>
+          <td class="contrast", id="contrast"><%= condition.contrast.name%></td>
+        <% elsif condition.location.id == 2 && condition.suppression.id != 1%>
+        <td class="contrast", id="contrast"><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tr>
+
+    <tr align="center">
+      <td>sag</td>
+    <% @imaging.conditions.each do |condition| %>
+      <% if condition.user.occupation == current_user.occupation && condition.enhance.id == 1%>
+        <% if condition.location.id == 3 && condition.suppression.id == 1%>
+          <td class="contrast", id="contrast"><%= condition.contrast.name%></td>
+        <% elsif condition.location.id == 3 && condition.suppression.id != 1%>
+        <td class="contrast", id="contrast"><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tr>
+
+  <% else %>
+    <p>登録された撮影法がありません</p>
+  <% end %>
+  </table>
 </div>

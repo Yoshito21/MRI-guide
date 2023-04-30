@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_19_014738) do
+ActiveRecord::Schema.define(version: 2023_04_19_013300) do
 
   create_table "conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "location_id", null: false
@@ -18,17 +18,12 @@ ActiveRecord::Schema.define(version: 2023_04_19_014738) do
     t.integer "suppression_id", null: false
     t.integer "enhance_id", null: false
     t.text "remarks"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "imaging_conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.bigint "imaging_id", null: false
-    t.bigint "condition_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["condition_id"], name: "index_imaging_conditions_on_condition_id"
-    t.index ["imaging_id"], name: "index_imaging_conditions_on_imaging_id"
+    t.index ["imaging_id"], name: "index_conditions_on_imaging_id"
+    t.index ["user_id"], name: "index_conditions_on_user_id"
   end
 
   create_table "imagings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -37,10 +32,19 @@ ActiveRecord::Schema.define(version: 2023_04_19_014738) do
     t.text "indentification"
     t.text "symptoms"
     t.text "treatment"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_imagings_on_user_id"
+  end
+
+  create_table "user_imagings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "imaging_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["imaging_id"], name: "index_user_imagings_on_imaging_id"
+    t.index ["user_id"], name: "index_user_imagings_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -61,7 +65,9 @@ ActiveRecord::Schema.define(version: 2023_04_19_014738) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "imaging_conditions", "conditions"
-  add_foreign_key "imaging_conditions", "imagings"
+  add_foreign_key "conditions", "imagings"
+  add_foreign_key "conditions", "users"
   add_foreign_key "imagings", "users"
+  add_foreign_key "user_imagings", "imagings"
+  add_foreign_key "user_imagings", "users"
 end

@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations',
                                     sessions: 'users/sessions' }
-  root to: 'imagings#index'
+  root to: 'imagings#search'
   resources :imagings do
     collection do
       get 'search'
     end
+    resources :conditions, only: [:new, :create, :show, :edit, :update, :destroy]
   end
   resources :users, only: :show
   #resources :categories, only: [:index, :new, :create]

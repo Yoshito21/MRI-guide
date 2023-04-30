@@ -1,7 +1,7 @@
 class Imaging < ApplicationRecord
-  belongs_to :user
-  has_many :imaging_conditions, dependent: :destroy
-  has_many :conditions, through: :imaging_conditions
+  has_many :user_imagings
+  has_many :users, through: :user_imagings
+  has_many :conditions, dependent: :destroy
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :site
   

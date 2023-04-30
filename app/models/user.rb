@@ -4,10 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
 
-  has_many :imagings
+  has_many :user_imagings
+  has_many :imagings, through: :user_imagings
+  has_many :conditions
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
+  belongs_to :manufacturer
+  belongs_to :strength
   
   with_options presence: true do
     validates :nickname

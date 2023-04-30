@@ -7,14 +7,15 @@ class Contrast < ActiveHash::Base
     { id: 5, name: 'SWI' },
     { id: 6, name: 'T2*' },
     { id: 7, name: 'PD' },
-    { id: 8, name: 'CIS' },
-    { id: 9, name: 'MRA' },
-    { id: 10, name: 'MRV' },
-    { id: 11, name: 'Perfusion' },
-    { id: 12, name: 'MRS' },
-    { id: 13, name: 'MRE' },
-    { id: 14, name: 'True FISP' },
-    { id: 15, name: 'fMRI' }
+    { id: 8, name: 'heavy T2' },
+    { id: 9, name: 'CIS' },
+    { id: 10, name: 'MRA' },
+    { id: 11, name: 'MRV' },
+    { id: 12, name: 'Perfusion' },
+    { id: 13, name: 'MRS' },
+    { id: 14, name: 'MRE' },
+    { id: 15, name: 'True FISP' },
+    { id: 16, name: 'fMRI' }
   ]
 
   include ActiveHash::Associations
