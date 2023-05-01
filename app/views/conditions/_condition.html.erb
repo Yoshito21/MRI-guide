@@ -1,0 +1,31 @@
+
+<%= form_with model: [@imaging, @condition], url: imaging_conditions_path(@imaging),  method: :post, local: true do |f| %>
+  <div class="field">
+    <%= f.label :location_id, '撮影方向' %><br>
+    <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :contrast_id, '撮影法' %><br>
+    <%= f.collection_select(:contrast_id, Contrast.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :suppression_id, '抑制' %><br>
+    <%= f.collection_select(:suppression_id, Suppression.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :enhance_id, '単純or造影' %><br>
+    <%= f.collection_select(:enhance_id, Enhance.all, :id, :name, {include_blank: "---"}) %>
+    </div>
+    
+  <div class="field">
+    <%= f.label :remarks, "備考" %><br />
+    <%= f.text_area :remarks, class: :form__text, id:"remarks" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "登録", class: :form__btn %>
+  </div>
+<% end %>

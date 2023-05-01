@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2023_04_19_013300) do
   create_table "occupations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "post_code", null: false
-    t.integer "prefecture_id", null: false
+    t.integer "prefecture1_id", null: false
     t.string "municipality"
     t.string "address"
     t.string "building_name"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2023_04_19_013300) do
     t.string "nickname", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.integer "prefecture_id", null: false
+    t.integer "prefecture2_id", null: false
     t.bigint "occupation_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"

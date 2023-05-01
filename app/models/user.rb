@@ -4,15 +4,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
 
-  belongs_to :occupation
+  belongs_to :occupation, optional: true
 
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :prefecture
+  belongs_to :prefecture2
   
   with_options presence: true do
     validates :nickname
-    validates :password, on: :create
-    validates :prefecture_id
+    validates :prefecture2_id, numericality: {other_than: 0, message: "can't be blank"}
+
   end
 
 end

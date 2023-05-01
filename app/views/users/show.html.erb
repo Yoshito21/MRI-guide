@@ -12,30 +12,12 @@
           </tr>
           <tr>
             <th class="table__col1">都道府県</th>
-            <td class="table__col2"><%= @user.prefecture.name %></td>
+            <td class="table__col2"><%= @user.prefecture2.name %></td>
           </tr>
           <tr>
             <th class="table__col1">所属施設</th>
-            <td class="table__col2"><%= @user.occupation %></td>
+            <td class="table__col2"><%= @user.occupation.name %></td>
           </tr>
-          <% if @user.manufacturer_id.present? %>
-          <tr>
-            <th class="table__col1">使用機器のメーカー</th>
-            <td class="table__col2"><%= Manufacturer.find(@user.manufacturer_id).name %></td>
-          </tr>
-          <% end %>
-          <% if @user.strength_id.present? %>
-          <tr>
-            <th class="table__col1">静磁場強度</th>
-            <td class="table__col2"><%= Strength.find(@user.strength_id).name %></td>
-          </tr>
-          <% end %>
-          <% if @user.machine.present? %>
-          <tr>
-            <th class="table__col1">装置名</th>
-            <td class="table__col2"><%= @user.machine %></td>
-          </tr>
-          <% end %>
         </tbody>
       </table>
       <h2 class="page-heading">
@@ -43,7 +25,6 @@
       </h2>
       <div class="user__card">
 
-      <%= render partial: 'imagings/shot', collection: @user.imagings %>
       </div>
     </div>
   </div>

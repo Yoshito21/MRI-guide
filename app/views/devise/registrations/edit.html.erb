@@ -2,12 +2,13 @@
 <div class='form-wrap'>
   <div class='form-header'>
     <h1 class='form-header-text'>
-      登録情報編集
+      編集
     </h1>
   </div>
 
-  <%#= render 'shared/error_messages', model: f.object %>
+  <%= render 'shared/error_messages', model: f.object %>
 
+<p>ユーザー情報</p>
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">名前</label>
@@ -15,6 +16,7 @@
     </div>
     <%= f.text_area :nickname, class:"input-default", id:"name", placeholder:"例) 日本 太郎", maxlength:"40" %>
   </div>
+
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">メールアドレス</label>
@@ -22,6 +24,7 @@
     </div>
     <%= f.email_field :email, class:"input-default", id:"email", placeholder:"PC・携帯どちらでも可", autofocus: true %>
   </div>
+
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">パスワード</label>
@@ -30,6 +33,7 @@
     <%= f.password_field :password, class:"input-default", id:"password", placeholder:"6文字以上の半角英数字" %>
     <p class='info-text'>※英字と数字の両方を含めて設定してください</p>
   </div>
+
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">パスワード(確認)</label>
@@ -37,45 +41,19 @@
     </div>
     <%= f.password_field :password_confirmation, class:"input-default", id:"password-confirmation", placeholder:"同じパスワードを入力して下さい" %>
   </div>
+
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">都道府県</label>
       <span class="indispensable">必須</span>
     </div>
-    <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"prefecture"}) %>
+    <%= f.collection_select(:prefecture2_id, Prefecture2.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"prefecture"}) %>
   </div>
-  <div class="form-group">
-    <div class='form-text-wrap'>
-      <label class="form-text">所属施設</label>
-      <span>検査情報を登録する場合は必須</span>
-    </div>
-    <%= f.text_area :occupation, class:"input-default", id:"occupation", placeholder:"例) 日本病院", maxlength:"40" %>
-  </div>
-  <div class="form-group">
-    <div class='form-text-wrap'>
-      <label class="form-text">使用装置</label>
-      <span class="indispensable"></span>
-    </div>
-    <div class='form-text-wrap'>
-      <label class="form-text">メーカー</label>
-      <span class="indispensable"></span>
-    </div>
-    <%= f.collection_select(:manufacturer_id, Manufacturer.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"manufacturer"}) %>
-    <div class='form-text-wrap'>
-      <label class="form-text">静磁場強度</label>
-      <span class="indispensable"></span>
-    </div>
-    <%= f.collection_select(:strength_id, Strength.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"strength"}) %>
-    <div class='form-text-wrap'>
-      <label class="form-text">装置名</label>
-      <span class="indispensable"></span>
-    </div>    
-    <%= f.text_area :machine, class:"input-default", id:"machine" %>
-  </div>
-  <div class="form-group">
-  </div>
+<br>
   <div class='register-btn'>
-    <%= f.submit "情報編集" ,class:"register-red-btn" %>
+    <%= f.submit "編集" ,class:"register-red-btn" %>
   </div>
 </div>
 <% end %>
+
+<%= render "devise/shared/links" %>

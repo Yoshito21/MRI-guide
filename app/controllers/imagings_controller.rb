@@ -23,6 +23,7 @@ class ImagingsController < ApplicationController
     @user = User.find(params[:id])
     @condition = Condition.new
     @conditions = @imaging.conditions.includes(:user)
+    @occupation = Occupation.find(params[:id])
   end
 
   def edit
