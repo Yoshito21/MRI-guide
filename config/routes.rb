@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :conditions, only: [:new, :create, :show, :edit, :update, :destroy]
   end
   resources :users, only: :show
-  resources :occupations, only: [:new, :create, :show]
+  resources :occupations, only: [:new, :create, :show, :edit, :update]
   #resources :categories, only: [:index, :new, :create]
   #get '/category/:id', to: 'categories#search'
 end

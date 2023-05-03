@@ -18,7 +18,9 @@ class OccupationsController < ApplicationController
   
     def show
       @user = User.find(params[:id])
-      @occupations = Occupation.all
+      @users = User.where(occupation_id: current_user.occupation_id)
+      @conditions = Condition.select(:imaging_id).where(occupation_id: @user.occupation_id).distinct
+      @imagings = @conditions.map(&:imaging)
     end
 
     private
@@ -32,3 +34,9 @@ class OccupationsController < ApplicationController
   end
 
 end
+
+
+#@occupations = Occupation.find(params[:id])
+#@imaging = Imaging.find(params[:id])
+#@occupation = Occupation.includes(conditions: :imaging).find(params[:id])
+#@condid = Condition.select(:imaging_id).distinct

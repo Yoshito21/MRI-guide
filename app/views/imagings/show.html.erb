@@ -1,10 +1,8 @@
 <%= render "shared/header" %>
-<h3><%= link_to 'トップページへ戻る', root_path%></h3>
-
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
-    <%= "#{@imaging.site.name} #{@imaging.purpose}" %>
+    <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path %>
     </h2>
     <div class="item-price-box">
       <span class="item-postage">
@@ -20,16 +18,13 @@
   </div>
 </div>
 
-<%= link_to '編集', edit_imaging_path %>
 <% if current_user.id == 1 %>
   <%= link_to '削除', imaging_path, method: :delete %>
 <% end %>
 <br>
 
-<%= render "imaging" %>
-
+<%= render "imaging" %><br>
 <% if current_user.occupation.present? %>
-  <%= link_to '撮影法の詳細', imaging_condition_path(@imaging[:id]) %>
 
   <div class="main">
     <div class="inner">
@@ -40,5 +35,13 @@
   </div>
 
 <% end %>
+<br>
+
+<% @occupations.each do |occupation| %>
+  <%= link_to occupation.name, occupation_path(occupation) %>
+<% end %>
+
 
 <%= link_to '戻る', search_imagings_path%>
+<br>
+<br>
