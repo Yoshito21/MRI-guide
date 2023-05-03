@@ -12,30 +12,12 @@
           </tr>
           <tr>
             <th class="table__col1">都道府県</th>
-            <td class="table__col2"><%= @user.prefecture.name %></td>
+            <td class="table__col2"><%= @user.prefecture2.name %></td>
           </tr>
           <tr>
             <th class="table__col1">所属施設</th>
-            <td class="table__col2"><%= @user.occupation %></td>
+            <td class="table__col2"><%= link_to @user.occupation.name,  occupation_path(@user.occupation.id)%></td>
           </tr>
-          <% if @user.manufacturer_id.present? %>
-          <tr>
-            <th class="table__col1">使用機器のメーカー</th>
-            <td class="table__col2"><%= Manufacturer.find(@user.manufacturer_id).name %></td>
-          </tr>
-          <% end %>
-          <% if @user.strength_id.present? %>
-          <tr>
-            <th class="table__col1">静磁場強度</th>
-            <td class="table__col2"><%= Strength.find(@user.strength_id).name %></td>
-          </tr>
-          <% end %>
-          <% if @user.machine.present? %>
-          <tr>
-            <th class="table__col1">装置名</th>
-            <td class="table__col2"><%= @user.machine %></td>
-          </tr>
-          <% end %>
         </tbody>
       </table>
       <h2 class="page-heading">
@@ -43,15 +25,16 @@
       </h2>
       <div class="user__card">
 
-      <%= render partial: 'imagings/shot', collection: @user.imagings %>
       </div>
     </div>
   </div>
-  <div class='nav'>
-    <ul class='lists-right'>
-      <li><%= link_to '編集', edit_user_registration_path(id: current_user.id), class: "user-edit" %></li>
-      <li><%= link_to 'ユーザー削除', user_registration_path, method: :delete, class: "user-delete" %></li>
-    </ul>
-  </div>
+  <% if @user == current_user %>
+    <div class='nav'>
+      <ul class='lists-right'>
+        <li><%= link_to '編集', edit_user_registration_path(id: current_user.id), class: "user-edit" %></li>
+        <li><%= link_to 'ユーザー削除', user_registration_path, method: :delete, data: {confirm: "削除しますか？"}, class: "user-delete" %></li>
+      </ul>
+    </div>
+  <% end %>
   <%= link_to 'TOPページ', root_path %>
 </div>

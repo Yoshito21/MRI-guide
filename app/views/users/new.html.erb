@@ -1,12 +1,12 @@
-<%= form_with model: @user, url: user_registration_path, class: 'registration-main', local: true do |f| %>
+<%= form_with model: @occupation_user, url: users_path, class: 'registration-main', local: true do |f| %>
+
+<%= render 'shared/error_messages', model: @occupation_user %>
 <div class='form-wrap'>
   <div class='form-header'>
     <h1 class='form-header-text'>
       新規登録
     </h1>
   </div>
-
-  <%= render 'shared/error_messages', model: f.object %>
 
 <p>ユーザー情報</p>
   <div class="form-group">
@@ -50,6 +50,31 @@
     <%= f.collection_select(:prefecture2_id, Prefecture2.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"prefecture"}) %>
   </div>
 
+<p>所属施設</p>
+  <div class="form-group">
+    <div class='form-text-wrap'>
+          <label class="form-text">郵便番号</label>
+          <span class="indispensable">検査情報を登録する場合は必須</span>
+        </div>
+        <%= f.text_field :post_code, class:"input-default", id:"post-code", placeholder:"例）123-4567", maxlength:"8" %>
+  </div>
+
+  <div class="form-group">
+    <div class='form-text-wrap'>
+      <label class="form-text">都道府県</label>
+      <span class="indispensable">検査情報を登録する場合は必須</span>
+    </div>
+    <%= f.collection_select(:prefecture1_id, Prefecture1.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"prefecture"}) %>
+  </div>
+
+  <div class="form-group">
+    <div class='form-text-wrap'>
+      <label class="form-text">所属施設</label>
+      <span>検査情報を登録する場合は必須</span>
+    </div>
+    <%= f.text_area :name, class:"input-default", id:"occupation-name", placeholder:"例) 日本病院", maxlength:"40" %>
+  </div>
+
   <div class="form-group">
     <h2 class='form-bottom-text'>
       「会員登録」のボタンを押すことにより、
@@ -59,7 +84,7 @@
   </div>
 
   <div class='register-btn'>
-    <%= f.submit "施設登録へ" ,class:"register-red-btn" %>
+    <%= f.submit "会員登録" ,class:"register-red-btn" %>
   </div>
 </div>
 <% end %>

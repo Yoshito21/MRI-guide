@@ -2,6 +2,11 @@
   <div class='nav'>
     <ul class='lists-right'>
       <li><%= link_to current_user.nickname, user_path(id: current_user.id), class: "user-nickname" %></li>
+      <% if current_user.occupation.present? %>
+        <li><%= link_to current_user.occupation.name, occupation_path(current_user.occupation.id) %></li>
+      <% else %>
+        <li><%= link_to '所属施設登録', new_occupation_path %></li>
+      <% end %>
       <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></li>
     </ul>
   </div>

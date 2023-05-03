@@ -11,9 +11,9 @@ class ImagingsController < ApplicationController
   end
 
   def create
-    current_user.imagings.new(imaging_params)
-    if current_user.save
-      redirect_to imaging_path(current_user.id)
+    @imaging = Imaging.new(imaging_params)
+    if @imaging.save
+      redirect_to imaging_path(@imaging)
     else
       render :new
     end
@@ -21,8 +21,10 @@ class ImagingsController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @users = User.where(occupation_id: current_user.occupation_id)
     @condition = Condition.new
-    @conditions = @imaging.conditions.includes(:user)
+    @conditions = Condition.select(:occupation_id).distinct
+    @occupations = @conditions.map(&:occupation)
   end
 
   def edit

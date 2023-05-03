@@ -1,0 +1,48 @@
+<%= render "shared/header" %>
+
+<h2>
+  <%= @occupation.name%>
+</h2>
+<div class='nav'>
+<% if current_user.occupation == @user.occupation %>
+  <ul class='lists-right'>
+    <li><%= link_to '編集', edit_occupation_path(@occupation), class: "occupation-edit" %></li>
+  </ul>
+<% end %>
+</div>
+
+<div class="main">
+  <div class="inner">
+    <div class="user__wrapper">
+      <h2 class="page-heading">
+      <% if @occupation.users.present? %>
+        <%= "#{@user.occupation.name}のメンバー"%>
+      </h2>
+        <% @users.each do |user| %>
+        <div>
+          <%= link_to user.nickname, user_path(user) %>
+        </div>
+      <% end %>
+        <% else %>
+        <p>所属しているユーザーがいません</p>
+      <% end %>
+        <table>
+          <thead>
+            <tr>
+              <th>部位</th>
+              <th>検査目的</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @imagings.each do |imaging| %>
+              <tr>              
+                <td><%= imaging.site.name %></td><br>
+                <td><%= link_to imaging.purpose, imaging_path(imaging.id) %></td><br><br>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <%= link_to 'TOPページ', root_path %>
+</div>
