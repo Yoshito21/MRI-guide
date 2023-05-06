@@ -1,0 +1,22 @@
+詳細<br>
+
+    <div class="item-price-box">
+      <table border = "1" bordercolor = "#32495f" >
+        <tr>
+          <th>メーカー</th>
+          <td><%= @machine.manufacturer.name %></td>
+        </tr>
+        <tr>
+          <th>静磁場強度</th>
+          <td><%= @machine.strength.name %></td>
+        </tr>
+        <tr>
+          <th>装置名</th>
+          <td><%= @machine.name %></td>
+        </tr>
+      </table>
+    </div>
+
+<%= link_to "編集", edit_occupation_machine_path(@occupation) %>
+
+<%= link_to '戻る', occupation_path(@occupation)%>

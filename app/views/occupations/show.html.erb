@@ -16,9 +16,9 @@
     <div class="user__wrapper">
       <h2 class="page-heading">
       <% if @occupation.users.present? %>
-        <%= "#{@user.occupation.name}のメンバー"%>
+        <%= "#{@occupation.name}のメンバー"%>
       </h2>
-        <% @users.each do |user| %>
+        <% @occupation.users.each do |user| %>
         <div>
           <%= link_to user.nickname, user_path(user) %>
         </div>
@@ -34,11 +34,15 @@
             </tr>
           </thead>
           <tbody>
-            <% @imagings.each do |imaging| %>
-              <tr>              
-                <td><%= imaging.site.name %></td><br>
-                <td><%= link_to imaging.purpose, imaging_path(imaging.id) %></td><br><br>
-              </tr>
+            <% if @occupation.conditions.present? %>
+              <% @imagings.each do |imaging| %>
+                <tr>              
+                  <td><%= imaging.site.name %></td><br>
+                  <td><%= link_to imaging.purpose, imaging_path(imaging) %></td><br><br>
+                </tr>
+              <% end %>
+            <% else %>
+              <p>撮影条件の登録はありません</p>
             <% end %>
           </tbody>
         </table>

@@ -5,15 +5,20 @@
     <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path %>
     </h2>
     <div class="item-price-box">
-      <span class="item-postage">
-        <%= "　　　主な症状：#{@imaging.symptoms}" %><br>
-      </span>
-      <span class="item-postage">
-        <%= "　　主な治療法：#{@imaging.treatment}" %><br>
-      </span>
-      <span class="item-postage">
-        <%= "撮像のポイント：#{@imaging.indentification}" %><br>
-      </span>
+      <table border = "1" bordercolor = "#32495f" >
+        <tr>
+          <th>主な症状</th>
+          <td><%= @imaging.symptoms %></td>
+        </tr>
+        <tr>
+          <th>主な治療法</th>
+          <td><%= @imaging.treatment %></td>
+        </tr>
+        <tr>
+          <th>撮像のポイント</th>
+          <td><%= @imaging.indentification %></td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

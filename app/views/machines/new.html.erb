@@ -1,29 +1,30 @@
-<%= form_with model: @machine, url: "#", class: 'registration-main', local: true do |f| %>
+使用機器登録
+<%= form_with model: [@occupation, @machine], class: 'registration-main', local: true do |f| %>
   <div class='form-wrap'>
     <div class="form-group">
-        <div class='form-text-wrap'>
-        <label class="form-text">使用装置</label>
-        <span class="indispensable"></span>
-        </div>
-        <div class='form-text-wrap'>
-        <label class="form-text">メーカー</label>
-        <span class="indispensable"></span>
-        </div>
-        <%= f.collection_select(:manufacturer_id, Manufacturer.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"manufacturer"}) %>
-        <div class='form-text-wrap'>
-        <label class="form-text">静磁場強度</label>
-        <span class="indispensable"></span>
-        </div>
-        <%= f.collection_select(:strength_id, Strength.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"strength"}) %>
-        <div class='form-text-wrap'>
-        <label class="form-text">装置名</label>
-        <span class="indispensable"></span>
-        </div>    
-        <%= f.text_area :name, class:"input-default", id:"machine" %>
+      <div class='form-text-wrap'>
+      <label class="form-text">使用装置</label>
+      <span class="indispensable"></span>
+      </div>
+      <div class='form-text-wrap'>
+      <label class="form-text">メーカー</label>
+      <span class="indispensable"></span>
+      </div>
+      <%= f.collection_select(:manufacturer_id, Manufacturer.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"manufacturer"}) %>
+      <div class='form-text-wrap'>
+      <label class="form-text">静磁場強度</label>
+      <span class="indispensable"></span>
+      </div>
+      <%= f.collection_select(:strength_id, Strength.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"strength"}) %>
+      <div class='form-text-wrap'>
+      <label class="form-text">装置名</label>
+      <span class="indispensable"></span>
+      </div>    
+      <%= f.text_area :name, class:"input-default", id:"machine" %>
     </div>
-    
+
     <div class='register-btn'>
-        <%= f.submit "会員登録" ,class:"register-red-btn" %>
+      <%= f.submit "使用機器登録" ,class:"register-red-btn" %>
     </div>
   </div>
 <% end %>

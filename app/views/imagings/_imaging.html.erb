@@ -1,9 +1,9 @@
 <% if current_user.occupation.conditions.present? %>
 
 <div id="condition">
-  <h4><%= link_to "＜#{current_user.occupation.name}の撮影法＞", imaging_condition_path(@imaging[:id])%></h4>
+  <h4><%= link_to "#{current_user.occupation.name}の撮影法", imaging_condition_path(@imaging[:id])%></h4>
 
-  <table border = "1" bordercolor = "#32495f" width= "1000" height= "70">
+  <table border = "1" bordercolor = "#32495f" width= "700" height= "70">
     <thead>
       <tr>
         <th>CE</th>

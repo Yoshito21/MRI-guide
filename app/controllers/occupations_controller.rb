@@ -6,7 +6,6 @@ class OccupationsController < ApplicationController
     end
   
     def create
-      binding.pry
       @occupation = Occupation.new(occupation_params)
       if @occupation.valid?
         @occupation.save
@@ -15,12 +14,25 @@ class OccupationsController < ApplicationController
         render :new
       end
     end
-  
-    def show
-      @user = User.find(params[:id])
-      @users = User.where(occupation_id: current_user.occupation_id)
-      @conditions = Condition.select(:imaging_id).where(occupation_id: @user.occupation_id).distinct
-      @imagings = @conditions.map(&:imaging)
+
+  def show
+    @user = User.find(params[:id])
+    @users = @occupation.users
+    @conditions = @occupation.conditions.select(:imaging_id).distinct
+    @imagings = @conditions.map(&:imaging)
+    @machines = @occupation.machines
+  end
+
+  def edit
+  end
+
+  def update
+    if @occupation.valid?
+      @occupation.update(occupation_params)
+      current_user.update(occupation_id: @occupation.id)
+      redirect_to root_path
+    else
+      render :new
     end
 
     private
