@@ -4,7 +4,7 @@
   <%= @occupation.name%>
 </h2>
 <div class='nav'>
-<% if current_user.occupation == @user.occupation %>
+<% if current_user.occupation == @occupation %>
   <ul class='lists-right'>
     <li><%= link_to '編集', edit_occupation_path(@occupation), class: "occupation-edit" %></li>
   </ul>
@@ -38,7 +38,7 @@
               <% @imagings.each do |imaging| %>
                 <tr>              
                   <td><%= imaging.site.name %></td><br>
-                  <td><%= link_to imaging.purpose, imaging_path(imaging) %></td><br><br>
+                  <td><%= link_to imaging.purpose, imaging_path(imaging, occupation_id: @occupation.id) %></td><br><br>
                 </tr>
               <% end %>
             <% else %>

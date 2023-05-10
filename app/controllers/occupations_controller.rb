@@ -1,19 +1,20 @@
 class OccupationsController < ApplicationController
-    before_action :set_occupation, only: [:show]
+  before_action :set_occupation, only: [:show, :edit, :update]
 
-    def new
-      @occupation = Occupation.new
+  def new
+    @occupation = Occupation.new
+  end
+
+  def create
+    @occupation = Occupation.new(occupation_params)
+    if @occupation.valid?
+      @occupation.save
+      current_user.update(occupation_id: @occupation.id)
+      redirect_to root_path
+    else
+      render :new
     end
-  
-    def create
-      @occupation = Occupation.new(occupation_params)
-      if @occupation.valid?
-        @occupation.save
-        redirect_to root_path
-      else
-        render :new
-      end
-    end
+  end
 
   def show
     @user = User.find(params[:id])
@@ -34,17 +35,17 @@ class OccupationsController < ApplicationController
     else
       render :new
     end
+  end
 
-    private
-    
-    def occupation_params
-      params.require(:occupation).permit(:name, :post_code, :prefecture1_id, :municipality, :address, :building_name, :phone_number).merge(user_id: current_user.id)
-    end
-    
+  private
+
+  def occupation_params
+    params.require(:occupation).permit(:name, :post_code, :prefecture1_id, :municipality, :address, :building_name, :phone_number)
+  end
+
   def set_occupation
     @occupation = Occupation.find(params[:id])
   end
-
 end
 
 

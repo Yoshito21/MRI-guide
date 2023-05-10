@@ -1,5 +1,5 @@
 
-<%= form_with model: [@imaging, @condition], url: imaging_conditions_path(@imaging),  method: :post, local: true do |f| %>
+<%= form_with model: [@imaging, @condition], url: imaging_conditions_path(@imaging, occupation_id: @occupation&.id),  method: :post, local: true do |f| %>
   <div class="field">
     <%= f.label :location_id, '撮影方向' %><br>
     <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>

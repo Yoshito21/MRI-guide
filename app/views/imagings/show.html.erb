@@ -1,3 +1,6 @@
+
+<%= @occupation.name %>
+
 <%= render "shared/header" %>
 <div class="item-show">
   <div class="item-box">
@@ -27,14 +30,17 @@
   <%= link_to '削除', imaging_path, method: :delete %>
 <% end %>
 <br>
-
-<%= render "imaging" %><br>
-<% if current_user.occupation.present? %>
+<% if @occupation == current_user.occupation %>
+  <%= render "checkbox" %>
+<% else %>
+  <%= render "imaging" %>
+<% end %>
+<% if current_user.occupation == @occupation %>
 
   <div class="main">
     <div class="inner">
       <div class="form__wrapper">
-        <%= render 'conditions/condition' %>
+        <%= render 'conditions/condition', occupation: @occupation %>
       </div>
     </div>
   </div>
@@ -43,7 +49,7 @@
 <br>
 
 <% @occupations.each do |occupation| %>
-  <%= link_to occupation.name, occupation_path(occupation) %>
+  <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
 <% end %>
 
 
