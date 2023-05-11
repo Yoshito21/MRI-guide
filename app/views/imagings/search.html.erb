@@ -19,7 +19,7 @@
       <li class='list'>
         <div class="posted-content">
           <%= imaging.site.name%><br>
-          <%= link_to imaging.purpose, imaging_path(imaging.id)%><br><br>
+          <%= link_to imaging.purpose, imaging_path(imaging, occupation_id: @occupation.id )%><br><br>
         </div>
       </li>
     <% end %>

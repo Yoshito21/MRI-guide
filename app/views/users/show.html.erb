@@ -4,7 +4,7 @@
       <h2 class="page-heading">
         <%= "#{@user.nickname}さんの情報"%>
       </h2>
-      <table class="table">
+      <table border = "1" bordercolor = "#32495f" class="table">
         <tbody>
           <tr>
             <th class="table__col1">名前</th>
@@ -14,10 +14,12 @@
             <th class="table__col1">都道府県</th>
             <td class="table__col2"><%= @user.prefecture2.name %></td>
           </tr>
-          <tr>
-            <th class="table__col1">所属施設</th>
-            <td class="table__col2"><%= link_to @user.occupation.name,  occupation_path(@user.occupation.id)%></td>
-          </tr>
+          <% if current_user.occupation.present? %>
+            <tr>
+              <th class="table__col1">所属施設</th>
+              <td class="table__col2"><%= link_to @user.occupation.name,  occupation_path(@user.occupation.id)%></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
       <h2 class="page-heading">

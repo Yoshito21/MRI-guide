@@ -1,3 +1,6 @@
+
+<%= @occupation.name %>
+
 <%= render "shared/header" %>
 <div class="item-show">
   <div class="item-box">
@@ -5,15 +8,20 @@
     <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path %>
     </h2>
     <div class="item-price-box">
-      <span class="item-postage">
-        <%= "　　　主な症状：#{@imaging.symptoms}" %><br>
-      </span>
-      <span class="item-postage">
-        <%= "　　主な治療法：#{@imaging.treatment}" %><br>
-      </span>
-      <span class="item-postage">
-        <%= "撮像のポイント：#{@imaging.indentification}" %><br>
-      </span>
+      <table border = "1" bordercolor = "#32495f" >
+        <tr>
+          <th>主な症状</th>
+          <td><%= @imaging.symptoms %></td>
+        </tr>
+        <tr>
+          <th>主な治療法</th>
+          <td><%= @imaging.treatment %></td>
+        </tr>
+        <tr>
+          <th>撮像のポイント</th>
+          <td><%= @imaging.indentification %></td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
@@ -22,14 +30,17 @@
   <%= link_to '削除', imaging_path, method: :delete %>
 <% end %>
 <br>
-
-<%= render "imaging" %><br>
-<% if current_user.occupation.present? %>
+<% if @occupation == current_user.occupation %>
+  <%= render "checkbox" %>
+<% else %>
+  <%= render "imaging" %>
+<% end %>
+<% if current_user.occupation == @occupation %>
 
   <div class="main">
     <div class="inner">
       <div class="form__wrapper">
-        <%= render 'conditions/condition' %>
+        <%= render 'conditions/condition', occupation: @occupation %>
       </div>
     </div>
   </div>
@@ -37,11 +48,20 @@
 <% end %>
 <br>
 
-<% @occupations.each do |occupation| %>
-  <%= link_to occupation.name, occupation_path(occupation) %>
+<h4 class="name">
+<%= "他施設の撮影法を見る" %>
+</h4>
+<% if current_user.occupation.present? %>
+  <% @occupations.where.not(id: current_user.occupation.id).each do |occupation| %>
+    <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
+  <% end %>
+<% else %>
+  <% @occupations.each do |occupation| %>
+    <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
+  <% end %>
 <% end %>
+<br>
+<br>
 
 
 <%= link_to '戻る', search_imagings_path%>
-<br>
-<br>

@@ -1,6 +1,6 @@
 class ImagingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_imaging, only: [:show, :edit, :update, :destroy]
+  before_action :set_imaging, only: [:edit, :update, :destroy]
   
   def index
     @imagings = Imaging.all
@@ -13,26 +13,28 @@ class ImagingsController < ApplicationController
   def create
     @imaging = Imaging.new(imaging_params)
     if @imaging.save
-      redirect_to imaging_path(@imaging)
+      redirect_to imaging_path(@imaging, occupation_id: current_user.occupation.id)
     else
       render :new
     end
   end
 
   def show
-    @user = User.find(params[:id])
-    @users = User.where(occupation_id: current_user.occupation_id)
-    @condition = Condition.new
-    @conditions = Condition.select(:occupation_id).distinct
-    @occupations = @conditions.map(&:occupation)
+    @occupation_id = params[:occupation_id]
+    @users = User.where(occupation_id: @occupation_id)
+    @imaging = Imaging.find(params[:id])
+    @condition = @imaging.conditions.build
+    @occupation = Occupation.find_by(id: @occupation_id) || Occupation.find_by(name: "未登録")
+    @occupations = Occupation.includes(:conditions).where(conditions: {imaging_id: @imaging.id}) || Occupation.find_by(name: "未登録")
   end
 
   def edit
+    @occupation = current_user.occupation
   end
 
   def update
     if @imaging.update(imaging_params)
-      redirect_to imaging_path(@imaging.id)
+      redirect_to imaging_path(@imaging, occupation_id: current_user.occupation.id)
     else
       render :edit
     end
@@ -46,8 +48,6 @@ class ImagingsController < ApplicationController
   end
 
   def search
-    # params[:q]がnilではない且つ、params[:q][:name]がnilではないとき（商品名の欄が入力されているとき）
-    # if params[:q] && params[:q][:name]と同じような意味合い
     if params[:q]&.dig(:name)
       # squishメソッドで余分なスペースを削除する
       squished_keywords = params[:q][:name].squish
@@ -56,11 +56,12 @@ class ImagingsController < ApplicationController
     end
     @q = Imaging.ransack(params[:q])
     @imagings = @q.result
+    @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
   end
 
   private
   def imaging_params
-    params.require(:imaging).permit(:site_id, :purpose, :indentification, :symptoms, :treatment, user_ids:[])
+    params.require(:imaging).permit(:site_id, :purpose, :indentification, :symptoms, :treatment)
   end
 
   def set_imaging
