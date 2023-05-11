@@ -13,28 +13,28 @@ class ImagingsController < ApplicationController
   def create
     @imaging = Imaging.new(imaging_params)
     if @imaging.save
-      redirect_to imaging_path(@imaging)
+      redirect_to imaging_path(@imaging, occupation_id: current_user.occupation.id)
     else
       render :new
     end
   end
 
   def show
-    @user = User.find(params[:id])
     @occupation_id = params[:occupation_id]
     @users = User.where(occupation_id: @occupation_id)
     @imaging = Imaging.find(params[:id])
     @condition = @imaging.conditions.build
-    @occupation = Occupation.find_by(id: @occupation_id)
-    @occupations = Occupation.includes(:conditions).where(conditions: {imaging_id: @imaging.id})
+    @occupation = Occupation.find_by(id: @occupation_id) || Occupation.find_by(name: "未登録")
+    @occupations = Occupation.includes(:conditions).where(conditions: {imaging_id: @imaging.id}) || Occupation.find_by(name: "未登録")
   end
 
   def edit
+    @occupation = current_user.occupation
   end
 
   def update
     if @imaging.update(imaging_params)
-      redirect_to imaging_path(@imaging.id)
+      redirect_to imaging_path(@imaging, occupation_id: current_user.occupation.id)
     else
       render :edit
     end
@@ -56,12 +56,12 @@ class ImagingsController < ApplicationController
     end
     @q = Imaging.ransack(params[:q])
     @imagings = @q.result
-    @occupation = current_user.occupation
+    @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
   end
 
   private
   def imaging_params
-    params.require(:imaging).permit(:site_id, :purpose, :indentification, :symptoms, :treatment, user_ids:[])
+    params.require(:imaging).permit(:site_id, :purpose, :indentification, :symptoms, :treatment)
   end
 
   def set_imaging

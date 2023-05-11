@@ -11,6 +11,38 @@
 <% end %>
 </div>
 
+<h2>
+  使用機器
+</h2>
+
+<% if @occupation.machines.present? %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>メーカー</th>
+        <th>磁場強度</th>
+        <th>装置名</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @occupation.machines.each do |machine| %>
+        <tr>              
+          <td><%= machine.manufacturer.name %></td><br>
+          <td><%= machine.strength.name %></td><br>
+          <td><%= machine.name %></td><br><br>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if @occupation == current_user.occupation %>
+    <%= link_to "使用機器の追加", new_occupation_machine_path(@machine, occupation_id: @occupation.id) %>
+  <% end %>
+<% else %>
+  <%= link_to "新規登録", new_occupation_machine_path(@machine, occupation_id: @occupation.id) %>
+  
+<% end %>
+
 <div class="main">
   <div class="inner">
     <div class="user__wrapper">

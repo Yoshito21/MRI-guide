@@ -48,11 +48,20 @@
 <% end %>
 <br>
 
-<% @occupations.each do |occupation| %>
-  <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
+<h4 class="name">
+<%= "他施設の撮影法を見る" %>
+</h4>
+<% if current_user.occupation.present? %>
+  <% @occupations.where.not(id: current_user.occupation.id).each do |occupation| %>
+    <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
+  <% end %>
+<% else %>
+  <% @occupations.each do |occupation| %>
+    <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
+  <% end %>
 <% end %>
+<br>
+<br>
 
 
 <%= link_to '戻る', search_imagings_path%>
-<br>
-<br>

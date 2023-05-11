@@ -6,17 +6,18 @@ class MachinesController < ApplicationController
         @machine = Machine.new
         @occupation = Occupation.find(params[:occupation_id])
     end
-
+    
     def create
-        @occupation = Occupation.find(params[:occupation_id])
-        @machine = @occupation.machines.new(machine_params)
+        @occupation = current_user.occupation
+        @machine = Machine.new(machine_params)
+      
         if @machine.save
-            redirect_to occupation_path(@occupation)
+          @occupation.machines << @machine
+          redirect_to @occupation, notice: 'Machine was successfully created.'
         else
-            render :new
+          render :new
         end
-    end
-
+      end
     def show
         @occupation = Occupation.find(params[:occupation_id])
         @machine = @occupation.machines.find(params[:id])
@@ -36,7 +37,7 @@ class MachinesController < ApplicationController
     private
 
     def machine_params
-        params.require(:machine).permit(:manufacturer_id, :strength_id, :name, :occupation_id)
+        params.require(:machine).permit(:manufacturer_id, :strength_id, :name).merge(occupation_id: current_user.occupation.id)
     end
 
     def set_machine
