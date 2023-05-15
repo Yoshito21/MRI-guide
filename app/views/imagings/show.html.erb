@@ -5,7 +5,7 @@
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
-    <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path %>
+    <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path(@imaging) %>
     </h2>
     <div class="item-price-box">
       <table border = "1" bordercolor = "#32495f" >
@@ -30,29 +30,31 @@
   <%= link_to '削除', imaging_path, method: :delete %>
 <% end %>
 <br>
+
 <% if @occupation == current_user.occupation %>
-  <%= render "checkbox" %>
-<% else %>
-  <%= render "imaging" %>
-<% end %>
-<% if current_user.occupation == @occupation %>
-
-  <div class="main">
-    <div class="inner">
-      <div class="form__wrapper">
-        <%= render 'conditions/condition', occupation: @occupation %>
-      </div>
-    </div>
+  <%= render "checkbox" %><br>
+  <h4 class="name">
+  撮影法の登録
+  </h4>
+  <div class="condition-form">
+    <%= render 'conditions/condition', occupation: @occupation %>
   </div>
-
+<% else %>
+  <%= render "imaging" %><br>
 <% end %>
-<br>
+
+<% if @occupation.id == 2 %>
+  <h4 class="name">
+  撮影法の登録には、所属施設の登録が必要です<br>
+  <%= link_to '所属施設登録', new_occupation_path %>
+  </h4>
+<% end %>
 
 <h4 class="name">
-<%= "他施設の撮影法を見る" %>
+他施設の撮影法を見る
 </h4>
 <% if current_user.occupation.present? %>
-  <% @occupations.where.not(id: current_user.occupation.id).each do |occupation| %>
+  <% @occupations.where.not(id: [current_user.occupation.id, @occupation.id]).each do |occupation| %>
     <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
   <% end %>
 <% else %>
@@ -63,5 +65,8 @@
 <br>
 <br>
 
+<% if current_user.occupation.present? && @occupation != current_user.occupation %>
+  
+  <%= link_to '自施設の撮影法', imaging_path(@imaging, occupation_id: current_user.occupation.id)%>
 
-<%= link_to '戻る', search_imagings_path%>
+<% end %>

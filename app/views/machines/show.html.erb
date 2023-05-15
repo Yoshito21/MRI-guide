@@ -16,7 +16,11 @@
         </tr>
       </table>
     </div>
-
+<% if @occupation = current_user.occupation %>
+  
 <%= link_to "編集", edit_occupation_machine_path(@occupation) %>
 
+<%= link_to "削除", occupation_machine_path(occupation_id: @occupation.id, id: @machine.id), method: :delete %>
+
+<% end %>
 <%= link_to '戻る', occupation_path(@occupation)%>

@@ -1,31 +1,29 @@
+<%= form_with model: [@imaging, @condition], method: :post, local: true do |f| %>
+  <%= f.fields_for :conditions do |condition_fields| %>
 
-<%= form_with model: [@imaging, @condition], url: imaging_conditions_path(@imaging, occupation_id: @occupation&.id),  method: :post, local: true do |f| %>
-  <div class="field">
-    <%= f.label :location_id, '撮影方向' %><br>
-    <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>
+    <div class="field">
+      <%= f.label :enhance_id, '単純or造影' %><br>
+      <%= f.collection_select(:enhance_id, Enhance.all, :id, :name, {}) %>
     </div>
-    
-  <div class="field">
-    <%= f.label :contrast_id, '撮影法' %><br>
-    <%= f.collection_select(:contrast_id, Contrast.all, :id, :name, {include_blank: "---"}) %>
+
+    <div class="field">
+      <%= f.label :location_id, '撮影方向' %><br>
+      <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>
     </div>
-    
-  <div class="field">
-    <%= f.label :suppression_id, '抑制' %><br>
-    <%= f.collection_select(:suppression_id, Suppression.all, :id, :name, {include_blank: "---"}) %>
+
+    <div class="field">
+      <%= f.label :contrast_id, '撮影法 (複数選択可)' %><br>
+    <%= f.collection_select(:contrast_ids, Contrast.all, :id, :name, {}, {size: 10, multiple: true, class: "condition-contrast"}) %>
     </div>
-    
-  <div class="field">
-    <%= f.label :enhance_id, '単純or造影' %><br>
-    <%= f.collection_select(:enhance_id, Enhance.all, :id, :name, {include_blank: "---"}) %>
+
+    <div class="field">
+      <%= f.label :suppression_id, '抑制' %><br>
+      <%= f.collection_select(:suppression_id, Suppression.all, :id, :name, {}) %>
     </div>
-    
-  <div class="field">
-    <%= f.label :remarks, "備考" %><br />
-    <%= f.text_area :remarks, class: :form__text, id:"remarks" %>
-  </div>
+
+  <% end %>
 
   <div class="actions">
-    <%= f.submit "登録", class: :form__btn %>
+    <%= f.submit "登録", id: "show-form-button", class: :form__btn %>
   </div>
 <% end %>

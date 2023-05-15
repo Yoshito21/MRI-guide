@@ -1,5 +1,6 @@
 class MachinesController < ApplicationController
-    before_action :set_machine, only: [:edit, :update]
+    before_action :authenticate_user!
+    before_action :set_machine, only: [:show, :edit, :update, :destroy]
 
 
     def new
@@ -18,9 +19,9 @@ class MachinesController < ApplicationController
           render :new
         end
       end
+
     def show
         @occupation = Occupation.find(params[:occupation_id])
-        @machine = @occupation.machines.find(params[:id])
     end
 
     def edit
@@ -28,10 +29,16 @@ class MachinesController < ApplicationController
 
     def update
         if @machine.update(machine_params)
-            redirect_to occupation_machine_path(@occupation)
+            redirect_to occupation_machine_path(@machine, occupation_id: current_user.occupation.id)
         else
             render :new
         end
+    end
+
+    def destroy
+        current_user.occupation.occupation_machines.where(machine_id: @machine.id).destroy_all
+        @machine.destroy
+        redirect_to occupation_path(occupation: @occupation)
     end
 
     private

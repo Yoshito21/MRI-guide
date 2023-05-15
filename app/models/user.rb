@@ -14,5 +14,4 @@ class User < ApplicationRecord
     validates :prefecture2_id, numericality: {other_than: 0, message: "can't be blank"}
 
   end
-
 end

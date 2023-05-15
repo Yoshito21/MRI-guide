@@ -1,31 +1,48 @@
+<%= form_with(model: [@imaging, @condition], url: imaging_conditions_path(@imaging), method: :post, remote: true) do |form| %>
+  <% @occupation.conditions.enhance.each do |ec| %>
+    <div class="enhance-contrast">
+      <h4><%= ec.enhance.name %></h4>
+      <table>
+        <thead>
+          <tr>
+            <th>CE</th>
+            <th>方向</th>
+            <th colspan="<%= ec.contrasts.length %>">撮影法</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3">単純</td>
+            <td>tra</td>
+            <% ec.contrasts.each do |c| %>
+              <td>
+                <%= check_box_tag "condition[contrast_ids][]", c.id, false, id: "contrast-#{c.id}", class: "contrast-checkbox" %>
+                <%= label_tag "contrast-#{c.id}", c.name %>
+              </td>
+            <% end %>
+          </tr>
+          <tr>
+            <td>cor</td>
+            <% ec.contrasts.each do |c| %>
+              <td>
+                <%= check_box_tag "condition[contrast_ids][]", c.id, false, id: "contrast-#{c.id}", class: "contrast-checkbox" %>
+                <%= label_tag "contrast-#{c.id}", c.name %>
+              </td>
+            <% end %>
+          </tr>
+          <tr>
+            <td>sag</td>
+            <% ec.contrasts.each do |c| %>
+              <td>
+                <%= check_box_tag "condition[contrast_ids][]", c.id, false, id: "contrast-#{c.id}", class: "contrast-checkbox" %>
+                <%= label_tag "contrast-#{c.id}", c.name %>
+              </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 
-<%= form_with model: [@imaging, @condition], method: :post, local: true do |f| %>
-  <div class="field">
-    <%= f.label :location_id, '撮影方向' %><br>
-    <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>
-    </div>
-    
-  <div class="field">
-    <%= f.label :contrast_id, '撮影法' %><br>
-    <%= f.collection_select(:contrast_id, Contrast.all, :id, :name, {include_blank: "---"}) %>
-    </div>
-    
-  <div class="field">
-    <%= f.label :suppression_id, '抑制' %><br>
-    <%= f.collection_select(:suppression_id, Suppression.all, :id, :name, {include_blank: "---"}) %>
-    </div>
-    
-  <div class="field">
-    <%= f.label :enhance_id, '単純or造影' %><br>
-    <%= f.collection_select(:enhance_id, Enhance.all, :id, :name, {include_blank: "---"}) %>
-    </div>
-    
-  <div class="field">
-    <%= f.label :remarks, "備考" %><br />
-    <%= f.text_area :remarks, class: :form__text, id:"remarks" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "登録", class: :form__btn %>
-  </div>
+  <%= form.submit "登録", class: "btn btn-primary", id: "register-button", style: "display:none;" %>
 <% end %>

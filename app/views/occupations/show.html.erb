@@ -7,6 +7,7 @@
 <% if current_user.occupation == @occupation %>
   <ul class='lists-right'>
     <li><%= link_to '編集', edit_occupation_path(@occupation), class: "occupation-edit" %></li>
+    <li><%= link_to '削除', occupation_path(@occupation), method: :delete, class: "occupation-edit", data: { confirm: '本当に削除しますか？' } %></li>
   </ul>
 <% end %>
 </div>
@@ -16,7 +17,6 @@
 </h2>
 
 <% if @occupation.machines.present? %>
-
   <table>
     <thead>
       <tr>
@@ -30,17 +30,19 @@
         <tr>              
           <td><%= machine.manufacturer.name %></td><br>
           <td><%= machine.strength.name %></td><br>
-          <td><%= machine.name %></td><br><br>
+          <td><%= link_to machine.name, occupation_machine_path(machine, occupation_id: @occupation.id) %></td><br><br>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <br>
   <% if @occupation == current_user.occupation %>
     <%= link_to "使用機器の追加", new_occupation_machine_path(@machine, occupation_id: @occupation.id) %>
   <% end %>
-<% else %>
-  <%= link_to "新規登録", new_occupation_machine_path(@machine, occupation_id: @occupation.id) %>
-  
+  <% else %>
+  <% if @occupation == current_user.occupation %>
+    <%= link_to "新規登録", new_occupation_machine_path(@machine, occupation_id: @occupation.id) %>
+  <% end %>
 <% end %>
 
 <div class="main">

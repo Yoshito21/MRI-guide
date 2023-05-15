@@ -1,0 +1,47 @@
+<% if @occupation.conditions.present? %>
+  <%= form_tag imaging_condition_path(@imaging, @condition, imaging_id: @imaging.id, occupation_id: current_user.occupation_id), method: :delete, id: 'delete-form', data: { confirm: '本当に削除しますか？' } do %>
+
+    <div id="condition">
+      <h4><%= link_to @occupation.name, occupation_path(@occupation)%>の撮影法</h4>
+
+      <table border="1" bordercolor="#32495f" width="700" height="70">
+        <thead>
+          <tr>
+            <th>tra</th>
+            <th>cor</th>
+            <th>sag</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+
+<% @imaging.conditions.where(occupation: @occupation).order(Enhance_id: :asc).each do |condition| %>
+    <tr>
+    <% Location.pluck(:id).each do|i| %>
+      <% if condition.location.id == i %>
+        <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
+        <% if condition.enhance.id == 1 && condition.suppression.id == 1 %>      
+          <%= condition.contrast.name %>
+        <% elsif condition.enhance.id == 1 && condition.suppression.id != 1 %>
+          <%= "#{condition.suppression.name} #{condition.contrast.name}" %>
+        <% elsif condition.enhance.id != 1 && condition.suppression.id == 1 %>      
+          <%= "#{condition.enhance.name} #{condition.contrast.name}" %>
+        <% elsif condition.enhance.id != 1 && condition.suppression.id != 1 %>    
+          <%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}" %>
+        <% end %>
+        <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
+        </td>
+      <% else %>
+        <td></td>
+      <% end %>
+    <% end %>
+    </tr>
+<% end %>
+
+        </tbody>
+      </table>
+    <%= submit_tag '削除', class: "btn btn-danger delete-conditions", id: 'delete-button', style: "display:none;" %>
+  <% end %>
+<% end %>
+

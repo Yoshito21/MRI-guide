@@ -10,15 +10,38 @@ class ConditionsController < ApplicationController
   
   def create
     @imaging = Imaging.find(params[:imaging_id])
-    @occupation = Occupation.find(params[:occupation_id])
-    @condition = @imaging.conditions.build(condition_params)
-    @condition.occupation_id = @occupation.id
-    if @condition.save
-      redirect_to imaging_path(@imaging, occupation_id: @occupation.id), notice: '条件を追加しました'
+    @occupation = current_user.occupation
+    contrast_ids = params[:condition][:contrast_ids].reject(&:blank?)
+  
+    if contrast_ids.present?
+      # contrast_ids に含まれる contrast_id の組み合わせごとに Condition オブジェクトを作成
+      conditions = contrast_ids.map do |contrast_id|
+        @imaging.conditions.build(
+          location_id: params[:condition][:location_id],
+          suppression_id: params[:condition][:suppression_id],
+          enhance_id: params[:condition][:enhance_id],
+          contrast_id: contrast_id,
+          remarks: params[:condition][:remarks],
+          occupation_id: @occupation.id
+        )
+      end
+  
+      if conditions.all?(&:valid?)
+        # すべての Condition オブジェクトがバリデーションを通過すれば、保存
+        conditions.each(&:save)
+        redirect_to imaging_path(@imaging, occupation_id: @occupation.id), notice: '条件を追加しました'
+      else
+        # バリデーションエラーがある場合は、エラーメッセージを表示する
+        flash.now[:alert] = '条件の追加に失敗しました'
+        render template: 'imagings/show'
+      end
     else
-      render template:"imagings/show"
+      # contrast_id が選択されていない場合は、エラーメッセージを表示する
+      flash.now[:alert] = '撮影法を選択してください'
+      render template: 'imagings/show'
     end
   end
+  
 
   def show
     @imaging = Imaging.find(params[:id])
@@ -46,7 +69,7 @@ class ConditionsController < ApplicationController
   private
 
   def condition_params
-    params.require(:condition).permit(:location_id, :contrast_id, :suppression_id, :enhance_id, :remarks, :ids => []).merge(imaging_id: params[:imaging_id])
+    params.require(:condition).permit(:location_id, :contrast_id, :suppression_id, :enhance_id, :remarks, :ids => [], contrast_ids: []).merge(imaging_id: params[:imaging_id])
   end
 
   def set_condition

@@ -1,5 +1,5 @@
 <%= render "shared/header" %>
-<h3>検索ページ</h3>
+<h3>検索</h3>
 <div class='item-contents' id="detailed-search-result-wrapper">
   <%= search_form_for @q, url: search_imagings_path, html: {id: "detailed-search-form"} do |f| %>
     <div class="search-field">
@@ -10,7 +10,7 @@
     <div class="search-field">
       <%= f.label :purpose_cont, '検査目的' %>
       <br>
-      <%= f.text_field :purpose_cont, placeholder: '検査目的', value: params[:q]&.dig(:purpose) %>
+      <%= f.text_field :purpose_cont, placeholder: '検査目的', value: params[:q]&.dig(:purpose_cont) %>
     </div>
     <%= f.submit '検索' %>
   <% end %>
@@ -25,6 +25,10 @@
     <% end %>
   </ul>
   <% if @imagings.size == 0 %>
-    <h3><%= link_to '登録', new_imaging_path %></h3>
+    <h3>その撮影はまだ登録されていません<br>
+
+    <% if current_user.occupation.present? %>
+      <%= link_to '新規登録', new_imaging_path(q: @q) %>
+    <% end %>
   <% end %>
 </div>
