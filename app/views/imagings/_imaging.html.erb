@@ -6,16 +6,14 @@
   <table border = "1" bordercolor = "#32495f" width= "700" height= "70">
     <thead>
       <tr>
-        <th>CE</th>
         <th>方向</th>
         <th colspan = "<%= @occupation.conditions.length %>">撮影法</th>
       </tr>
     </thead>
-    
+
     <tr align="center">
-      <td rowspan = "6">単純</td>
-      
-      <td>tra</td>
+
+      <th>tra</th>
       <% @imaging.conditions.each do |condition| %>
         <% if condition.occupation == @occupation && condition.enhance.id == 1%>
           <% if condition.location.id == 1 && condition.suppression.id == 1%>
@@ -24,11 +22,18 @@
             <td><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
           <% end %>
         <% end %>
+        <% if condition.occupation == @occupation && condition.enhance.id == 2%>
+          <% if condition.location.id == 1 && condition.suppression.id == 1%>
+            <td><%= "#{condition.enhance.name} #{condition.contrast.name}"%></td>
+          <% elsif condition.location.id == 1 && condition.suppression.id != 1%>
+            <td><%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}"%></td>
+          <% end %>
+        <% end %>
       <% end %>
     </tr>
 
     <tr align="center">
-      <td>cor</td>
+      <th>cor</th>
     <% @imaging.conditions.each do |condition| %>
       <% if condition.occupation == @occupation && condition.enhance.id == 1%>
         <% if condition.location.id == 2 && condition.suppression.id == 1%>
@@ -37,11 +42,18 @@
         <td><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
         <% end %>
       <% end %>
+      <% if condition.occupation == @occupation && condition.enhance.id == 2%>
+        <% if condition.location.id == 2 && condition.suppression.id == 1%>
+          <td><%= "#{condition.enhance.name} #{condition.contrast.name}"%></td>
+        <% elsif condition.location.id == 2 && condition.suppression.id != 1%>
+          <td><%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}"%></td>
+        <% end %>
+      <% end %>
     <% end %>
   </tr>
 
     <tr align="center">
-      <td>sag</td>
+      <th>sag</th>
     <% @imaging.conditions.each do |condition| %>
       <% if condition.occupation == @occupation && condition.enhance.id == 1%>
         <% if condition.location.id == 3 && condition.suppression.id == 1%>
@@ -50,11 +62,18 @@
         <td><%= "#{condition.suppression.name} #{condition.contrast.name}"%></td>
         <% end %>
       <% end %>
+      <% if condition.occupation == @occupation && condition.enhance.id == 2%>
+        <% if condition.location.id == 3 && condition.suppression.id == 1%>
+          <td><%= "#{condition.enhance.name} #{condition.contrast.name}"%></td>
+        <% elsif condition.location.id == 3 && condition.suppression.id != 1%>
+          <td><%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}"%></td>
+        <% end %>
+      <% end %>
     <% end %>
   </tr>
 
+  </table>
+</div>
   <% else %>
     <p>登録された撮影法がありません</p>
   <% end %>
-  </table>
-</div>

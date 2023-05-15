@@ -8,11 +8,14 @@ class ImagingsController < ApplicationController
     
   def new
     @imaging = Imaging.new
+    @q = session[:search_params] || { site_id_eq: nil, purpose_cont: nil }
+    
   end
 
   def create
     @imaging = Imaging.new(imaging_params)
     if @imaging.save
+      flash[:success] = "新規登録が完了しました。"
       redirect_to imaging_path(@imaging, occupation_id: current_user.occupation.id)
     else
       render :new
@@ -49,12 +52,11 @@ class ImagingsController < ApplicationController
 
   def search
     if params[:q]&.dig(:name)
-      # squishメソッドで余分なスペースを削除する
       squished_keywords = params[:q][:name].squish
-      ## 半角スペースを区切り文字として配列を生成し、paramsに入れる
       params[:q][:name_cont_any] = squished_keywords.split(" ")
     end
     @q = Imaging.ransack(params[:q])
+    session[:search_params] = params[:q]
     @imagings = @q.result
     @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
   end

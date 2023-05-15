@@ -7,7 +7,7 @@ class CreateOccupations < ActiveRecord::Migration[6.0]
       t.string     :municipality
       t.string     :address
       t.string     :building_name
-      t.string     :phone_number,   null: false
+      t.string     :phone_number,   null: false, unique: true
       t.timestamps
     end
   end
