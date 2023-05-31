@@ -1,109 +1,111 @@
+<div class = "condition-checkbox" id="condition">
+  <%= form_tag imaging_condition_path(@imaging, @condition, imaging_id: @imaging.id, occupation_id: current_user.occupation_id), method: :delete, id: 'delete-form', data: { confirm: '本当に削除しますか？' } do %>
+    <div class="headline"><%= link_to @occupation.name, occupation_path(@occupation)%>の撮影法</div>
+    <div class = "condition-all">
+      <div class = "condition-table">
+      <table border="2" bordercolor="#f0e4e4" height="70" >
+        <thead>
+          <tr>
+            <td>方向</td>
+            <td colspan="<%= @occupation.conditions.length %>">撮影法</td>
+          </tr>
+        </thead>
 
-<%= form_tag imaging_condition_path(@imaging, @condition, imaging_id: @imaging.id, occupation_id: current_user.occupation_id), method: :delete, id: 'delete-form', data: { confirm: '本当に削除しますか？' } do %>
+        <tbody>
+          <tr align="center">
 
-  <div id="condition">
-    <h4><%= link_to @occupation.name, occupation_path(@occupation)%>の撮影法</h4>
-
-    <table border="1" bordercolor="#32495f" width="700" height="70" >
-      <thead>
-        <tr>
-          <th>方向</th>
-          <th colspan="<%= @occupation.conditions.length %>">撮影法</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr align="center">
-
-          <th>tra</th>
-          <% @imaging.conditions.each do |condition| %>
-            <% if condition.occupation == @occupation && condition.enhance.id == 1%>
-              <% if condition.location.id == 1 && condition.suppression.id == 1%>
-                <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
-                  <%= condition.contrast.name %>
-                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
-                </td>
-              <% elsif condition.location.id == 1 && condition.suppression.id != 1%>
-                <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
-                  <%= "#{condition.suppression.name} #{condition.contrast.name}" %>
-                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
-                </td>
+            <td>tra</td>
+            <% @imaging.conditions.each do |condition| %>
+              <% if condition.occupation == @occupation && condition.enhance.id == 1%>
+                <% if condition.location.id == 1 && condition.suppression.id == 1%>
+                  <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
+                    <%= condition.contrast.name %>
+                    <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
+                  </td>
+                <% elsif condition.location.id == 1 && condition.suppression.id != 1%>
+                  <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
+                    <%= "#{condition.suppression.name} #{condition.contrast.name}" %>
+                    <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
+                  </td>
+                <% end %>
+              <% end %>
+              <% if condition.occupation == @occupation && condition.enhance.id == 2%>
+                <% if condition.location.id == 1 && condition.suppression.id == 1%>
+                  <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
+                    <%= "#{condition.enhance.name} #{condition.contrast.name}" %>
+                    <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
+                  </td>
+                <% elsif condition.location.id == 1 && condition.suppression.id != 1%>
+                  <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
+                    <%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}" %>
+                    <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
+                  </td>
+                <% end %>
               <% end %>
             <% end %>
-            <% if condition.occupation == @occupation && condition.enhance.id == 2%>
-              <% if condition.location.id == 1 && condition.suppression.id == 1%>
-                <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
-                  <%= "#{condition.enhance.name} #{condition.contrast.name}" %>
-                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
-                </td>
-              <% elsif condition.location.id == 1 && condition.suppression.id != 1%>
-                <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
-                  <%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}" %>
-                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
-                </td>
-              <% end %>
-            <% end %>
-          <% end %>
-        </tr>
+          </tr>
 
-        <tr align="center">
-          <th>cor</th>
-          <% @imaging.conditions.each do |condition| %>
-            <% if condition.occupation == @occupation && condition.enhance.id == 1%>
-              <% if condition.location.id == 2 && condition.suppression.id == 1%>
-                <td class="contrast", id="contrast-cor-<%= condition.id %>"><%= condition.contrast.name%>
-                <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition_#{condition.id}", style: 'display: none;' %></td>
-              <% elsif condition.location.id == 2 && condition.suppression.id != 1%>
-                <td class="contrast", id="contrast-cor-<%= condition.id %>"><%= "#{condition.suppression.name} #{condition.contrast.name}"%>
-                <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition_#{condition.id}", style: 'display: none;' %></td>
+          <tr align="center">
+            <td>cor</td>
+            <% @imaging.conditions.each do |condition| %>
+              <% if condition.occupation == @occupation && condition.enhance.id == 1%>
+                <% if condition.location.id == 2 && condition.suppression.id == 1%>
+                  <td class="contrast", id="contrast-cor-<%= condition.id %>"><%= condition.contrast.name%>
+                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition_#{condition.id}", style: 'display: none;' %></td>
+                <% elsif condition.location.id == 2 && condition.suppression.id != 1%>
+                  <td class="contrast", id="contrast-cor-<%= condition.id %>"><%= "#{condition.suppression.name} #{condition.contrast.name}"%>
+                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition_#{condition.id}", style: 'display: none;' %></td>
+                <% end %>
+              <% end %>
+              <% if condition.occupation == @occupation && condition.enhance.id == 2%>
+                <% if condition.location.id == 2 && condition.suppression.id == 1%>
+                  <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
+                    <%= "#{condition.enhance.name} #{condition.contrast.name}" %>
+                    <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
+                  </td>
+                <% elsif condition.location.id == 2 && condition.suppression.id != 1%>
+                  <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
+                    <%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}" %>
+                    <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
+                  </td>
+                <% end %>
               <% end %>
             <% end %>
-            <% if condition.occupation == @occupation && condition.enhance.id == 2%>
-              <% if condition.location.id == 2 && condition.suppression.id == 1%>
-                <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
-                  <%= "#{condition.enhance.name} #{condition.contrast.name}" %>
-                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
-                </td>
-              <% elsif condition.location.id == 2 && condition.suppression.id != 1%>
-                <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
-                  <%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}" %>
-                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
-                </td>
+          </tr>
+          
+          <tr align="center">
+            <td>sag</td>
+            <% @imaging.conditions.each do |condition| %>
+              <% if condition.occupation == @occupation && condition.enhance.id == 1%>
+                <% if condition.location.id == 3 && condition.suppression.id == 1%>
+                  <td class="contrast", id="contrast-cor-<%= condition.id %>"><%= condition.contrast.name%>
+                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition_#{condition.id}", style: 'display: none;' %></td>
+                <% elsif condition.location.id == 3 && condition.suppression.id != 1%>
+                  <td class="contrast", id="contrast-cor-<%= condition.id %>"><%= "#{condition.suppression.name} #{condition.contrast.name}"%>
+                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition_#{condition.id}", style: 'display: none;' %></td>
+                <% end %>
+              <% end %>
+              <% if condition.occupation == @occupation && condition.enhance.id == 2%>
+                <% if condition.location.id == 3 && condition.suppression.id == 1%>
+                  <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
+                    <%= "#{condition.enhance.name} #{condition.contrast.name}" %>
+                    <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
+                  </td>
+                <% elsif condition.location.id == 3 && condition.suppression.id != 1%>
+                  <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
+                    <%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}" %>
+                    <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
+                  </td>
+                <% end %>
               <% end %>
             <% end %>
-          <% end %>
-        </tr>
-        
-        <tr align="center">
-          <th>sag</th>
-          <% @imaging.conditions.each do |condition| %>
-            <% if condition.occupation == @occupation && condition.enhance.id == 1%>
-              <% if condition.location.id == 3 && condition.suppression.id == 1%>
-                <td class="contrast", id="contrast-cor-<%= condition.id %>"><%= condition.contrast.name%>
-                <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition_#{condition.id}", style: 'display: none;' %></td>
-              <% elsif condition.location.id == 3 && condition.suppression.id != 1%>
-                <td class="contrast", id="contrast-cor-<%= condition.id %>"><%= "#{condition.suppression.name} #{condition.contrast.name}"%>
-                <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition_#{condition.id}", style: 'display: none;' %></td>
-              <% end %>
-            <% end %>
-            <% if condition.occupation == @occupation && condition.enhance.id == 2%>
-              <% if condition.location.id == 3 && condition.suppression.id == 1%>
-                <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
-                  <%= "#{condition.enhance.name} #{condition.contrast.name}" %>
-                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
-                </td>
-              <% elsif condition.location.id == 3 && condition.suppression.id != 1%>
-                <td class="contrast" id="contrast-tra-<%= condition.id %>" data-condition-id="<%= condition.id %>">
-                  <%= "#{condition.enhance.name} #{condition.suppression.name} #{condition.contrast.name}" %>
-                  <%= check_box_tag 'condition_ids[]', condition.id, false, class: 'condition-checkbox', id: "condition-#{condition.id}", style: 'display: none;' %>
-                </td>
-              <% end %>
-            <% end %>
-          <% end %>
-        </tr>
-      </tbody>
-    </table>
-  <%= submit_tag '削除', class: "btn btn-danger delete-conditions", id: 'delete-button', style: "display:none;" %>
-<% end %>
-
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    <div class="condition-delete">
+      <%= submit_tag '削除', class: "btn btn-danger delete-conditions", id: 'delete-button', style: "display:none;" %>
+    </div>
+  <% end %>
+</div>
 

@@ -1,0 +1,11 @@
+<h1>New Occupation Membership</h1>
+<%= form_with(model: @occupation_membership, url: occupation_occupation_memberships_path) do |form| %>
+
+  <div>
+    <%= form.label :occupation_id %>
+    <%= form.collection_select :occupation_id, Occupation.all, :id, :name, {include_blank: "---"}, class: "condition-contrast" %>
+  </div>
+  <div>
+    <%= form.submit 'Create Occupation Membership' %>
+  </div>
+<% end %>

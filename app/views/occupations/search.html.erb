@@ -1,0 +1,23 @@
+<% if @occupations.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Prefecture</th>
+        <th>Phone Number</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @occupations.each do |occupation| %>
+        <tr>
+          <td><%= occupation.prefecture1.name %></td>
+          <td><%= occupation.phone_number %></td>
+          <td><%= link_to occupation.name, occupation_path(occupation) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>まだその施設はありません</p>
+  <%= link_to '登録する', new_occupation_path %>
+<% end %>

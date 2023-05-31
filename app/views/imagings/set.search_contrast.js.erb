@@ -1,0 +1,13 @@
+
+// 検索結果を表示する要素のIDを指定
+const searchResults = document.getElementById('search-results');
+
+// 検索結果のHTMLを作成
+const searchResultsHTML = '';
+
+<% @search_imagings.each do |imaging| %>
+  searchResultsHTML += '<%= j(render partial: "search_result", locals: { imaging: imaging }) %>';
+<% end %>
+
+// 検索結果を反映
+searchResults.innerHTML = searchResultsHTML;

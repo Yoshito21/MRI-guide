@@ -1,0 +1,17 @@
+<div class="pending-memberships">
+  <% if @pending_memberships.any? %>
+    <h3>申請が来ています</h3>
+    <ul>
+      <% @pending_memberships.each do |membership| %>
+        <% next unless membership.occupation_id == current_user.occupation.id %> <!-- 自施設以外の申請をスキップ -->
+        <li>
+          <%= link_to membership.user.nickname, user_path(membership.user.id) %>さんからの申請
+          <%= link_to '承認', accept_occupation_occupation_membership_path(@occupation, membership), method: :patch %>
+          <%= link_to '拒否', reject_occupation_occupation_membership_path(@occupation, membership), method: :patch %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>現在、申請はありません</p>
+  <% end %>
+</div>

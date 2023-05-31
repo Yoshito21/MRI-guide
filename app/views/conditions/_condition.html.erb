@@ -3,27 +3,27 @@
 
     <div class="field">
       <%= f.label :enhance_id, '単純or造影' %><br>
-      <%= f.collection_select(:enhance_id, Enhance.all, :id, :name, {}) %>
+      <%= f.collection_select(:enhance_id, Enhance.all, :id, :name, {}, class: "condition-contrast") %>
     </div>
 
     <div class="field">
       <%= f.label :location_id, '撮影方向' %><br>
-      <%= f.collection_select(:location_id, Location.all, :id, :name, {include_blank: "---"}) %>
-    </div>
-
-    <div class="field">
-      <%= f.label :contrast_id, '撮影法 (複数選択可)' %><br>
-    <%= f.collection_select(:contrast_ids, Contrast.all, :id, :name, {}, {size: 10, multiple: true, class: "condition-contrast"}) %>
+      <%= f.collection_select(:location_id, Location.all, :id, :name, {}, class: "condition-contrast") %>
     </div>
 
     <div class="field">
       <%= f.label :suppression_id, '抑制' %><br>
-      <%= f.collection_select(:suppression_id, Suppression.all, :id, :name, {}) %>
+      <%= f.collection_select(:suppression_id, Suppression.all, :id, :name, {}, class: "condition-contrast") %>
+    </div>
+
+    <div class="field">
+      <%= f.label :contrast_id, '撮影法 (複数選択可)' %><br>
+    <%= f.collection_select(:contrast_ids, Contrast.all, :id, :name, {}, {size: 17, multiple: true, class: "condition-contrast"}) %>
     </div>
 
   <% end %>
 
   <div class="actions">
-    <%= f.submit "登録", id: "show-form-button", class: :form__btn %>
+    <%= f.submit "登録", id: "show-form-button", class: :form__condition %>
   </div>
 <% end %>

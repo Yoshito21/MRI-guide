@@ -1,72 +1,100 @@
+<div class="imaging-all">
+  <div class="imaging-main">
+    <div class="headline">
+      <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path(@imaging) %>
+    </div>
+    <div class="imaging-table">
+      <div class="imaging-headline">
+        <table border = "2" bordercolor = "#f0e4e4" >
+          <tr>
+            <td>主な症状</td>
+            <td><%= @imaging.symptoms %></td>
+          </tr>
+          <tr>
+            <td>主な治療法</td>
+            <td><%= @imaging.treatment %></td>
+          </tr>
+          <tr>
+            <td>撮像のポイント</td>
+            <td><%= @imaging.indentification %></td>
+          </tr>
+        </table>
+        <br>
+        <table border = "2" bordercolor = "#f0e4e4" >
+          <tr>
+            <td class = "signal-table">高信号</td>
+            <% @imaging.heights.each do |height| %>
+              <td class = "signal-table"><%= height.name %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td class = "signal-table">等信号</td>
+            <% @imaging.middles.each do |middle| %>
+              <td class = "signal-table"><%= middle.name %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td class = "signal-table">低信号</td>
+            <% @imaging.lows.each do |low| %>
+              <td class = "signal-table"><%= low.name %></td>
+            <% end %>
+          </tr>
+        </table>
+      </div>
 
-<%= @occupation.name %>
-
-<%= render "shared/header" %>
-<div class="item-show">
-  <div class="item-box">
-    <h2 class="name">
-    <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path(@imaging) %>
-    </h2>
-    <div class="item-price-box">
-      <table border = "1" bordercolor = "#32495f" >
-        <tr>
-          <th>主な症状</th>
-          <td><%= @imaging.symptoms %></td>
-        </tr>
-        <tr>
-          <th>主な治療法</th>
-          <td><%= @imaging.treatment %></td>
-        </tr>
-        <tr>
-          <th>撮像のポイント</th>
-          <td><%= @imaging.indentification %></td>
-        </tr>
-      </table>
+      <% if current_user.id == 1 %>
+        <%= link_to '削除', imaging_path, method: :delete %>
+      <% end %>
+      <br>
     </div>
   </div>
+  <div class = "condition-register">
+  <br>
+    <div class="side-headline">
+    撮影法の登録
+    </div>
+    <% if current_user.occupation.present? %>
+    <div class="condition-form">
+      <%= render 'conditions/condition', occupation: @occupation %>
+    </div>
+    <% else %>
+      <br>
+      所属施設の登録が<br>必要です<br><br>
+      <div class="side-registration">
+      <%= link_to '所属施設登録', occupations_path, class: "registration-text" %>
+      </div>
+    <% end %>
+  </div>
+
+
+<div class = "condition-table">
+  <% if @occupation == current_user.occupation %>
+    <%= render "checkbox" %><br>
+  <% else %>
+    <%= render "imaging" %><br>
+  <% end %>
+
+  <div class="headline">
+  他施設の撮影法を見る
+  </div>
+  <% if current_user.occupation.present? %>
+    <% @occupations.where.not(id: [current_user.occupation.id, @occupation.id]).each do |occupation| %>
+      <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
+    <% end %>
+  <% else %>
+    <% @occupations.where.not(id:  @occupation.id).each do |occupation| %>
+      <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
+    <% end %>
+  <% end %>
+  <br>
+  <br>
+
+  <% if current_user.occupation.present? && @occupation != current_user.occupation %>
+    <%= link_to '自施設の撮影法', imaging_path(@imaging, occupation_id: current_user.occupation.id)%>
+  <% end %>
 </div>
 
-<% if current_user.id == 1 %>
-  <%= link_to '削除', imaging_path, method: :delete %>
-<% end %>
-<br>
+  <%= render partial: "search_results", locals: { search_imagings: @search_imagings } %>
 
-<% if @occupation == current_user.occupation %>
-  <%= render "checkbox" %><br>
-  <h4 class="name">
-  撮影法の登録
-  </h4>
-  <div class="condition-form">
-    <%= render 'conditions/condition', occupation: @occupation %>
-  </div>
-<% else %>
-  <%= render "imaging" %><br>
-<% end %>
 
-<% if @occupation.id == 2 %>
-  <h4 class="name">
-  撮影法の登録には、所属施設の登録が必要です<br>
-  <%= link_to '所属施設登録', new_occupation_path %>
-  </h4>
-<% end %>
-
-<h4 class="name">
-他施設の撮影法を見る
-</h4>
-<% if current_user.occupation.present? %>
-  <% @occupations.where.not(id: [current_user.occupation.id, @occupation.id]).each do |occupation| %>
-    <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
-  <% end %>
-<% else %>
-  <% @occupations.each do |occupation| %>
-    <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
-  <% end %>
-<% end %>
-<br>
-<br>
-
-<% if current_user.occupation.present? && @occupation != current_user.occupation %>
-  
-  <%= link_to '自施設の撮影法', imaging_path(@imaging, occupation_id: current_user.occupation.id)%>
-
-<% end %>
+</div>

@@ -1,0 +1,35 @@
+<%= form_with(url: imagings_path, method: :get) do |form| %>
+  <h3>Search:</h3>
+
+  <div>
+    <strong>Height:</strong>
+    <% @heights.each do |height| %>
+      <%= form.check_box :height_ids, { multiple: true }, height.id, nil %>
+      <%= height.name %>
+    <% end %>
+  </div>
+
+  <div>
+    <strong>Middle:</strong>
+    <% @middles.each do |middle| %>
+      <%= form.check_box :middle_ids, { multiple: true }, middle.id, nil %>
+      <%= middle.name %>
+    <% end %>
+  </div>
+
+  <div>
+    <strong>Low:</strong>
+    <% @lows.each do |low| %>
+      <%= form.check_box :low_ids, { multiple: true }, low.id, nil %>
+      <%= low.name %>
+    <% end %>
+  </div>
+
+  <%= form.submit "Search" %>
+<% end %>
+
+<h3>Results:</h3>
+
+<% @imagings.each do |imaging| %>
+  <p><%= imaging.inspect %></p>
+<% end %>

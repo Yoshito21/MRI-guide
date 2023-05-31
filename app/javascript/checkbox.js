@@ -3,7 +3,8 @@ window.addEventListener('load', function () {
 
   contrast.forEach(function(contrast){
     contrast.addEventListener('mouseover',function(){
-      this.setAttribute("style", "background-color:#889291;")
+      this.setAttribute("style", "background-color:#dbd1d1; color:#252525")
+      this.style.cursor = 'default';
     })
     contrast.addEventListener('mouseout',function(){
       this.removeAttribute("style")
@@ -27,5 +28,25 @@ window.addEventListener('load', function () {
         checkbox.checked = this.classList.contains('selected');
       }
     });
+    
+    // チェックボックスの初期状態に応じてselectedクラスを設定する
+    const checkbox = contrast.querySelector('input[type="checkbox"]');
+    if (checkbox) {
+      if (checkbox.checked) {
+        contrast.classList.add('selected');
+      } else {
+        contrast.classList.remove('selected');
+      }
+
+      // チェックボックスの変更イベントに対してselectedクラスをトグルする
+      checkbox.addEventListener('change', function() {
+        contrast.classList.toggle('selected', this.checked);
+      });
+
+      // チェックボックスがオンになっている場合、selectedクラスをトグルする
+      if (checkbox.checked) {
+        contrast.classList.toggle('selected');
+      }
+    }
   });
 });
