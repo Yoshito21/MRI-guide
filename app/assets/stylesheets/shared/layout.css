@@ -1,0 +1,121 @@
+body{
+  height: calc(100vh - 16px);
+  font-size: 16px;
+}
+
+.wrapper{
+    display: flex;
+  }
+  
+.left-right{
+  display: flex;
+  position: relative;
+}
+
+.side_bar{
+  width: 200px;
+  display: flex;
+  flex-flow: column;
+}
+
+.side_user{
+  width: 200px;
+  height: calc(100vh - 100px);
+  background-image: linear-gradient(to left, #292727, #2e2d2d);
+  padding: 0 20px;
+  display: block;
+  position: fixed;
+  top: 100px;
+  left: 0;
+  overflow: auto;
+}
+
+.side-register{
+  font-size: 18px;
+  text-align: center;
+}
+
+a{
+  color: #f1ef6a;
+  text-decoration: none;
+}
+
+.devise-all{
+  overflow-y: auto;
+}
+
+.main-contents{
+  margin: 92px 0 0 250px;
+  width: calc(100vw - 258px);
+  height: calc(100vh - 100px);
+  overflow: auto;
+}
+
+.side_user::-webkit-scrollbar {
+  width: 10px; /* スクロールバーの幅 */
+}
+
+.side_user::-webkit-scrollbar-track {
+  background-color: rgba(136, 136, 136, 0); /* スクロールバーのトラック部分の背景色 */
+}
+
+.side_user::-webkit-scrollbar-track:hover {
+  background-color: #4c4646; /* スクロールバーのトラック部分のホバー時の背景色 */
+}
+
+.side_user::-webkit-scrollbar-thumb {
+  background-color: #292727; /* スクロールバーのスライダー（つまみ）の背景色 */
+  border-radius: 10px; /* スクロールバーのスライダーの角丸 */
+}
+
+.side_user::-webkit-scrollbar-thumb:hover {
+  background-color: #1f1f1f; /* スクロールバーのスライダーのホバー時の背景色 */
+}
+
+#search-site {
+  background-color: #dbd1d1;
+  color: #252525;
+  width: 150px;
+  height: 30px;
+}
+
+#search-site option {
+  color: #252525;
+}
+
+#search-site option:hover:focus {
+  background-color: #dbd1d1;
+}
+
+.search-purpose{
+  width: 150px;
+  height: 30px;
+  background-color: #dbd1d1;
+  color: #252525;;
+}
+
+.search-button1{
+  display: none;
+}
+
+.main-contents::-webkit-scrollbar {
+  height: 15px;
+  width: 15px; /* スクロールバーの幅 */
+}
+
+.main-contents::-webkit-scrollbar-track {
+  background-color: rgba(136, 136, 136, 0); /* スクロールバーのトラック部分の背景色 */
+}
+
+.main-contents::-webkit-scrollbar-track:hover {
+  background-color: #615f5f; /* スクロールバーのトラック部分のホバー時の背景色 */
+}
+
+.main-contents::-webkit-scrollbar-thumb {
+  background-color: #383737; /* スクロールバーのスライダー（つまみ）の背景色 */
+  border-radius: 10px; /* スクロールバーのスライダーの角丸 */
+}
+
+.main-contents::-webkit-scrollbar-thumb:hover {
+  background-color: #292828; /* スクロールバーのスライダーのホバー時の背景色 */
+}

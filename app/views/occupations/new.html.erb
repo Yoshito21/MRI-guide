@@ -1,3 +1,4 @@
+<div class="contents-all">
 <%= form_with model: @occupation, class: 'registration-main', local: true do |f| %>
 <div class='form-wrap'>
   <div class='form-header'>
@@ -12,7 +13,7 @@
   <div class="form-group">
     <div class='form-text-wrap'>
           <label class="form-text">郵便番号</label>
-          <span class="indispensable">検査情報を登録する場合は必須</span>
+          <span class="indispensable">必須</span>
         </div>
         <%= f.text_field :post_code, class:"input-default", id:"post-code", placeholder:"例）123-4567", maxlength:"8" %>
   </div>
@@ -20,15 +21,15 @@
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">都道府県</label>
-      <span class="indispensable">検査情報を登録する場合は必須</span>
+      <span class="indispensable">必須</span>
     </div>
     <%= f.collection_select(:prefecture1_id, Prefecture1.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"prefecture"}) %>
   </div>
 
   <div class="form-group">
     <div class='form-text-wrap'>
-      <label class="form-text">所属施設</label>
-      <span>検査情報を登録する場合は必須</span>
+      <label class="form-text">施設名</label>
+      <span>必須</span>
     </div>
     <%= f.text_area :name, class:"input-default", id:"occupation-name", placeholder:"例) 日本病院", maxlength:"40" %>
   </div>
@@ -36,7 +37,7 @@
   <div class="form-group">
     <div class='form-text-wrap'>
           <label class="form-text">電話番号</label>
-          <span class="indispensable">検査情報を登録する場合は必須</span>
+          <span class="indispensable">必須</span>
         </div>
         <%= f.text_field :phone_number, class:"input-default", id:"phone-number", placeholder:"例）0123456789", maxlength:"11" %>
   </div>
@@ -46,3 +47,5 @@
   </div>
 </div>
 <% end %>
+
+</div>

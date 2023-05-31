@@ -2,9 +2,14 @@ class OccupationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_occupation, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @occupation = Occupation.all
+  end
+  
   def new
     @occupation = Occupation.new
   end
+  
   def create
     @occupation = Occupation.new(occupation_params)
     if @occupation.valid?
@@ -20,7 +25,7 @@ class OccupationsController < ApplicationController
   def show
     @users = @occupation.users
     @conditions = @occupation.conditions.select(:imaging_id).distinct
-    @imagings = @conditions.map(&:imaging)
+    @imgs = @conditions.map(&:imaging)
     @machine = Machine.find_by(params[id: @machine_id])
     @machines = @occupation.machines
   end
@@ -32,7 +37,7 @@ class OccupationsController < ApplicationController
     if @occupation.valid?
       @occupation.update(occupation_params)
       current_user.update(occupation_id: @occupation.id)
-      redirect_to root_path
+      redirect_to occupation_path(@occupation)
     else
       render :new
     end
@@ -55,6 +60,32 @@ class OccupationsController < ApplicationController
     end
   end
 
+  def search
+    prefecture1_id = params[:prefecture1_id]
+    phone_number = params[:phone_number]
+    name = params[:name]
+    @occupations = Occupation.all
+    
+    # 検索条件が指定されている場合には条件を追加する
+    @occupations = @occupations.where(prefecture1_id: prefecture1_id) if prefecture1_id.present?
+    @occupations = @occupations.where(phone_number: phone_number) if phone_number.present?
+    @occupations = @occupations.where("name LIKE ?", "%#{name}%") if name.present?
+  end
+
+  def leave
+    @occupation = Occupation.find(params[:id])
+    
+    if current_user.occupation == @occupation
+      current_user.update(occupation: nil)
+      flash[:success] = '脱退しました。'
+    else
+      flash[:error] = '脱退に失敗しました。'
+    end
+    redirect_to occupation_path(id: @occupation.id)
+  end
+  
+  
+  
   private
 
   def occupation_params

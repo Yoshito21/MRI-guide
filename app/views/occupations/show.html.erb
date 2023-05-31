@@ -1,8 +1,45 @@
-<%= render "shared/header" %>
+<div class="contents-all">
 
-<h2>
+<div class = "headline">施設名</div>
+<div>
   <%= @occupation.name%>
-</h2>
+</div>
+
+      <% if current_user.occupation.nil? %>
+        <% if current_user.occupation_memberships.exists?(occupation_id: @occupation.id) %>
+          <% membership = current_user.occupation_memberships.find_by(occupation_id: @occupation.id) %>
+          
+    <% if membership.status == "rejected" %>
+      <p>申請が拒否されました</p>
+      <% membership.update(status: "pending") %> <!-- 状態を "pending" に戻す -->
+    <% end %>
+    
+    <div class="side-registration">
+      <% if current_user.occupation_memberships.where(occupation_id: @occupation.id, status: "pending").exists? %>
+        <%= link_to '申請を取り消す', occupation_occupation_membership_path(membership), method: :delete, data: { confirm: '本当に申請を取り消しますか？' }, class: "registration-text" %>
+      <% else %>
+        <%= link_to '申請する', occupation_occupation_memberships_path(user_id: current_user.id, occupation_id: @occupation.id), method: :post, class: "registration-text" %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="side-registration">
+      <%= link_to '申請する', occupation_occupation_memberships_path(user_id: current_user.id, occupation_id: @occupation.id), method: :post, class: "registration-text" %>
+    </div>
+  <% end %>
+<% elsif @occupation.occupation_memberships.exists?(occupation_id: @occupation.id, status: "pending") %>
+  <%= link_to '申請が来ています', occupation_occupation_memberships_path(occupation_id: @occupation.id), class: "registration-text" %>
+<% end %>
+
+      <% if flash[:success] %>
+        <div class="flash-message flash-success">
+          <%= flash[:success] %>
+        </div>
+      <% elsif flash[:error] %>
+        <div class="flash-message flash-error">
+          <%= flash[:error] %>
+        </div>
+      <% end %>
+
 <div class='nav'>
 <% if current_user.occupation == @occupation %>
   <ul class='lists-right'>
@@ -12,9 +49,9 @@
 <% end %>
 </div>
 
-<h2>
+<div class = "headline">
   使用機器
-</h2>
+</div>
 
 <% if @occupation.machines.present? %>
   <table>
@@ -48,28 +85,35 @@
 <div class="main">
   <div class="inner">
     <div class="user__wrapper">
-      <h2 class="page-heading">
+      <div class = "headline">
       <% if @occupation.users.present? %>
         <%= "#{@occupation.name}のメンバー"%>
-      </h2>
+      </div>
         <% @occupation.users.each do |user| %>
         <div>
           <%= link_to user.nickname, user_path(user) %>
         </div>
       <% end %>
+
         <% else %>
         <p>所属しているユーザーがいません</p>
+        <%= link_to user.nickname, user_path(user) %>
       <% end %>
+
+      <% if current_user.occupation == @occupation %>
+        <%= link_to '脱退する', leave_occupation_path(@occupation), method: :delete, data: { confirm: '本当に脱退しますか？' }, class: "registration-text" %>
+      <% end %>
+
         <table>
-          <thead>
+      <div class = "headline">
+        登録している撮影法
+      </div>
             <tr>
               <th>部位</th>
               <th>検査目的</th>
             </tr>
-          </thead>
-          <tbody>
             <% if @occupation.conditions.present? %>
-              <% @imagings.each do |imaging| %>
+              <% @imgs.each do |imaging| %>
                 <tr>              
                   <td><%= imaging.site.name %></td><br>
                   <td><%= link_to imaging.purpose, imaging_path(imaging, occupation_id: @occupation.id) %></td><br><br>
@@ -78,9 +122,9 @@
             <% else %>
               <p>撮影条件の登録はありません</p>
             <% end %>
-          </tbody>
         </table>
       </div>
     </div>
   <%= link_to 'TOPページ', root_path %>
+</div>
 </div>
