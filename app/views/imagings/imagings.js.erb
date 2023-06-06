@@ -1,0 +1,4 @@
+<% json_results = @search_imagings.map { |imaging| { id: imaging.id, purpose: imaging.purpose } }.to_json %>
+<script>
+  document.dispatchEvent(new CustomEvent('searchComplete', { detail: <%= json_results.html_safe %> }));
+</script>

@@ -18,7 +18,7 @@
     </div>
 <% if @occupation = current_user.occupation %>
   
-<%= link_to "編集", edit_occupation_machine_path(@occupation) %>
+<%= link_to "編集", edit_occupation_machine_path(occupation_id: @occupation.id, id: @machine.id) %>
 
 <%= link_to "削除", occupation_machine_path(occupation_id: @occupation.id, id: @machine.id), method: :delete %>
 

@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     end
     @q = Imaging.ransack(params[:q])
     session[:search_params] = params[:q]
-    @imagings = @q.result(distinct: true).limit(10).records
+    @imagings = @q.result(distinct: true).order(created_at: :desc).limit(5).records
   
     respond_to do |format|
       format.json{ render json: @imagings }

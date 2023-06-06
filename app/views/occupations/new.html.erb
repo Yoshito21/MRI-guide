@@ -29,7 +29,7 @@
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">施設名</label>
-      <span>必須</span>
+      <span class="indispensable">必須</span>
     </div>
     <%= f.text_area :name, class:"input-default", id:"occupation-name", placeholder:"例) 日本病院", maxlength:"40" %>
   </div>
@@ -43,7 +43,7 @@
   </div>
 
   <div class='register-btn'>
-    <%= f.submit "登録" ,class:"register-red-btn" %>
+    <%= f.submit "登録" , class: "registration-text" %>
   </div>
 </div>
 <% end %>

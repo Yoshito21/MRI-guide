@@ -2,27 +2,27 @@
 <%= form_with model: @imaging, local: true do |f|%>
   <div class="field">
     <%= f.label :site_id, '部位' %><br>
-    <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}) %>
+    <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}, class: "imaging-form") %>
     </div>
     
   <div class="field">
     <%= f.label :purpose, "検査目的" %><br />
-    <%= f.text_field :purpose, id:"imaging_purpose" %>
+    <%= f.text_field :purpose, id:"imaging_purpose", class: "imaging-form" %>
   </div>
 
   <div class="field">
-    <%= f.label :indentification, "鑑別のポイント" %><br />
-    <%= f.text_area :indentification, class: :form__text, id:"indentification" %>
+    <%= f.label :indentification, "画像所見" %><br />
+    <%= f.text_area :indentification, class: :form__text, id:"indentification", class: "imaging-text" %>
   </div>
 
   <div class="field">
     <%= f.label :symptoms, "症状" %><br />
-    <%= f.text_area :symptoms, class: :form__text, id:"symptoms" %>
+    <%= f.text_area :symptoms, class: :form__text, id:"symptoms", class: "imaging-text" %>
   </div>
 
   <div class="field">
     <%= f.label :treatment, "治療法" %><br />
-    <%= f.text_area :treatment, class: :form__text, id:"treatment" %>
+    <%= f.text_area :treatment, class: :form__text, id:"treatment", class: "imaging-text" %>
   </div>
 
 <div class="signal">
@@ -52,6 +52,6 @@
 </div>
 
   <div class="actions">
-    <%= f.submit "保存する", class: :form__btn  %>
+    <%= f.submit "保存する", class: :form__condition %>
   </div>
 <% end %>

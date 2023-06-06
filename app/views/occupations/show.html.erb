@@ -27,7 +27,7 @@
     </div>
   <% end %>
 <% elsif @occupation.occupation_memberships.exists?(occupation_id: @occupation.id, status: "pending") %>
-  <%= link_to '申請が来ています', occupation_occupation_memberships_path(occupation_id: @occupation.id), class: "registration-text" %>
+  <%= link_to '申請があります', occupation_occupation_memberships_path(occupation_id: @occupation.id), class: "registration-text" %>
 <% end %>
 
       <% if flash[:success] %>
@@ -74,9 +74,10 @@
   </table>
   <br>
   <% if @occupation == current_user.occupation %>
-    <%= link_to "使用機器の追加", new_occupation_machine_path(@machine, occupation_id: @occupation.id) %>
+    <%= link_to "使用機器の追加", new_occupation_machine_path(occupation_id: @occupation.id) %>
   <% end %>
   <% else %>
+  未登録
   <% if @occupation == current_user.occupation %>
     <%= link_to "新規登録", new_occupation_machine_path(@machine, occupation_id: @occupation.id) %>
   <% end %>
@@ -97,7 +98,6 @@
 
         <% else %>
         <p>所属しているユーザーがいません</p>
-        <%= link_to user.nickname, user_path(user) %>
       <% end %>
 
       <% if current_user.occupation == @occupation %>
@@ -108,11 +108,11 @@
       <div class = "headline">
         登録している撮影法
       </div>
+            <% if @occupation.conditions.present? %>
             <tr>
               <th>部位</th>
               <th>検査目的</th>
             </tr>
-            <% if @occupation.conditions.present? %>
               <% @imgs.each do |imaging| %>
                 <tr>              
                   <td><%= imaging.site.name %></td><br>
@@ -125,6 +125,19 @@
         </table>
       </div>
     </div>
-  <%= link_to 'TOPページ', root_path %>
 </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<% if current_user.id == 1 %>
+  <ul class='lists-right'>
+    <li><%= link_to 'この施設を削除', occupation_path(@occupation), method: :delete, class: "occupation-edit", data: { confirm: '本当に削除しますか？' } %></li>
+  </ul>
+<% end %>

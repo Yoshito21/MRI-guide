@@ -1,6 +1,6 @@
 <div class="pending-memberships">
   <% if @pending_memberships.any? %>
-    <h3>申請が来ています</h3>
+    <div>申請一覧</div>
     <ul>
       <% @pending_memberships.each do |membership| %>
         <% next unless membership.occupation_id == current_user.occupation.id %> <!-- 自施設以外の申請をスキップ -->

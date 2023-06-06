@@ -44,7 +44,7 @@ class OccupationsController < ApplicationController
   end
   
   def destroy
-    if @occupation == current_user.occupation
+    if @occupation == current_user.occupation || current_user.id == 1
       @occupation.conditions.destroy_all
       @occupation.occupation_machines.destroy_all
       # @occupation を参照している users レコードを取得して削除する
@@ -78,10 +78,17 @@ class OccupationsController < ApplicationController
     if current_user.occupation == @occupation
       current_user.update(occupation: nil)
       flash[:success] = '脱退しました。'
+      if @occupation.users.count.zero?
+        @occupation.destroy
+        flash[:notice] = 'Occupationが削除されました。'
+        redirect_to root_path
+      else
+        redirect_to occupation_path(id: @occupation.id)
+      end
     else
       flash[:error] = '脱退に失敗しました。'
+      redirect_to occupation_path(id: @occupation.id)
     end
-    redirect_to occupation_path(id: @occupation.id)
   end
   
   

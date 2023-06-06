@@ -3,7 +3,7 @@ window.addEventListener('load', function () {
 
   contrast.forEach(function(contrast){
     contrast.addEventListener('mouseover',function(){
-      this.setAttribute("style", "background-color:#dbd1d1; color:#252525")
+      this.setAttribute("style", "background-color:#2a2a2a;")
       this.style.cursor = 'default';
     })
     contrast.addEventListener('mouseout',function(){
@@ -12,7 +12,6 @@ window.addEventListener('load', function () {
     contrast.addEventListener('click',function(){
       // 選択されたアイコンの状態をトグル
       this.classList.toggle('selected');
-      console.log(this.classList); // デバッグ用：selectedクラスが付与されているかを確認する
 
       // 削除ボタンを表示する
       const selectedConditions = document.querySelectorAll('.contrast.selected');

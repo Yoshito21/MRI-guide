@@ -5,7 +5,8 @@ class Occupation < ApplicationRecord
     has_many :conditions, dependent: :destroy
     has_many :occupation_memberships, dependent: :destroy
     
-    after_update :destroy_if_no_users
+  before_destroy :destroy_if_no_users
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture1
 
@@ -13,13 +14,6 @@ class Occupation < ApplicationRecord
     validates :prefecture1_id, numericality: {other_than: 0, message: "can't be blank"}
     validates_uniqueness_of :phone_number, format: { with: /\A\d{10,11}\z/ }, length: { maximum: 11 }
 
-  def accept_joccupation_membership(occupation_membership)
-    transaction do
-      occupation_membership.update(status: 'accepted')
-      user = occupation_membership.user
-      user.update(occupation: self)
-    end
-  end
 
   def self.search_by_name(name)
     where('name LIKE ?', "%#{name}%")

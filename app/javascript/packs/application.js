@@ -7,10 +7,11 @@ require("@rails/ujs").start()
 // require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require("../header")
 require("../checkbox")
 //require("../occupations")
 require("../side_bar")
-//require("../search_result")
+require("../search_result")
 require("bootstrap");
 
 // Uncomment to copy all static images under ../images to the output folder and reference
