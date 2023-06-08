@@ -1,21 +1,21 @@
 <div class="header_name">
   <div class='item-contents' id="detailed-search-result-wrapper">
-  <br>
-  <% unless devise_controller? || (controller_name == 'occupations' && (action_name == 'index' || action_name == 'search' )) %>
-    <div class="side-headline">検索</div>
-      <%= search_form_for @q, url: search_imagings_path, remote: true, html: {id: "detailed-search-form"} do |f| %>
+    <br>
+    <% unless devise_controller? || (controller_name == 'occupations' && (action_name == 'index' || action_name == 'search')) || (controller_name == 'imagings' && action_name == 'search') %>
+      <div class="side-headline">検索</div>
+      <%= search_form_for @q, url: search_imagings_path, remote: true, html: { id: "detailed-search-form" } do |f| %>
         <div class="search-field">
           <%= f.label :site_id_eq, '部位' %>
           <br>
-          <%= f.collection_select(:site_id_eq, Site.all, :id, :name, {include_blank: "---"}, class: "search-site", id: "search-site") %>
+          <%= f.collection_select(:site_id_eq, Site.all, :id, :name, { include_blank: "---" }, class: "search-site", id: "search-site") %>
         </div>
-          <br>
+        <br>
         <div class="search-field">
           <%= f.label :purpose_cont, '検査目的' %>
           <br>
           <%= f.text_field :purpose_cont, placeholder: '', value: params[:q]&.dig(:purpose_cont), class: "search-purpose", id: "search-purpose" %>
         </div>
-          <br>
+        <br>
         <%= f.submit '検索', class: "search-button1" %>
       <% end %>
 
@@ -23,9 +23,9 @@
         <% @imagings.each do |imaging| %>
           <li class='list'>
             <div class="posted-content">
-              <%= imaging.site.name%><br>
+              <%= imaging.site.name %><br>
               <% if current_user.occupation.present? %>
-                <%= link_to imaging.purpose, imaging_path(imaging, occupation_id: current_user.occupation.id ), class: "search-result" %><br><br>
+                <%= link_to imaging.purpose, imaging_path(imaging, occupation_id: current_user.occupation.id), class: "search-result" %><br><br>
               <% else %>
                 <%= link_to imaging.purpose, imaging_path(imaging), class: "search-result" %><br><br>
               <% end %>
@@ -34,16 +34,13 @@
         <% end %>
       </ul>
 
-      <div class = "side-register">
+      <div class="side-register">
         <% if current_user.occupation.present? %>
           <div class="side-registration">
             <%= link_to '新規登録', new_imaging_path(q: @q), id: "imaging-register", class: "registration-text" %>
           </div>
         <% end %>
-        </div>
       </div>
-    <% else %>
-
     <% end %>
   </div>
 </div>

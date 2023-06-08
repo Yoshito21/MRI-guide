@@ -12,6 +12,7 @@
           <% end %>
         <div class="menu-icon">
         <div class="menu">
+          <li><%= link_to '信号値で検索', search_imagings_path, method: :get, class: "contrast-search" %></li>
           <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></li>
         </div>
         </div>

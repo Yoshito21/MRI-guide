@@ -1,1 +1,4 @@
-<div class="contents-all">
+<% if current_user.id == 1 %>
+  <%= link_to '施設検索', occupations_path %>
+<% end %>
+index

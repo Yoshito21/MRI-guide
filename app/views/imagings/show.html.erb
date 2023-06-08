@@ -72,7 +72,7 @@
   <% if @occupation == current_user.occupation %>
     <%= render "checkbox" %><br>
   <% else %>
-    <%= render "imaging" %><br>
+    <%= render "other" %><br>
   <% end %>
 
   <div class="headline">
@@ -94,8 +94,5 @@
     <%= link_to '自施設の撮影法', imaging_path(@imaging, occupation_id: current_user.occupation.id)%>
   <% end %>
 </div>
-
-  <%= render partial: "search_results", locals: { search_imagings: @search_imagings } %>
-
 
 </div>

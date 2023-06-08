@@ -17,9 +17,13 @@ class Imaging < ApplicationRecord
   end
   
   def self.search_by_heights_middles_lows(height_ids, middle_ids, low_ids)
-    includes(:heights, :middles, :lows)
-      .where(heights: { id: height_ids })
-      .where(middles: { id: middle_ids })
-      .where(lows: { id: low_ids })
+    if height_ids.present? || middle_ids.present? || low_ids.present?
+      joins(:heights, :middles, :lows)
+        .where(imaging_heights: { height_id: height_ids })
+        .where(imaging_middles: { middle_id: middle_ids })
+        .where(imaging_lows: { low_id: low_ids })
+    else
+      includes(:heights, :middles, :lows)
+    end
   end
 end

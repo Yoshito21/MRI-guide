@@ -1,7 +1,12 @@
 class ImagingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_imaging, only: [:edit, :update, :destroy]
-  before_action :set_search, only: [:new, :edit]
+  before_action :set_imaging, only: [:index, :edit, :update, :destroy]
+  before_action :set_search, only: [:index, :new, :edit]
+  skip_before_action :set_search_query, only: [:search]
+
+  def index
+    @occupation = current_user.occupation
+  end
   
   def new  
     if current_user.occupation.id == 2
@@ -31,7 +36,6 @@ class ImagingsController < ApplicationController
     @occupation = Occupation.find_by(id: @occupation_id) || Occupation.find_by(name: "未登録")
     @occupations = Occupation.includes(:conditions).where(conditions: {imaging_id: @imaging.id}) || Occupation.find_by(name: "未登録")
 
-    set_search_contrast
   end
 
   def edit
@@ -63,18 +67,26 @@ class ImagingsController < ApplicationController
   end
 
   def search
-    if params[:q]&.dig(:purpose_cont)
-      squished_keywords = params[:q][:purpose_cont].squish
-      params[:q][:purpose_cont_cont_any] = squished_keywords.split(" ")
+    @occupation_id = params[:occupation_id]
+    @occupation = current_user.occupation
+    @search_occupation = Occupation.find_by(id: @occupation_id)
+    @heights = Height.all
+    @middles = Middle.all
+    @lows = Low.all
+
+    height_ids = params[:height_ids]&.split(',') || []
+    middle_ids = params[:middle_ids]&.split(',') || []
+    low_ids = params[:low_ids]&.split(',') || []
+
+    @search_imagings = Imaging.search_by_heights_middles_lows(height_ids, middle_ids, low_ids).distinct
+  
+    if height_ids.present? || middle_ids.present? || low_ids.present?
+      @search_imagings = @search_imagings.distinct
     end
-    @q = Imaging.ransack(params[:q])
-    session[:search_params] = params[:q]
-    @imagings = @q.result(distinct: true).limit(10)
-    @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
     
     respond_to do |format|
+      format.json { render json: @search_imagings }
       format.html
-      format.json { render json: @imagings }
     end
   end
 
@@ -101,25 +113,6 @@ class ImagingsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @imagings }
-    end
-  end
-
-  def set_search_contrast
-    @occupation_id = params[:occupation_id]
-    @search_occupation = Occupation.find_by(id: @occupation_id)
-    @heights = Height.all
-    @middles = Middle.all
-    @lows = Low.all
-
-    height_ids = params[:height_ids]&.split(',') || []
-    middle_ids = params[:middle_ids]&.split(',') || []
-    low_ids = params[:low_ids]&.split(',') || []
-
-    @search_imagings = Imaging.search_by_heights_middles_lows(height_ids, middle_ids, low_ids)
-
-    respond_to do |format|
-      format.html
-      format.js { render 'imagings.js.erb' }
     end
   end
 end
