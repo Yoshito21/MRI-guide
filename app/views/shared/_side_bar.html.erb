@@ -3,7 +3,7 @@
     <br>
     <% unless devise_controller? || (controller_name == 'occupations' && (action_name == 'index' || action_name == 'search')) || (controller_name == 'imagings' && action_name == 'search') %>
       <div class="side-headline">検索</div>
-      <%= search_form_for @q, url: search_imagings_path, remote: true, html: { id: "detailed-search-form" } do |f| %>
+      <%= search_form_for @q, url: imagings_path, remote: true, html: { id: "detailed-search-form" } do |f| %>
         <div class="search-field">
           <%= f.label :site_id_eq, '部位' %>
           <br>

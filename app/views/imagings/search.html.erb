@@ -5,7 +5,6 @@
     <div class="signal">
       <tr>
         <td><div class = "signal-headline">高信号</div></td>
-        <td><div class = "signal-headline">等信号</div></td>
         <td><div class = "signal-headline">低信号</div></td>
       </tr>
         
@@ -15,14 +14,6 @@
             <div class="signal-contrasts">
               <%= form.check_box :height_ids, { multiple: true, style: 'display: none;' }, height.id, nil %>
               <%= height.name %>
-            </div>
-          <% end %>
-        </td>
-        <td>
-          <% @middles.each do |middle| %>
-            <div class="signal-contrasts">
-              <%= form.check_box :middle_ids, { multiple: true, style: 'display: none;' }, middle.id, nil %>
-              <%= middle.name %>
             </div>
           <% end %>
         </td>

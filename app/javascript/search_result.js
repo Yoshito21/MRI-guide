@@ -32,14 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchResults = document.querySelector('#search-contrast-results');
     searchResults.innerHTML = '';
 
-    const formData = new FormData(contrastSearchForm);
-    const heightIds = Array.from(formData.getAll('height_ids[]')).filter(Boolean);
-    const middleIds = Array.from(formData.getAll('middle_ids[]')).filter(Boolean);
-    const lowIds = Array.from(formData.getAll('low_ids[]')).filter(Boolean);
+    const heightIds = Array.from(contrastSearchForm.querySelectorAll('input[name="height_ids[]"]:checked')).map(input => input.value);
+    const lowIds = Array.from(contrastSearchForm.querySelectorAll('input[name="low_ids[]"]:checked')).map(input => input.value);
 
     const params = {
       height_ids: heightIds,
-      middle_ids: middleIds,
       low_ids: lowIds
     };
 

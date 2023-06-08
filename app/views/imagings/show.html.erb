@@ -29,12 +29,6 @@
             <% end %>
           </tr>
           <tr>
-            <td class = "signal-table">等信号</td>
-            <% @imaging.middles.each do |middle| %>
-              <td class = "signal-table"><%= middle.name %></td>
-            <% end %>
-          </tr>
-          <tr>
             <td class = "signal-table">低信号</td>
             <% @imaging.lows.each do |low| %>
               <td class = "signal-table"><%= low.name %></td>

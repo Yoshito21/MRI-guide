@@ -1,7 +1,7 @@
 class ImagingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_imaging, only: [:index, :edit, :update, :destroy]
-  before_action :set_search, only: [:index, :new, :edit]
+  before_action :set_imaging, only: [:edit, :update, :destroy]
+  before_action :set_search, only: [:new, :edit]
   skip_before_action :set_search_query, only: [:search]
 
   def index
@@ -49,10 +49,8 @@ class ImagingsController < ApplicationController
   def update
     @occupation = current_user.occupation
     height_ids = params[:imaging][:height_ids] || [] 
-    middle_ids = params[:imaging][:middle_ids] || [] 
     low_ids = params[:imaging][:low_ids] || [] 
     @imaging.height_ids = params[:imaging][:height_ids]
-    @imaging.middle_ids = params[:imaging][:middle_ids]
     @imaging.low_ids = params[:imaging][:low_ids]
     if @imaging.update(imaging_params)
       redirect_to imaging_path(@imaging, occupation_id: current_user.occupation.id)
@@ -71,16 +69,14 @@ class ImagingsController < ApplicationController
     @occupation = current_user.occupation
     @search_occupation = Occupation.find_by(id: @occupation_id)
     @heights = Height.all
-    @middles = Middle.all
     @lows = Low.all
 
     height_ids = params[:height_ids]&.split(',') || []
-    middle_ids = params[:middle_ids]&.split(',') || []
     low_ids = params[:low_ids]&.split(',') || []
 
-    @search_imagings = Imaging.search_by_heights_middles_lows(height_ids, middle_ids, low_ids).distinct
+    @search_imagings = Imaging.search_by_heights_lows(height_ids, low_ids).distinct
   
-    if height_ids.present? || middle_ids.present? || low_ids.present?
+    if height_ids.present? || low_ids.present?
       @search_imagings = @search_imagings.distinct
     end
     

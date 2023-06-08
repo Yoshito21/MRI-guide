@@ -6,15 +6,19 @@
 require("@rails/ujs").start()
 // require("turbolinks").start()
 require("@rails/activestorage").start()
-require("channels")
-require("../header")
-require("../checkbox")
-//require("../occupations")
-require("../side_bar")
-require("../search_result")
-//require("../search")
+require("channels");
 require("bootstrap");
+require("../header");
+require("../checkbox");
 
+const controller = document.documentElement.getAttribute("data-controller");
+const action = document.documentElement.getAttribute("data-action");
+
+if (controller === "imagings" && action === "search") {
+  require("../search_result");
+} else {
+  require("../side_bar");
+}
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
