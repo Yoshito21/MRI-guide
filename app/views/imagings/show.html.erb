@@ -2,8 +2,9 @@
 <div class="imaging-all">
   <div class="imaging-main">
     <div class="headline">
-      <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path(@imaging) %>
+      検査目的
     </div>
+      <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path(@imaging) %>
     <div class="imaging-table">
       <div class="imaging-headline">
         <table border = "2" bordercolor = "#f0e4e4" >
@@ -72,6 +73,7 @@
   <div class="headline">
   他施設の撮影法を見る
   </div>
+
   <% if current_user.occupation.present? %>
     <% @occupations.where.not(id: [current_user.occupation.id, @occupation.id]).each do |occupation| %>
       <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
@@ -89,4 +91,8 @@
   <% end %>
 </div>
 
+  <div class="headline">
+  施設検索
+  </div>
+  <%= render "occupations/search_form" %><br>
 </div>

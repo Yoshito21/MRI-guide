@@ -8,14 +8,22 @@
           <% if current_user.occupation.present? %>
             <li><%= link_to current_user.occupation.name, occupation_path(current_user.occupation.id), class: "header-occupation" %></li>
           <% else %>
-            <li><%= link_to '所属施設登録', occupations_path %></li>
+            <li><%= link_to '所属施設登録', occupations_path, class: "header-occupation" %></li>
           <% end %>
         <div class="menu-icon">
-        <div class="menu">
-          <li><%= link_to '信号値で検索', search_imagings_path, method: :get, class: "contrast-search" %></li>
-          <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></li>
+          <div class="menu">
+            <li><%= button_to search_imagings_path, method: :get, class: "header-dropdown", form_class: "link-button" do %>
+              信号値で検索
+            <% end %></li>
+            <li><%= button_to occupations_path, method: :get, class: "header-dropdown", form_class: "link-button" do %>
+              施設検索
+            <% end %></li>
+            <li><%= button_to destroy_user_session_path, method: :delete, class: "header-dropdown", form_class: "link-button" do %>
+              ログアウト
+            <% end %></li>
+          </div>
         </div>
-        </div>
+
       </div>
     <% else %>
       <div class = "devise-header">

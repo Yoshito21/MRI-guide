@@ -1,4 +1,6 @@
-<%= form_with(url: imaging_path(@imaging, occupation_id: @occupation.id), method: :get, html: {id: "contrast-search-form"}) do |form| %>
+<%= form_with(url: imaging_path(@imaging, occupation_id: @occupation.id), method: :get, html: {id: "contrast-search-form"}) do |f| %>
+<%= render 'shared/error_messages', model: f.object %>
+
   <div class="headline">信号値から探す</div>
 
   <table border="2" bordercolor="#f0e4e4" height="70" >
@@ -12,7 +14,7 @@
         <td>
           <% @heights.each do |height| %>
             <div class="signal-contrasts">
-              <%= form.check_box :height_ids, { multiple: true, style: 'display: none;' }, height.id, nil %>
+              <%= f.check_box :height_ids, { multiple: true, style: 'display: none;' }, height.id, nil %>
               <%= height.name %>
             </div>
           <% end %>
@@ -20,7 +22,7 @@
         <td>
           <% @lows.each do |low| %>
             <div class="signal-contrasts">
-              <%= form.check_box :low_ids, { multiple: true, style: 'display: none;' }, low.id, nil %>
+              <%= f.check_box :low_ids, { multiple: true, style: 'display: none;' }, low.id, nil %>
               <%= low.name %>
             </div>
           <% end %>
@@ -28,7 +30,7 @@
       </tr>
     </div>
   </table>
-  <%= form.submit "検索", id: "search-submit_btn", class: "search-contrast-btn", style: "display:none;" %>
+  <%= f.submit "検索", id: "search-submit_btn", class: "search-contrast-btn", style: "display:none;" %>
 <% end %>
 
 <br>

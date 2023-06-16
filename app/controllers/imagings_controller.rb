@@ -5,7 +5,7 @@ class ImagingsController < ApplicationController
   skip_before_action :set_search_query, only: [:search]
 
   def index
-    @occupation = current_user.occupation
+    @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
   end
   
   def new  
@@ -19,6 +19,7 @@ class ImagingsController < ApplicationController
   
 
   def create
+    @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
     @imaging = Imaging.new(imaging_params)
     if @imaging.save
     flash[:success] = "新規登録が完了しました。"
@@ -66,7 +67,7 @@ class ImagingsController < ApplicationController
 
   def search
     @occupation_id = params[:occupation_id]
-    @occupation = current_user.occupation
+    @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
     @search_occupation = Occupation.find_by(id: @occupation_id)
     @heights = Height.all
     @lows = Low.all

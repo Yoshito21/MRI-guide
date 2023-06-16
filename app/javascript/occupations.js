@@ -14,13 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
           'X-CSRF-Token': csrfToken // リクエストヘッダーにCSRFトークンを含める
         }
       })
-        .then((response) => response.text())
-        .then((html) => {
-          searchResults.innerHTML = html;
-        })
-        .catch((error) => {
-          console.error(error);
+      .then(response => response.json())
+      .then(data => {
+        const results = data;
+        searchResults.innerHTML = "";
+  
+        results.forEach(result => {
+          if (result.id !== 1 && result.id !== 2) {            
+            const childElement = document.createElement("div");
+            const linkElement = document.createElement("a");
+            linkElement.href = '/occupations/' + result.id;
+            linkElement.textContent = result.name; // リンクのテキストを設定
+            childElement.appendChild(linkElement);
+            searchResults.appendChild(childElement);
+          };
         });
+      })
     });
   });
   

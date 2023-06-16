@@ -9,7 +9,9 @@ require("@rails/activestorage").start()
 require("channels");
 require("bootstrap");
 require("../header");
+require("../style");
 require("../checkbox");
+require("../occupations");
 
 const controller = document.documentElement.getAttribute("data-controller");
 const action = document.documentElement.getAttribute("data-action");

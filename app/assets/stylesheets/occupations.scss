@@ -18,3 +18,23 @@
     color: white;
   }
   
+  .search-occupation-btn{    
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    background-color: #252525;
+    border: 2px solid;
+    border-top-color: #5b5b5b;
+    border-right-color: #000000;
+    border-bottom-color: #000000;
+    border-left-color: #5b5b5b;
+    border-radius: 3px;
+    text-align: center;
+    padding-top: 6px;
+    margin: 30px 25px;
+}
+
+.search-occupation-btn:hover{
+    color: #f1ef6a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)
+}

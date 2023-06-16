@@ -89,9 +89,14 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)
 }
 
+.contrast-field{
+    text-align: center;
+    margin: 20px;
+}
+
 .contrast{
-    width: 60px;
     border: none;
-    border-radius:40%;
-    margin: 4px 20px;
+    border-radius:20%;
+    margin: 4px 0;
+    text-align: center;
 }

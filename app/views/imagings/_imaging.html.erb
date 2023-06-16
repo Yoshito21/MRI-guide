@@ -1,4 +1,4 @@
 <div class="imaging-item">
   <%= imaging.site.name %><br>
-  <%= link_to imaging.purpose, imaging_path(imaging, occupation_id: current_user.occupation.id) %><br><br>
+  <%= link_to imaging.purpose, imaging_path(imaging, occupation_id: @occupation.id) %><br><br>
 </div>

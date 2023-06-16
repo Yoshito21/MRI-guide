@@ -7,12 +7,16 @@ class User < ApplicationRecord
   belongs_to :occupation, optional: true
   has_many :occupation_memberships, dependent: :destroy
 
+  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
+  validates :password, format: { with: VALID_PASSWORD_REGEX }
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture2
   
   with_options presence: true do
     validates :nickname
-    validates :prefecture2_id, numericality: {other_than: 0, message: "can't be blank"}
+    validates :prefecture2_id
 
   end
 end

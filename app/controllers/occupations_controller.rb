@@ -1,6 +1,7 @@
 class OccupationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_occupation, only: [:show, :edit, :update, :destroy]
+  skip_before_action :set_search_query, only: [:search]
 
   def index
     @occupation = Occupation.all
@@ -70,6 +71,11 @@ class OccupationsController < ApplicationController
     @occupations = @occupations.where(prefecture1_id: prefecture1_id) if prefecture1_id.present?
     @occupations = @occupations.where(phone_number: phone_number) if phone_number.present?
     @occupations = @occupations.where("name LIKE ?", "%#{name}%") if name.present?
+    
+    respond_to do |format|
+      format.json { render json: @occupations }
+      format.html
+    end
   end
 
   def leave

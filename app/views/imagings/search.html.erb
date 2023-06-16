@@ -1,18 +1,22 @@
-<%= form_with(url: search_imagings_path, method: :get, html: {id: "contrast-search-form"}) do |form| %>
+<script>
+  const occupationId = <%= @occupation&.id || '' %>;
+</script>
+
+<%= form_with(url: search_imagings_path, method: :get, html: { id: "contrast-search-form" }) do |f| %>
   <div class="headline">信号値から探す</div>
 
-  <table border="2" bordercolor="#f0e4e4" height="70" >
+  <table border="2" bordercolor="#f0e4e4" height="70">
     <div class="signal">
       <tr>
-        <td><div class = "signal-headline">高信号</div></td>
-        <td><div class = "signal-headline">低信号</div></td>
+        <td><div class="signal-headline">高信号</div></td>
+        <td><div class="signal-headline">低信号</div></td>
       </tr>
         
       <tr>
         <td>
           <% @heights.each do |height| %>
             <div class="signal-contrasts">
-              <%= form.check_box :height_ids, { multiple: true, style: 'display: none;' }, height.id, nil %>
+              <%= f.check_box :height_ids, { multiple: true, style: 'display: none;', onchange: 'performSearch();' }, height.id, nil %>
               <%= height.name %>
             </div>
           <% end %>
@@ -20,7 +24,7 @@
         <td>
           <% @lows.each do |low| %>
             <div class="signal-contrasts">
-              <%= form.check_box :low_ids, { multiple: true, style: 'display: none;' }, low.id, nil %>
+              <%= f.check_box :low_ids, { multiple: true, style: 'display: none;', onchange: 'performSearch();' }, low.id, nil %>
               <%= low.name %>
             </div>
           <% end %>
@@ -28,8 +32,9 @@
       </tr>
     </div>
   </table>
-  <%= form.submit "検索", id: "search-submit_btn", class: "search-contrast-btn", style: 'display: none;' %>
+  <%= f.submit "検索", id: "search-submit-btn", class: "search-contrast-btn", style: 'display: none;' %>
 <% end %>
+
 
 <br>
 <div id="search-results">

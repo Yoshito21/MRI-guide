@@ -1,5 +1,7 @@
 使用機器登録
 <%= form_with model: [@occupation, @machine], class: 'registration-main', local: true do |f| %>
+<%= render 'shared/error_messages', model: f.object %>
+
 <%= f.hidden_field :occupation_id, value: @occupation.id %>
   <br><br><div class='form-wrap'>
     <div class="form-group">

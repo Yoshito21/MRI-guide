@@ -15,7 +15,15 @@ class Imaging < ApplicationRecord
     validates :site_id
     validates :purpose
   end
-  
+
+  validate :unique_site_id_with_same_purpose
+
+  def unique_site_id_with_same_purpose
+    if self.class.exists?(site_id: site_id, purpose: purpose)
+      errors.add(:site_id, "has already been taken with the same purpose")
+    end
+  end
+
   def self.search_by_heights_lows(height_ids, low_ids)
     if height_ids.present? || low_ids.present?
       joins(:heights, :lows)

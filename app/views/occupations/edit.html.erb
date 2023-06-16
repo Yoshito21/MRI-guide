@@ -1,5 +1,7 @@
 <div class="contents-all">
 <%= form_with model: @occupation, class: 'registration-main', local: true do |f| %>
+<%= render 'shared/error_messages', model: f.object %>
+
 <div class='form-wrap'>
   <div class='form-header'>
     <div class='headline'>

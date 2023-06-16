@@ -1,5 +1,7 @@
 
 <%= form_with model: @imaging, local: true do |f|%>
+<%= render 'shared/error_messages', model: f.object %>
+
   <div class="field">
     <%= f.label :site_id, '部位' %><br>
     <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}, class: "imaging-form") %>
@@ -26,19 +28,23 @@
   </div>
 
 <div class="signal">
-  <div class="field">
+  <div class="contrast-field">
   <%= f.label :height_ids, "高信号" %><br>
     <% Height.all.each do |height| %>
+    <div class ="contrast">
       <%= check_box_tag "imaging[height_ids][]", height.id, @imaging.height_ids.include?(height.id), id: "height_ids_#{height.id}", class: @imaging.height_ids.include?(height.id) ? 'selected' : '', style: 'display: none;' %>
-      <%= label_tag "height_ids_#{height.id}", height.name, class: "contrast" %><br>
+      <%= label_tag "height_ids_#{height.id}", height.name %><br>
+  </div>
     <% end %>
   </div>
 
-  <div class="field">
+  <div class="contrast-field">
   <%= f.label :low_ids, "低信号" %><br>
     <% Low.all.each do |low| %>
+    <div class ="contrast">
       <%= check_box_tag "imaging[low_ids][]", low.id, @imaging.low_ids.include?(low.id), id: "low_ids_#{low.id}", class: @imaging.low_ids.include?(low.id) ? 'selected' : '', style: 'display: none;' %>
-      <%= label_tag "low_ids_#{low.id}", low.name, class: "contrast" %><br>
+      <%= label_tag "low_ids_#{low.id}", low.name %><br>
+  </div>
     <% end %>
   </div>
 </div>
