@@ -1,57 +1,55 @@
 
 <%= form_with model: @imaging, local: true do |f|%>
+<%= render 'shared/error_messages', model: f.object %>
+
   <div class="field">
     <%= f.label :site_id, '部位' %><br>
-    <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}) %>
+    <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}, class: "imaging-form") %>
     </div>
     
   <div class="field">
     <%= f.label :purpose, "検査目的" %><br />
-    <%= f.text_field :purpose, id:"imaging_purpose" %>
+    <%= f.text_field :purpose, id:"imaging_purpose", class: "imaging-form" %>
   </div>
 
   <div class="field">
-    <%= f.label :indentification, "鑑別のポイント" %><br />
-    <%= f.text_area :indentification, class: :form__text, id:"indentification" %>
+    <%= f.label :indentification, "画像所見" %><br />
+    <%= f.text_area :indentification, class: :form__text, id:"indentification", class: "imaging-text" %>
   </div>
 
   <div class="field">
     <%= f.label :symptoms, "症状" %><br />
-    <%= f.text_area :symptoms, class: :form__text, id:"symptoms" %>
+    <%= f.text_area :symptoms, class: :form__text, id:"symptoms", class: "imaging-text" %>
   </div>
 
   <div class="field">
     <%= f.label :treatment, "治療法" %><br />
-    <%= f.text_area :treatment, class: :form__text, id:"treatment" %>
+    <%= f.text_area :treatment, class: :form__text, id:"treatment", class: "imaging-text" %>
   </div>
 
 <div class="signal">
-  <div class="field">
+  <div class="contrast-field">
   <%= f.label :height_ids, "高信号" %><br>
     <% Height.all.each do |height| %>
-      <%= check_box_tag "imaging[height_ids][]", height.id, @imaging.height_ids.include?(height.id), id: "height_ids_#{height.id}", class: @imaging.height_ids.include?(height.id) ? 'selected' : '' %>
-      <%= label_tag "height_ids_#{height.id}", height.name, class: "contrast" %><br>
+    <div class ="contrast">
+      <%= check_box_tag "imaging[height_ids][]", height.id, @imaging.height_ids.include?(height.id), id: "height_ids_#{height.id}", class: @imaging.height_ids.include?(height.id) ? 'selected' : '', style: 'display: none;' %>
+      <%= label_tag "height_ids_#{height.id}", height.name %><br>
+  </div>
     <% end %>
   </div>
 
-  <div class="field">
-  <%= f.label :middle_ids, "等信号" %><br>
-    <% Middle.all.each do |middle| %>
-      <%= check_box_tag "imaging[middle_ids][]", middle.id, @imaging.middle_ids.include?(middle.id), id: "middle_ids_#{middle.id}", class: @imaging.middle_ids.include?(middle.id) ? 'selected' : '' %>
-      <%= label_tag "middle_ids_#{middle.id}", middle.name, class: "contrast" %><br>
-    <% end %>
-  </div>
-
-  <div class="field">
+  <div class="contrast-field">
   <%= f.label :low_ids, "低信号" %><br>
     <% Low.all.each do |low| %>
-      <%= check_box_tag "imaging[low_ids][]", low.id, @imaging.low_ids.include?(low.id), id: "low_ids_#{low.id}", class: @imaging.low_ids.include?(low.id) ? 'selected' : '' %>
-      <%= label_tag "low_ids_#{low.id}", low.name, class: "contrast" %><br>
+    <div class ="contrast">
+      <%= check_box_tag "imaging[low_ids][]", low.id, @imaging.low_ids.include?(low.id), id: "low_ids_#{low.id}", class: @imaging.low_ids.include?(low.id) ? 'selected' : '', style: 'display: none;' %>
+      <%= label_tag "low_ids_#{low.id}", low.name %><br>
+  </div>
     <% end %>
   </div>
 </div>
 
   <div class="actions">
-    <%= f.submit "保存する", class: :form__btn  %>
+    <%= f.submit "保存する", class: :form__condition %>
   </div>
 <% end %>

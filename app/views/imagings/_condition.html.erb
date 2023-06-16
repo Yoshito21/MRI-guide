@@ -1,4 +1,6 @@
-<%= form_with(model: [@imaging, @condition], url: imaging_conditions_path(@imaging), method: :post, remote: true) do |form| %>
+<%= form_with(model: [@imaging, @condition], url: imaging_conditions_path(@imaging), method: :post, remote: true) do |f| %>
+<%= render 'shared/error_messages', model: f.object %>
+
   <% @occupation.conditions.enhance.each do |ec| %>
     <div class="enhance-contrast">
       <h4><%= ec.enhance.name %></h4>
@@ -44,5 +46,5 @@
     </div>
   <% end %>
 
-  <%= form.submit "登録", class: "btn btn-primary", id: "register-button", style: "display:none;" %>
+  <%= f.submit "登録", class: "btn btn-primary", id: "register-button", style: "display:none;" %>
 <% end %>

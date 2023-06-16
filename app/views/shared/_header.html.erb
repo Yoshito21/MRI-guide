@@ -1,21 +1,35 @@
 <header class='top-page-header'>
   <div class='nav'>
     <% if user_signed_in? %>
+        <%= link_to "MRI guide", root_path(id: current_user.id), class: "header-title" %>
       <ul class='lists-header'>
-        <li><%= link_to "MRI guide", root_path(id: current_user.id), class: "header-title" %></li>
         <div class="header-user">
           <li><%= link_to current_user.nickname, user_path(id: current_user.id), class: "header-nickname" %></li>
           <% if current_user.occupation.present? %>
             <li><%= link_to current_user.occupation.name, occupation_path(current_user.occupation.id), class: "header-occupation" %></li>
           <% else %>
-            <li><%= link_to '所属施設登録', occupations_path %></li>
+            <li><%= link_to '所属施設登録', occupations_path, class: "header-occupation" %></li>
           <% end %>
-          <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></li>
+        <div class="menu-icon">
+          <div class="menu">
+            <li><%= button_to search_imagings_path, method: :get, class: "header-dropdown", form_class: "link-button" do %>
+              信号値で検索
+            <% end %></li>
+            <li><%= button_to occupations_path, method: :get, class: "header-dropdown", form_class: "link-button" do %>
+              施設検索
+            <% end %></li>
+            <li><%= button_to destroy_user_session_path, method: :delete, class: "header-dropdown", form_class: "link-button" do %>
+              ログアウト
+            <% end %></li>
+          </div>
         </div>
-      </ul>
+
+      </div>
     <% else %>
       <div class = "devise-header">
-        <%= link_to "MRI guide", root_path, class: "devise-title" %>
+        <div class= "devise-title">
+        MRI guide
+      </div>
       </div>
     <% end %>
   </div>

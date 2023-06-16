@@ -7,8 +7,8 @@ class OccupationMembership < ApplicationRecord
   validate :check_duplicate_membership, unless: :rejected?
 
   def check_duplicate_membership
-    if self.class.exists?(user_id: user_id, occupation_id: occupation_id, status: ['pending', 'approved'])
-      errors.add(:user_id, 'は既に申請済みです。')
+    if self.class.exists?(user_id: user_id, occupation_id: occupation_id, status: 'pending')
+      errors.add(:user_id, 'は既に申請済みです。') unless status == 'accepted'
     end
   end
 

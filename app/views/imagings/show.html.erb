@@ -1,8 +1,10 @@
+<%= @occupation.name %>
 <div class="imaging-all">
   <div class="imaging-main">
     <div class="headline">
-      <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path(@imaging) %>
+      検査目的
     </div>
+      <%= link_to "#{@imaging.site.name} #{@imaging.purpose}", edit_imaging_path(@imaging) %>
     <div class="imaging-table">
       <div class="imaging-headline">
         <table border = "2" bordercolor = "#f0e4e4" >
@@ -15,7 +17,7 @@
             <td><%= @imaging.treatment %></td>
           </tr>
           <tr>
-            <td>撮像のポイント</td>
+            <td>画像所見</td>
             <td><%= @imaging.indentification %></td>
           </tr>
         </table>
@@ -25,12 +27,6 @@
             <td class = "signal-table">高信号</td>
             <% @imaging.heights.each do |height| %>
               <td class = "signal-table"><%= height.name %></td>
-            <% end %>
-          </tr>
-          <tr>
-            <td class = "signal-table">等信号</td>
-            <% @imaging.middles.each do |middle| %>
-              <td class = "signal-table"><%= middle.name %></td>
             <% end %>
           </tr>
           <tr>
@@ -71,12 +67,13 @@
   <% if @occupation == current_user.occupation %>
     <%= render "checkbox" %><br>
   <% else %>
-    <%= render "imaging" %><br>
+    <%= render "other" %><br>
   <% end %>
 
   <div class="headline">
   他施設の撮影法を見る
   </div>
+
   <% if current_user.occupation.present? %>
     <% @occupations.where.not(id: [current_user.occupation.id, @occupation.id]).each do |occupation| %>
       <%= link_to occupation.name, imaging_path(@imaging, occupation_id: occupation.id) %>
@@ -94,7 +91,8 @@
   <% end %>
 </div>
 
-  <%= render partial: "search_results", locals: { search_imagings: @search_imagings } %>
-
-
+  <div class="headline">
+  施設検索
+  </div>
+  <%= render "occupations/search_form" %><br>
 </div>

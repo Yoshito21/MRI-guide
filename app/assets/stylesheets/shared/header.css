@@ -2,10 +2,6 @@
   box-sizing: border-box;
   color: #f0e4e4;
 }
-body{
-  background-image: linear-gradient(to top, #524c4c, #2a2929);
-  color: #f0e4e4;
-}
 
 .top-page-header {
   width: 100vw;
@@ -18,16 +14,10 @@ body{
   left: 0;
 }
 
-.lists-header a{
-  text-decoration: none;
-  color: #252525;
-}
-
 .lists-header {
   list-style: none;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: right;
   margin-top: 20px;
 }
 
@@ -41,43 +31,102 @@ body{
 
 .devise-title{
   font-size: 24px;
-  color: #252525;
+  color: #787878;
   font-weight: 200;
   padding: 16px 20px;
-  border-radius: 30% 70% 35% 65% / 50%;
-  background-color: #f1ef6a;
+}
+
+.header-title{
+  display: flex;
+  font-size: 24px;
+  font-weight: 200;
+  padding: 12px 20px;
+  margin-left: 40px;
+  color: #787878;
+  position: absolute;
 }
 
 .header-user{
   font-size: 18px;
   font-weight: 200;
   display: flex;
+  flex-flow: column;
+  position: relative;  
   margin-right: 40px;
-  background-color: #f0e4e4;
-  padding: 16px 20px;
-  border-radius: 30% 65% 35% 65% / 50%;
+  text-align: center;
 }
 
-.header-title{
-  font-size: 24px;
-  font-weight: 200;
-  padding: 16px 20px;
-  border-radius: 30% 70% 35% 65% / 50%;
-  background-color: #f1ef6a;
+.header-title:hover{
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  color: #f1ef6a;
 }
 
 .header-nickname{
-  padding: 10px;
-  
+  color: #787878;
+  padding: 10px;  
+}
+
+.header-nickname:hover{
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  color: #f1ef6a;
 }
 
 .header-occupation{
+  color: #787878;
   padding: 10px;
 }
 
-.logout{
-  padding: 10px;
+.header-occupation:hover{
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  color: #f1ef6a;
 }
 
+.header-dropdown{
+  font-size: 16px;
+  background-image: linear-gradient(to bottom, #2f2f2f, #1f1f1f);
+  color: #787878;
+  width: 160px;
+  height:40px;
+}
 
+.header-dropdown:hover{
+  background-image: linear-gradient(to bottom, #3c3c3c, #2a2a2a);
+  color: #f1ef6a;
+}
 
+.menu-icon {
+  width: 40px;
+  height: 4px;
+  background-color: #787878;
+  margin-top: 21px;
+}
+
+.menu {
+  width: 160px;
+  display: none;
+  background-image: linear-gradient(to bottom, #3c3c3c, #2a2a2a);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.menu li {
+  width: 160px;
+  height:40px;
+  padding: 8px 0; 
+  text-align: center;
+}
+
+.menu li:hover {
+  background-image: linear-gradient(to bottom, #272727, #202020);
+  box-shadow: 0 8px 16px rgba(0.2, 0, 0, 0.4);
+  color: #f1ef6a;
+}
+
+.menu-icon:hover .menu {
+  display: block;
+}
+
+.link-button:hover{
+  background-image: linear-gradient(to bottom, #272727, #202020);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  color: #f1ef6a;
+}

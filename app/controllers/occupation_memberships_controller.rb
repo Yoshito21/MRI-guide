@@ -1,5 +1,4 @@
 class OccupationMembershipsController < ApplicationController
-  before_action :set_membership, only: [:accept, :reject]
 
   def index
     @user = User.all
@@ -28,21 +27,18 @@ class OccupationMembershipsController < ApplicationController
   end
 
   def accept
-    @occupation = Occupation.find(params[:occupation_id])
+    @membership = OccupationMembership.find(params[:id])
+    @occupation = @membership.occupation
     @membership.update(status: 'accepted')
     @membership.user.occupation = @occupation
     @membership.user.save
-    redirect_to occupation_occupation_memberships_path, notice: '申請を許可しました。'
+    redirect_to occupation_occupation_memberships_path, notice: '申請を承認しました。'
   end
-
+  
+  
   def reject
+    @membership = OccupationMembership.find(params[:id])
     @membership.rejected!
     redirect_to occupation_occupation_memberships_path, notice: '申請を拒否しました。'
-  end
-
-  private
-
-  def set_membership
-    @membership = OccupationMembership.find(params[:id])
   end
 end

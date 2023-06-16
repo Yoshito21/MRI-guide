@@ -2,8 +2,12 @@ class ImagingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_imaging, only: [:edit, :update, :destroy]
   before_action :set_search, only: [:new, :edit]
-  before_action :set_search_contrast, only: :show
+  skip_before_action :set_search_query, only: [:search]
 
+  def index
+    @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
+  end
+  
   def new  
     if current_user.occupation.id == 2
       redirect_to imaging_path(@imaging)
@@ -15,6 +19,7 @@ class ImagingsController < ApplicationController
   
 
   def create
+    @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
     @imaging = Imaging.new(imaging_params)
     if @imaging.save
     flash[:success] = "新規登録が完了しました。"
@@ -31,6 +36,7 @@ class ImagingsController < ApplicationController
     @condition = @imaging.conditions.build
     @occupation = Occupation.find_by(id: @occupation_id) || Occupation.find_by(name: "未登録")
     @occupations = Occupation.includes(:conditions).where(conditions: {imaging_id: @imaging.id}) || Occupation.find_by(name: "未登録")
+
   end
 
   def edit
@@ -44,10 +50,8 @@ class ImagingsController < ApplicationController
   def update
     @occupation = current_user.occupation
     height_ids = params[:imaging][:height_ids] || [] 
-    middle_ids = params[:imaging][:middle_ids] || [] 
-    height_ids = params[:imaging][:low_ids] || [] 
+    low_ids = params[:imaging][:low_ids] || [] 
     @imaging.height_ids = params[:imaging][:height_ids]
-    @imaging.middle_ids = params[:imaging][:middle_ids]
     @imaging.low_ids = params[:imaging][:low_ids]
     if @imaging.update(imaging_params)
       redirect_to imaging_path(@imaging, occupation_id: current_user.occupation.id)
@@ -62,18 +66,24 @@ class ImagingsController < ApplicationController
   end
 
   def search
-    if params[:q]&.dig(:purpose_cont)
-      squished_keywords = params[:q][:purpose_cont].squish
-      params[:q][:purpose_cont_cont_any] = squished_keywords.split(" ")
-    end
-    @q = Imaging.ransack(params[:q])
-    session[:search_params] = params[:q]
-    @imagings = @q.result(distinct: true).limit(10)
+    @occupation_id = params[:occupation_id]
     @occupation = current_user.occupation || Occupation.find_by(name: "未登録")
+    @search_occupation = Occupation.find_by(id: @occupation_id)
+    @heights = Height.all
+    @lows = Low.all
+
+    height_ids = params[:height_ids]&.split(',') || []
+    low_ids = params[:low_ids]&.split(',') || []
+
+    @search_imagings = Imaging.search_by_heights_lows(height_ids, low_ids).distinct
+  
+    if height_ids.present? || low_ids.present?
+      @search_imagings = @search_imagings.distinct
+    end
     
     respond_to do |format|
+      format.json { render json: @search_imagings }
       format.html
-      format.json { render json: @imagings }
     end
   end
 
@@ -95,32 +105,11 @@ class ImagingsController < ApplicationController
     session[:search_params] ||= { site_id_eq: nil, purpose_cont: nil }
     session[:search_params].merge!(params[:q]) if params[:q].present?
     @q = Imaging.ransack(session[:search_params])
-    @imagings = @q.result(distinct: true).limit(10)
+    @imagings = @q.result(distinct: true).order(created_at: :desc).limit(5).records
   
     respond_to do |format|
       format.html
       format.json { render json: @imagings }
     end
   end
-
-
-  def set_search_contrast
-    @occupation_id = params[:occupation_id]
-    @search_occupation = Occupation.find_by(id: @occupation_id)
-    @heights = Height.all
-    @middles = Middle.all
-    @lows = Low.all
-
-    height_ids = params[:height_ids] || []
-    middle_ids = params[:middle_ids] || []
-    low_ids = params[:low_ids] || []
-
-    @search_imagings = Imaging.search_by_heights_middles_lows(height_ids, middle_ids, low_ids)
-
-    respond_to do |format|
-      format.html
-      format.js { render 'set_search_contrast.js.erb' } 
-    end
-  end
-
 end

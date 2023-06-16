@@ -1,5 +1,7 @@
 <div class="contents-all">
 <%= form_with model: @occupation, class: 'registration-main', local: true do |f| %>
+<%= render 'shared/error_messages', model: f.object %>
+
 <div class='form-wrap'>
   <div class='form-header'>
     <div class='headline'>
@@ -28,8 +30,8 @@
 
   <div class="form-group">
     <div class='form-text-wrap'>
-      <label class="form-text">所属施設</label>
-      <span>必須</span>
+      <label class="form-text">施設名</label>
+      <span class="indispensable">必須</span>
     </div>
     <%= f.text_area :name, class:"input-default", id:"occupation-name", maxlength:"40" %>
   </div>
@@ -43,7 +45,7 @@
   </div>
 
   <div class='register-btn'>
-    <%= f.submit "編集" ,class:"register-red-btn" %>
+    <%= f.submit "編集" , class: "registration-text" %>
   </div>
 </div>
 <% end %>

@@ -1,0 +1,46 @@
+<%= form_with(url: search_imagings_path(@imaging, occupation_id: params[:occupation_id]), method: :get, html: {id: "contrast-search-form"}) do |f| %>
+<%= render 'shared/error_messages', model: f.object %>
+
+  <div class="headline">信号値から探す</div>
+
+  <table border="2" bordercolor="#f0e4e4" height="70" >
+    <div class="signal">
+      <tr>
+        <td><div class = "signal-headline">高信号</div></td>
+        <td><div class = "signal-headline">低信号</div></td>
+      </tr>
+        
+      <tr>
+        <td>
+          <% @heights.each do |height| %>
+            <div class="signal-contrasts">
+              <%= f.check_box :height_ids, { multiple: true, style: 'display: none;' }, height.id, nil %>
+              <%= height.name %>
+            </div>
+          <% end %>
+        </td>
+        <td>
+          <% @lows.each do |low| %>
+            <div class="signal-contrasts">
+              <%= f.check_box :low_ids, { multiple: true, style: 'display: none;' }, low.id, nil %>
+              <%= low.name %>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    </div>
+  </table>
+  <%= f.submit "検索", id: "search-submit_btn", class: "search-contrast-btn" %>
+<% end %>
+
+<br>
+<div id="search-results">
+  <div class = "headline">Results:</div>
+<div id="search-contrast-results" data-occupation-id="<%= @occupation_id %>">
+    <% search_imagings.each do |imaging| %>
+      <%= imaging.site.name %><br>
+      <%= link_to imaging.purpose, imaging_path(imaging, occupation_id: current_user.occupation.id) %><br><br>
+    <% end %>
+  </div>
+</div>
+<br>

@@ -1,0 +1,4 @@
+<% json_results = @search_imagings.map { |imaging| { id: imaging.id, purpose: imaging.purpose } }.to_json %>
+<script>
+  console.log("Search complete");
+</script>

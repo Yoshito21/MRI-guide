@@ -15,11 +15,22 @@ class Imaging < ApplicationRecord
     validates :site_id
     validates :purpose
   end
-  
-  def self.search_by_heights_middles_lows(height_ids, middle_ids, low_ids)
-    includes(:heights, :middles, :lows)
-      .where(heights: { id: height_ids })
-      .where(middles: { id: middle_ids })
-      .where(lows: { id: low_ids })
+
+  validate :unique_site_id_with_same_purpose
+
+  def unique_site_id_with_same_purpose
+    if self.class.exists?(site_id: site_id, purpose: purpose)
+      errors.add(:site_id, "has already been taken with the same purpose")
+    end
+  end
+
+  def self.search_by_heights_lows(height_ids, low_ids)
+    if height_ids.present? || low_ids.present?
+      joins(:heights, :lows)
+        .where(imaging_heights: { height_id: height_ids })
+        .where(imaging_lows: { low_id: low_ids })
+    else
+      includes(:heights, :lows)
+    end
   end
 end

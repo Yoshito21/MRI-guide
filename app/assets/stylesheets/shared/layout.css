@@ -1,6 +1,8 @@
 body{
   height: calc(100vh - 16px);
   font-size: 16px;
+  background-image: linear-gradient(to top, #524c4c, #2a2929);
+  color: #f0e4e4;
 }
 
 .wrapper{
