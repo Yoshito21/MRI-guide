@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   belongs_to :occupation, optional: true
   has_many :occupation_memberships, dependent: :destroy
+  has_many :contacts, dependent: :destroy
 
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
   validates :password, format: { with: VALID_PASSWORD_REGEX }

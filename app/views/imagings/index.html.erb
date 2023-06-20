@@ -1,7 +1,11 @@
 <% if current_user.id == 1 %>
   <%= link_to '施設検索', occupations_path %>
+  <%= link_to '問い合わせ確認', contacts_path %>
 <% end %>
 index
+<br>
+<br>
+<%= link_to 'お問い合わせ', new_contact_path %>
 <br>
 <br>
 コミュニケーションツール

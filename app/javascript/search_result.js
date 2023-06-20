@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
         checkbox.checked = this.classList.contains('selected');
       }
       
-      performSearch();
+      checkSelectedContrasts(); // 信号値が変更されたときにチェックを実行
     });
   });
 
   function performSearch() {
-    const searchResults = document.querySelector('#search-results'); // ビューファイルのid修正
+    const searchResults = document.querySelector('#search-results');
     searchResults.innerHTML = '';
     
     const heightIds = Array.from(contrastSearchForm.querySelectorAll('input[name="height_ids[]"]:checked')).map(input => input.value);
@@ -73,11 +73,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedHeightContrasts = Array.from(contrastSearchForm.querySelectorAll('input[name="height_ids[]"]:checked')).length;
     const selectedLowContrasts = Array.from(contrastSearchForm.querySelectorAll('input[name="low_ids[]"]:checked')).length;
     
-    if (selectedHeightContrasts === 0 && selectedLowContrasts === 0) {
-      // どの信号値も選択されていない場合は全ての結果を表示
+    if (selectedHeightContrasts > 0 || selectedLowContrasts > 0) {
+      // どちらかの信号値が選択されている場合に検索を実行
       performSearch();
     }
   }
 
-  checkSelectedContrasts(); // 初期表示時に選択された信号値があれば検索を実行
+  // 初期の検索を実行
+  performSearch();
 });

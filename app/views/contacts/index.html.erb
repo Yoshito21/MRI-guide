@@ -1,0 +1,36 @@
+<%= form_tag update_visibility_contacts_path, remote: true, method: :patch, id: "visibility-form" do %>
+  <%= csrf_meta_tags %>
+  
+  <div>
+    <%= check_box_tag "show_completed", 1, @show_completed, id: "show-completed-checkbox" %>
+    <%= label_tag "show-completed-checkbox", "全ての問い合わせを表示" %>
+  </div>
+  <br>
+  <div>問い合わせ一覧</div>
+  <br>
+  <% @contacts.each do |contact| %>
+    <div class="<%= contact.completed.nil? ? 'visible-contact' : 'completed-contact' %>">
+      <%= check_box_tag "contact_ids[]", contact.id, false, id: "contact_id_#{contact.id}" %>
+      <table>
+        <tr>
+          <td>投稿者</td>
+          <td><%= contact.name %></td>
+        </tr>
+        <tr>
+          <td>メールアドレス</td>
+          <td><%= contact.email %></td>
+        </tr>
+        <tr>
+          <td>問い合わせ内容</td>
+          <td><%= contact.message %></td>
+        </tr>
+      </table>
+      <br>
+      <%= link_to contact.user.nickname, user_path(contact.user) %>
+      <%= contact.created_at %>
+      <br>
+    </div>
+  <% end %>
+  
+  <%= submit_tag "対応済みにする", id: "hide-contacts-button", class: "contact-submit" %>
+<% end %>
