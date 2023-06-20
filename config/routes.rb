@@ -31,6 +31,11 @@ Rails.application.routes.draw do
   post '/occupations/search', to: 'occupations#search'
   delete 'occupations/:id/leave', to: 'occupations#leave', as: :leave_occupation
 
+  resources :contacts, only: [:index, :new, :create, :destroy] do
+    patch :update_visibility, on: :collection
+  end
+  get 'contact_thanks', to: 'contacts#thanks', as: 'contact_thanks'
+
   #resources :categories, only: [:index, :new, :create]
   #get '/category/:id', to: 'categories#search'
 end

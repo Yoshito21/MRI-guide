@@ -1,0 +1,32 @@
+<div>お問い合わせフォーム</div>
+<br>
+
+<%= form_with(model: @contact, url: contacts_path, local: true) do |f| %>
+<%= render 'shared/error_messages', model: f.object %>
+<table>
+  <div class="field">
+  <tr>
+  <td><%= f.label :name, "お名前" %></td>
+  <td><%= f.text_field :name, class: "contact-form" %></td>
+  </tr>
+    </div>
+
+  <div class="field">
+  <tr>
+  <td><%= f.label :email, "メールアドレス" %></td>
+  <td><%= f.email_field :email, class: "contact-form" %></td>
+  </tr>
+    </div>
+
+  <div class="field">
+  <tr>
+  <td><%= f.label :message, "お問い合わせ内容" %></td>
+  <td><%= f.text_area :message, class: "contact-text" %></td>
+  </tr>
+    </div>
+  </table>
+
+  <div class="field">
+  <%= f.submit '送信', class: "contact-submit" %>
+    </div>
+<% end %>

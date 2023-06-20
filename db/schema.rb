@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_30_075217) do
+ActiveRecord::Schema.define(version: 2023_06_17_060759) do
 
   create_table "conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "location_id", null: false
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 2023_05_30_075217) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["imaging_id"], name: "index_conditions_on_imaging_id"
     t.index ["occupation_id"], name: "index_conditions_on_occupation_id"
+  end
+
+  create_table "contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.text "message", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "completed"
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "heights", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -131,6 +142,7 @@ ActiveRecord::Schema.define(version: 2023_05_30_075217) do
 
   add_foreign_key "conditions", "imagings"
   add_foreign_key "conditions", "occupations"
+  add_foreign_key "contacts", "users"
   add_foreign_key "imaging_heights", "heights"
   add_foreign_key "imaging_lows", "lows"
   add_foreign_key "imaging_middles", "middles"
