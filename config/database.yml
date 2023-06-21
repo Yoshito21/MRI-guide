@@ -55,7 +55,4 @@ test:
 production:
   <<: *default
   adapter: postgresql
-  database: MRI_guide_production
-  username: MRI_guide
   url: <%= ENV['DATABASE_URL'] %>
-  password: <%= ENV['MRI_GUIDE_DATABASE_PASSWORD'] %>
