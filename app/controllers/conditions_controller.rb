@@ -21,7 +21,6 @@ class ConditionsController < ApplicationController
           suppression_id: params[:condition][:suppression_id],
           enhance_id: params[:condition][:enhance_id],
           contrast_id: contrast_id,
-          remarks: params[:condition][:remarks],
           occupation_id: @occupation.id
         )
       end
@@ -69,7 +68,7 @@ class ConditionsController < ApplicationController
   private
 
   def condition_params
-    params.require(:condition).permit(:location_id, :contrast_id, :suppression_id, :enhance_id, :remarks, :ids => [], contrast_ids: []).merge(imaging_id: params[:imaging_id])
+    params.require(:condition).permit(:location_id, :contrast_id, :suppression_id, :enhance_id, :ids => [], contrast_ids: []).merge(imaging_id: params[:imaging_id])
   end
 
   def set_condition
