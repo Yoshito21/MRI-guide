@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         delete 'destroy_selected'
       end
     end
+    resources :remarks, only: [:new, :create, :edit, :update, :destroy]
   end
   resources :users, only: :show
   resources :occupations do

@@ -1,0 +1,13 @@
+
+<%= form_with model: [@occupation, @imaging, @remark], url: imaging_remark_path, method: :patch, class: 'registration-main', local: true do |f| %>
+<%= render 'shared/error_messages', model: f.object %>
+
+  <div class="field">
+    <%= f.label :content, "備考" %><br>
+    <%= f.text_area :content, class: :form__text, id:"remark-content", class: "imaging-text" %>
+  </div>
+    <div class='register-btn'>
+      <%= f.submit "編集" ,class:"registration-text" %>
+    </div>
+  </div>
+<% end %>

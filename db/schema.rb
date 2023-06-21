@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_17_060759) do
+ActiveRecord::Schema.define(version: 2023_06_20_080415) do
 
   create_table "conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "location_id", null: false
     t.integer "contrast_id", null: false
     t.integer "suppression_id", null: false
     t.integer "enhance_id", null: false
-    t.text "remarks"
     t.bigint "occupation_id", null: false
     t.bigint "imaging_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -68,9 +67,10 @@ ActiveRecord::Schema.define(version: 2023_06_17_060759) do
   create_table "imagings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "site_id", null: false
     t.string "purpose", null: false
-    t.text "indentification"
+    t.text "identification"
     t.text "symptoms"
     t.text "treatment"
+    t.text "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -124,6 +124,16 @@ ActiveRecord::Schema.define(version: 2023_06_17_060759) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "remarks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "occupation_id"
+    t.bigint "imaging_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["imaging_id"], name: "index_remarks_on_imaging_id"
+    t.index ["occupation_id"], name: "index_remarks_on_occupation_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nickname", null: false
     t.string "email", default: "", null: false
@@ -151,5 +161,7 @@ ActiveRecord::Schema.define(version: 2023_06_17_060759) do
   add_foreign_key "occupation_machines", "occupations"
   add_foreign_key "occupation_memberships", "occupations"
   add_foreign_key "occupation_memberships", "users"
+  add_foreign_key "remarks", "imagings"
+  add_foreign_key "remarks", "occupations"
   add_foreign_key "users", "occupations"
 end

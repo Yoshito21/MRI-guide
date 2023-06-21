@@ -4,6 +4,7 @@ class Occupation < ApplicationRecord
     has_many :machines, through: :occupation_machines, dependent: :destroy
     has_many :conditions, dependent: :destroy
     has_many :occupation_memberships, dependent: :destroy
+    has_one  :remark, dependent: :destroy
     
   before_destroy :destroy_if_no_users
 

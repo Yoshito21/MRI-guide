@@ -36,7 +36,7 @@ class ImagingsController < ApplicationController
     @condition = @imaging.conditions.build
     @occupation = Occupation.find_by(id: @occupation_id) || Occupation.find_by(name: "未登録")
     @occupations = Occupation.includes(:conditions).where(conditions: {imaging_id: @imaging.id}) || Occupation.find_by(name: "未登録")
-
+    @remark = Remark.find_by(imaging_id: @imaging.id, occupation_id: current_user.occupation.id)
   end
 
   def edit
@@ -89,7 +89,7 @@ class ImagingsController < ApplicationController
 
   private
   def imaging_params
-    params.require(:imaging).permit(:site_id, :purpose, :indentification, :symptoms, :treatment, height_ids: [], middle_ids: [], low_ids: [])
+    params.require(:imaging).permit(:site_id, :purpose, :indentification, :symptoms, :treatment, :comment, height_ids: [], middle_ids: [], low_ids: [])
   end
 
   def set_imaging

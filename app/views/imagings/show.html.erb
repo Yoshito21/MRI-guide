@@ -18,7 +18,11 @@
           </tr>
           <tr>
             <td>画像所見</td>
-            <td><%= @imaging.indentification %></td>
+            <td><%= @imaging.identification %></td>
+          </tr>
+          <tr>
+            <td>備考</td>
+            <td><%= @imaging.comment %></td>
           </tr>
         </table>
         <br>
@@ -66,6 +70,13 @@
 <div class = "condition-table">
   <% if @occupation == current_user.occupation %>
     <%= render "checkbox" %><br>
+    <% if @remark.present? %>
+      <%= "備考： #{@remark.content}" %>
+      <%= link_to '編集', edit_imaging_remark_path(@imaging, current_user.occupation) %>
+      <%= link_to '削除', imaging_remark_path(@imaging, current_user.occupation), method: :delete %>
+    <% else %>
+      <%= link_to '備考登録', new_imaging_remark_path(@imaging, current_user.occupation) %>
+    <% end %>
   <% else %>
     <%= render "other" %><br>
   <% end %>

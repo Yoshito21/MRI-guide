@@ -6,6 +6,7 @@ class Imaging < ApplicationRecord
   has_many :middles, through: :imaging_middles, dependent: :destroy
   has_many :imaging_lows, dependent: :destroy
   has_many :lows, through: :imaging_lows, dependent: :destroy
+  has_one  :remark, dependent: :destroy
 
   accepts_nested_attributes_for :imaging_heights
 
