@@ -1,13 +1,10 @@
-
 <div class="header_name">
   <div class='item-contents' id="detailed-search-result-wrapper">
     <br>
-    <% if user_signed_in? %>
-      
-    <% unless (controller_name == 'occupations' && (action_name == 'index' || action_name == 'search')) || (controller_name == 'imagings' && action_name == 'search') || (action_name == 'new' || action_name == 'edit') || controller_name == 'contacts' %>
-    <script>
-      const occupationId = <%= @occupation&.id || current_user&.occupation&.id || '' %>;
-    </script>
+    <% if user_signed_in? && !((controller_name == 'occupations' && (action_name == 'index' || action_name == 'search')) || (controller_name == 'imagings' && action_name == 'search') || (action_name == 'new' || action_name == 'edit') || controller_name == 'contacts') %>
+      <script>
+        const occupationId = <%= @occupation&.id || current_user&.occupation&.id || '' %>;
+      </script>
 
       <div class="side-headline">検索</div>
       <%= search_form_for @q, url: imagings_path, remote: true, html: { id: "detailed-search-form" } do |f| %>
@@ -48,7 +45,6 @@
           </div>
         <% end %>
       </div>
-    <% end %>
     <% end %>
   </div>
 </div>
