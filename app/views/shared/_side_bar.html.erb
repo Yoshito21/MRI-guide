@@ -2,7 +2,7 @@
 <div class="header_name">
   <div class='item-contents' id="detailed-search-result-wrapper">
     <br>
-    <% unless devise_controller? || (controller_name == 'occupations' && (action_name == 'index' || action_name == 'search')) || (controller_name == 'imagings' && action_name == 'search') || (action_name == 'new' || action_name == 'edit') || controller_name == 'contacts' %>
+    <% unless user_signed_in? || (controller_name == 'occupations' && (action_name == 'index' || action_name == 'search')) || (controller_name == 'imagings' && action_name == 'search') || (action_name == 'new' || action_name == 'edit') || controller_name == 'contacts' %>
     <script>
       const occupationId = <%= @occupation&.id || current_user&.occupation&.id || '' %>;
     </script>
