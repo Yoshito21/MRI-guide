@@ -1,6 +1,7 @@
 class OccupationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_occupation, only: [:show, :edit, :update, :destroy]
+  before_action :set_not_admin, only: [:show, :edit, :create, :destroy]
   skip_before_action :set_search_query, only: [:search]
 
   def index
@@ -107,6 +108,20 @@ class OccupationsController < ApplicationController
 
   def set_occupation
     @occupation = Occupation.find(params[:id])
+  end
+
+  def set_not_admin
+    if current_user.occupation.present?
+      if current_user.occupation.id !=1 && (@occupation.id == 1 || @occupation.id == 2)
+        redirect_to root_path
+        return
+      end
+    else
+      if @occupation.id == 1 || @occupation.id == 2
+        redirect_to root_path
+        return
+      end
+    end
   end
 end
 

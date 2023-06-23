@@ -36,7 +36,7 @@ class ImagingsController < ApplicationController
     @condition = @imaging.conditions.build
     @occupation = Occupation.find_by(id: @occupation_id) || Occupation.find_by(name: "未登録")
     @occupations = Occupation.includes(:conditions).where(conditions: {imaging_id: @imaging.id}) || Occupation.find_by(name: "未登録")
-    @remark = Remark.find_by(imaging_id: @imaging.id, occupation_id: current_user.occupation.id)
+    @remark = Remark.find_by(imaging_id: @imaging.id, occupation_id: @occupation.id)
   end
 
   def edit
