@@ -48,9 +48,20 @@ document.addEventListener('DOMContentLoaded', function() {
         childElement.appendChild(linkElement);
         searchResult.appendChild(childElement);
       });
+      
+      toggleNewRegistrationButton(results.length === 0);
     })
     .catch(error => {
       alert('エラーが発生しました。再度お試しください。');
     });
+  }
+  
+  toggleNewRegistrationButton(searchResult.children.length === 0);
+
+  function toggleNewRegistrationButton(show) {
+    const newRegistrationButton = document.getElementById('imaging-register');
+    if (newRegistrationButton) {
+      newRegistrationButton.style.display = show ? 'block' : 'none';
+    }
   }
 });
