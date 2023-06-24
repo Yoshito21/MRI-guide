@@ -29,13 +29,20 @@ class OccupationMembershipsController < ApplicationController
   def accept
     @membership = OccupationMembership.find(params[:id])
     @occupation = @membership.occupation
-    @membership.update(status: 'accepted')
-    @membership.user.occupation = @occupation
-    @membership.user.save
-    redirect_to occupation_occupation_memberships_path, notice: '申請を承認しました。'
+    
+    if @membership.pending?
+      @membership.user.update_columns(occupation_id: @occupation.id)
+      if @membership.user.errors.any?
+        puts @membership.user.errors.full_messages
+      end
+      @membership.update(status: "accepted")
+      flash[:notice] = "申請を承認しました。"
+    else
+      flash[:error] = "無効な操作です。"
+    end
+    redirect_to occupation_occupation_memberships_path
   end
-  
-  
+
   def reject
     @membership = OccupationMembership.find(params[:id])
     @membership.rejected!

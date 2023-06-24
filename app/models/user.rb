@@ -8,8 +8,7 @@ class User < ApplicationRecord
   has_many :occupation_memberships, dependent: :destroy
   has_many :contacts, dependent: :destroy
 
-  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
-  validates :password, format: { with: VALID_PASSWORD_REGEX }
+  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze }
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   extend ActiveHash::Associations::ActiveRecordExtensions

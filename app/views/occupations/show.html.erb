@@ -87,9 +87,9 @@
   <div class="inner">
     <div class="user__wrapper">
       <div class = "headline">
-      <% if @occupation.users.present? %>
         <%= "#{@occupation.name}のメンバー"%>
       </div>
+      <% if @occupation.users.present? %>
         <% @occupation.users.each do |user| %>
         <div>
           <%= link_to user.nickname, user_path(user) %>

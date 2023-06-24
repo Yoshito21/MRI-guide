@@ -1,7 +1,7 @@
 class OccupationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_occupation, only: [:show, :edit, :update, :destroy]
-  before_action :set_not_admin, only: [:show, :edit, :create, :destroy]
+  before_action :set_not_admin, only: [:show, :edit, :update, :destroy]
   skip_before_action :set_search_query, only: [:search]
 
   def index
@@ -16,7 +16,7 @@ class OccupationsController < ApplicationController
     @occupation = Occupation.new(occupation_params)
     if @occupation.valid?
       @occupation.save
-      current_user.update(occupation_id: @occupation.id)
+      current_user.update_columns(occupation_id: @occupation.id)
       flash[:success] = "所属施設を登録しました。"
       redirect_to occupation_path(@occupation)
     else
@@ -38,7 +38,6 @@ class OccupationsController < ApplicationController
   def update
     if @occupation.valid?
       @occupation.update(occupation_params)
-      current_user.update(occupation_id: @occupation.id)
       redirect_to occupation_path(@occupation)
     else
       render :new
@@ -83,7 +82,7 @@ class OccupationsController < ApplicationController
     @occupation = Occupation.find(params[:id])
     
     if current_user.occupation == @occupation
-      current_user.update(occupation: nil)
+      current_user.update_columns(occupation_id: nil)
       flash[:success] = '脱退しました。'
       if @occupation.users.count.zero?
         @occupation.destroy
