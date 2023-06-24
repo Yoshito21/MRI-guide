@@ -89,7 +89,7 @@ class ImagingsController < ApplicationController
 
   private
   def imaging_params
-    params.require(:imaging).permit(:site_id, :purpose, :indentification, :symptoms, :treatment, :comment, height_ids: [], middle_ids: [], low_ids: [])
+    params.require(:imaging).permit(:site_id, :purpose, :identification, :symptoms, :treatment, :comment, height_ids: [], middle_ids: [], low_ids: [])
   end
 
   def set_imaging
