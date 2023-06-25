@@ -14,7 +14,7 @@
 <p>所属施設</p>
   <div class="form-group">
     <div class='form-text-wrap'>
-          <label class="form-text">郵便番号</label>
+          <label class="form-text", for="post-code" >郵便番号</label>
           <span class="indispensable">必須</span>
         </div>
         <%= f.text_field :post_code, class:"input-default", id:"post-code", placeholder:"例）123-4567", maxlength:"8" %>
@@ -22,7 +22,7 @@
 
   <div class="form-group">
     <div class='form-text-wrap'>
-      <label class="form-text">都道府県</label>
+      <label class="form-text", for="prefecture">都道府県</label>
       <span class="indispensable">必須</span>
     </div>
     <%= f.collection_select(:prefecture1_id, Prefecture1.all, :id, :name, {include_blank: "---"}, {class:"select-box", id:"prefecture"}) %>
@@ -30,7 +30,7 @@
 
   <div class="form-group">
     <div class='form-text-wrap'>
-      <label class="form-text">施設名</label>
+      <label class="form-text", for="occupation-name">施設名</label>
       <span class="indispensable">必須</span>
     </div>
     <%= f.text_area :name, class:"input-default", id:"occupation-name", maxlength:"40" %>
@@ -38,7 +38,7 @@
 
   <div class="form-group">
     <div class='form-text-wrap'>
-          <label class="form-text">電話番号</label>
+          <label class="form-text", for= "phone-number">電話番号</label>
           <span class="indispensable">必須</span>
         </div>
         <%= f.text_field :phone_number, class:"input-default", id:"phone-number", placeholder:"例）0123456789", maxlength:"11" %>
