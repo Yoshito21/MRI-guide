@@ -10,7 +10,11 @@ https://mri-guide.onrender.com
 
 ## テスト用アカウント
 
+管理者 : yh@gmail.com , yh4410
 
+テスト1 : a@a.a , aa1111 （a-hospitalに所属中）
+
+テスト2 : b@b.b , bb1111 （所属施設なしの状態）
 
 ## 利用方法
 
@@ -46,6 +50,16 @@ https://mri-guide.onrender.com
 
 ## 実装した機能についての画像やGIF及びその説明
 
+[![Image from Gyazo](https://i.gyazo.com/f97eb02668ad0ee3bc6068005fff98b7.png)](https://gyazo.com/f97eb02668ad0ee3bc6068005fff98b7)
+
+メイン機能のページ。ヘッダーには、トップ、マイページ、所属施設ページへのリンクを貼っていて、ドロップダウンメニューに各種検索ページへのリンクとログアウトボタンを設置。
+
+左のサイドバーに、検査目的の検索フォームを設置して、ここから他の検査の検索や新規登録ができる。
+
+右のサイドバーは、画像の検査詳細画面のみで設置していて、ここからその検査の撮影法を登録できる。登録した撮影法は、メインページの撮影法のところに反映される。
+
+また、同じ検査項目に対して撮影法を設定している施設を表示している。自分の施設で出会ったことのない撮影や、自身のない検査では、他の施設の撮影法を参照することができる。
+
 ## 実装予定の機能
 
 ・月額会員制度
@@ -66,15 +80,19 @@ https://mri-guide.onrender.com
 
 ・全体のデザイン性の向上
 
-・いいね等の顕示欲を満たす機能
+・いいね等の機能
 
 ・お気に入り機能
 
 ・非同期通信を拡充
 
+・各種設定
+
+・規約
+
 ## データベース設計
 
-
+[![Image from Gyazo](https://i.gyazo.com/0fe58a089d6430487a775762ebb59c62.png)](https://gyazo.com/0fe58a089d6430487a775762ebb59c62)
 
 ## 画面遷移図
 
@@ -82,13 +100,27 @@ https://mri-guide.onrender.com
 
 ## 開発環境
 
+・フロントエンド：Ruby on Rails v6.0.0
+
+・バックエンド ：ruby v2.6.5
+
+・インフラ ：Linux
+
+・テスト ：rspec
+
+・テスト実行方法：bundle exec rspec
+
+・テキストエディタ：VScode
+
+・タスク管理：GitHub Projects
+
 ## ローカルでの動作方法
 
 以下のコマンドを順に実行。
 
 % git clone https://github.com/Yoshito21/MRI-guide.git
 
-% cd
+% cd MRI-guide
 
 % bundle install
 
