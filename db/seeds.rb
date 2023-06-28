@@ -1,4 +1,3 @@
-admin_occupation_1 = Occupation.create(post_code:"000-0000", prefecture1_id: 40, phone_number:"0000000000", name: "yh_hospital")
 default_occupation = Occupation.create(post_code:"000-0000", prefecture1_id: 13, phone_number:"0123456789", name: "未登録")
 test_occupation_1 = Occupation.create(post_code:"111-1111", prefecture1_id: 1, phone_number:"1111111111", name: "a_hospital")
 test_occupation_2 = Occupation.create(post_code:"222-2222", prefecture1_id: 1, phone_number:"2222222222", name: "b_hospital")

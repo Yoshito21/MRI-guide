@@ -3,9 +3,9 @@
 <%= render 'shared/error_messages', model: f.object %>
 
   <div class="field">
-    <%= f.label :site_id, '部位' %><br>
-    <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}, class: "imaging-form") %>
-    </div>
+    <%= f.label :site_id, '部位', for: "imaging_site_id" %><br>
+    <%= f.collection_select(:site_id, Site.all, :id, :name, {include_blank: "---"}, class: "imaging-form", id: "imaging_site_id") %>
+  </div>
     
   <div class="field">
     <%= f.label :purpose, "検査目的" %><br />
@@ -13,43 +13,43 @@
   </div>
 
   <div class="field">
-    <%= f.label :identification, "画像所見" %><br />
+    <%= f.label :identification, "画像所見", for: "identification" %><br />
     <%= f.text_area :identification, class: :form__text, id:"identification", class: "imaging-text" %>
   </div>
 
   <div class="field">
-    <%= f.label :symptoms, "症状" %><br />
+    <%= f.label :symptoms, "症状", for: "symptoms" %><br />
     <%= f.text_area :symptoms, class: :form__text, id:"symptoms", class: "imaging-text" %>
   </div>
 
   <div class="field">
-    <%= f.label :treatment, "治療法" %><br />
+    <%= f.label :treatment, "治療法", for: "treatment" %><br />
     <%= f.text_area :treatment, class: :form__text, id:"treatment", class: "imaging-text" %>
   </div>
 
   <div class="field">
-    <%= f.label :comment, "備考" %><br />
+    <%= f.label :comment, "備考", for: "comment" %><br />
     <%= f.text_area :comment, class: :form__text, id:"comment", class: "imaging-text" %>
   </div>
 
 <div class="signal">
   <div class="contrast-field">
-  <%= f.label :height_ids, "高信号" %><br>
+  高信号
     <% Height.all.each do |height| %>
     <div class ="contrast">
       <%= check_box_tag "imaging[height_ids][]", height.id, @imaging.height_ids.include?(height.id), id: "height_ids_#{height.id}", class: @imaging.height_ids.include?(height.id) ? 'selected' : '', style: 'display: none;' %>
       <%= label_tag "height_ids_#{height.id}", height.name %><br>
-  </div>
+    </div>
     <% end %>
   </div>
 
   <div class="contrast-field">
-  <%= f.label :low_ids, "低信号" %><br>
+  低信号
     <% Low.all.each do |low| %>
     <div class ="contrast">
       <%= check_box_tag "imaging[low_ids][]", low.id, @imaging.low_ids.include?(low.id), id: "low_ids_#{low.id}", class: @imaging.low_ids.include?(low.id) ? 'selected' : '', style: 'display: none;' %>
       <%= label_tag "low_ids_#{low.id}", low.name %><br>
-  </div>
+    </div>
     <% end %>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <%= form_with(url: search_occupations_path, method: :get, remote: true, id: "search-occupation") do |form| %>
   <%= form.collection_select :prefecture1_id, Prefecture1.all, :id, :name, {include_blank: "---"}, class: "condition-contrast" %>
   <%= form.text_field :phone_number, placeholder: 'phone number', class: "condition-contrast" %>
-  <%= form.text_field :name, placeholder: 'name', class: "condition-contrast" %>
+  <%= form.text_field :name, placeholder: 'name', class: "condition-contrast", autocomplete: "off" %>
   <%= form.submit 'Search', class: "search-occupation-btn", id: "search-occupation-btn" %>
 <% end %>
 

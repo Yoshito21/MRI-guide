@@ -17,8 +17,8 @@
     </div>
 
     <div class="field">
-      <%= f.label :contrast_id, '撮影法 (複数選択可)' %><br>
-    <%= f.collection_select(:contrast_ids, Contrast.all, :id, :name, {}, {size: 17, multiple: true, class: "condition-contrast"}) %>
+      <%= f.label :contrast_id, '撮影法 (複数選択可)', for: 'condition-imagings' %><br>
+    <%= f.collection_select(:contrast_ids, Contrast.all, :id, :name, {}, {size: 17, multiple: true, class: "condition-contrast", id: 'condition-imagings'}) %>
     </div>
 
   <% end %>
